@@ -21,13 +21,13 @@ const router = new VueRouter({
 		{
 			path: "/",
 			// name: "express",
-			redirect: { name: "express" },
+			redirect: { name: "skillTest" },
 		},
-		{
-			path: "/express",
-			name: "express",
-			component: () => import("../views/express/index.vue"),
-		},
+		// {
+		// 	path: "/express",
+		// 	name: "express",
+		// 	component: () => import("../views/express/index.vue"),
+		// },
 		{
 			path: "/skillTest",
 			name: "skillTest",

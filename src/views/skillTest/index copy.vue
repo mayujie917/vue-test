@@ -8,18 +8,18 @@
         <!-- 图片描述类型 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 1">
           <div class="qs-img">
-            <img :src="currentData.imgUrl" />
+            <img :src="currentData.imgUrl"  />
           </div>
           <div class="qs-select">
             <div class="qs-select-area">
               <div class="qs-select-area-item">
-                <p class="select-area-item" v-for="item in selectedData" :key="index">{{ item.label }}</p>
+                <p  class="select-area-item" v-for="item in selectedData" :key="index">{{ item.label }}</p>
               </div>
             </div>
             <div class="qs-select-list">
-              <p class="list-item" v-for="(item, index) in currentData.selectList"
-                :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">{{
-                  item.label }}</p>
+              <p class="list-item" v-for="(item,index) in currentData.selectList"
+                :class="item.isChecked ? 'list-item-active' : ''" :key="index" 
+                @click="selectItemHandle(item)">{{ item.label }}</p>
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="qs-select-wrapper" v-if="currentData.type == 2">
           <div class="qs-select-radio-list">
             <label v-for="(item, index) in currentData.selectList" :key="index">
-              <div class="radio-list-item" @click="clickSelectItem(item, index)" hover-class="highSelectColor">
+              <div class="radio-list-item"  @click="clickSelectItem(item,index)" >
                 <p>{{ index + 1 }}、</p>
                 <input type='radio' :value="item.value" :checked="item.isChecked" />
                 <div>{{ item.label }}</div>
@@ -36,29 +36,20 @@
           </div>
         </div>
         <div class="qs-btns">
-          <el-button  size="small" @click="preBtn">上一题</el-button>
-          <el-button type="" size="small" @click="nextBtn">下一题</el-button>
+          <button type="" @click="preBtn">上一题</button>
+          <button type="" @click="nextBtn">下一题</button>
         </div>
-      </div>
-    </div>
-    <!-- 大图预览 -->
-    <div class="preview" v-show="previewModal">
-      <div class="preview-img">
-        <img src="./../../assets/imgs/OIP-C-1.jpg" alt="">
-      </div>
-      <div class="pre-btn">
-        <el-button type="" size="small" @click="()=> previewModal=false">取消</el-button>
-        <el-button type="primary" size="small" @click="selectImgHandle">确定</el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+// import { List } from '@/data/index.js';
 import { data } from "./index";
 export default data;
 </script>
+
 <style lang="less" scoped>
 @import url('./index.less');
-
 </style>

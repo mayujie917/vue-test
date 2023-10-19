@@ -86,6 +86,15 @@ export const List = [
 					},
 				],
 			},
+		],
+	},
+
+	{
+		// 大题1
+		id: 1,
+		category: "1",
+		children: [
+			// 大题下的小题
 			{
 				type: "1",
 				difficulty: "Easy",
@@ -94,26 +103,7 @@ export const List = [
 				imgUrl: "http://123.57.230.57:6011/images/1.png",
 				correct_answer: "17,97,23,34,13,89,77,53,71,64",
 				incorrect_answers: [""],
-				selectList: [
-					{
-						id: 1,
-						label: "1", //选项内容
-						value: "1", //选项值
-						isChecked: false, // 是否选中
-					},
-					{
-						id: 2,
-						label: "2", //选项内容
-						value: "2", //选项值
-						isChecked: false, // 是否选中
-					},
-					{
-						id: 3,
-						label: "3", //选项内容
-						value: "3", //选项值
-						isChecked: false, // 是否选中
-					},
-				],
+				selectList: [],
 			},
 		],
 	},
