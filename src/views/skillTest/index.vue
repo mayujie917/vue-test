@@ -23,6 +23,26 @@
             </div>
           </div>
         </div>
+        <!-- 多张图片，选出某几张 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 3">
+            <div class="qs-img-box">
+              <div class="qs-img-list" v-for="item in currentData.images" @click="previewImgHandle(item)">
+                <img :src="item.url"  />
+              </div>
+            </div>
+            <div class="qs-select">
+              <div class="qs-select-area">
+                <div class="qs-select-area-item">
+                  <p class="select-area-item" v-for="item in selectedData" :key="index">{{ item.label }}</p>
+                </div>
+              </div>
+              <div class="qs-select-list">
+                <p class="list-item" v-for="(item, index) in currentData.selectList"
+                  :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">{{
+                    item.label }}</p>
+              </div>
+            </div>
+          </div>
         <!-- 选择题类型 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 2">
           <div class="qs-select-radio-list">
@@ -44,7 +64,7 @@
     <!-- 大图预览 -->
     <div class="preview" v-show="previewModal">
       <div class="preview-img">
-        <img src="./../../assets/imgs/OIP-C-1.jpg" alt="">
+        <img :src="previewObj.url" alt="">
       </div>
       <div class="pre-btn">
         <el-button type="" size="small" @click="()=> previewModal=false">取消</el-button>

@@ -4,7 +4,7 @@ export let data = {
 	name: "express",
 	data() {
 		return {
-			currentIndex: 0, //当前大题题号
+			currentIndex: 1, //当前大题题号
 			subIndex: 0, //当前答题下的题号
 			currentData: {
 				selectList: [],
@@ -12,6 +12,7 @@ export let data = {
 			list: [], //原始数据
 			selectedData: [], // 图文多选，已选中的数据
 			previewModal:false, // 大图预览
+      previewObj:{}, // 当前预览图片
 		};
 	},
 
@@ -45,6 +46,11 @@ export let data = {
     /**
      * 2大题
      */
+    // 预览大图
+    previewImgHandle(item){
+      this.previewObj = item;
+      this.previewModal = true; 
+    },
     // 选中图片
     selectImgHandle(){
       this.previewModal = false;
