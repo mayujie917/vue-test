@@ -4,8 +4,8 @@ export let data = {
   name: "express",
   data() {
     return {
-      tipsModal: true, //提示弹窗
-      tipsTitle: "322333", // 提示内容
+      tipsModal: false, //提示弹窗
+      tipsTitle: "该物品已经选择过了！", // 提示内容
       previewModal: false, // 大图预览
       previewObj: {}, // 当前预览图片
       currentIndex: 1, //当前大题题号
@@ -73,6 +73,22 @@ export let data = {
     cancelPrevView() {
       this.previewObj.isChecked = false;
       this.previewModal = false;
+    },
+    // 取消已经选中图片
+    cancelSelectedHandle(item,index){
+      // this.selectedData[index].isChecked = false;
+      this.selectedData.splice(index,1);
+      let _data = JSON.parse(
+				JSON.stringify(this.list[this.currentIndex].children[this.subIndex])
+			);
+      _data.forEach((el) => {
+        el.images.forEach(tag=>{
+          if(tag.url == item.url){
+            tag.isChecked = false;
+          }
+        })
+      });
+      this.list[this.currentIndex].children[this.subIndex] = _data;
     },
 
     preBtn() {

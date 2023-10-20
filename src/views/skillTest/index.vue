@@ -32,14 +32,9 @@
           </div>
           <div class="qs-select">
             <div class="qs-select-area">
-              <div class="qs-select-area-item">
-                <p class="select-area-item" v-for="item in selectedData" :key="index">{{ item.label }}</p>
+              <div class="qs-select-area-item qs-select-area-item-img">
+                <img :src="item.url" alt="" v-for="item in selectedData" :key="index" @click="cancelSelectedHandle(item,index)">
               </div>
-            </div>
-            <div class="qs-select-list">
-              <p class="list-item" v-for="(item, index) in currentData.selectList"
-                :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">{{
-                  item.label }}</p>
             </div>
           </div>
         </div>
@@ -75,7 +70,7 @@
     <div class="tips" v-show="tipsModal">
       <div class="tips-box">
         <p class="tips-title">{{ tipsTitle }}</p>
-        <el-button type="primary">确定</el-button>
+        <el-button type="primary" size="mini" @click="()=> tipsModal=false">确定</el-button>
       </div>
     </div>
   </div>

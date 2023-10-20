@@ -101,7 +101,7 @@ export const List = [
         difficulty: "Easy",
         question:
           "1、请从一下寄递物品图片中选出禁寄物品。(本题总计20分,选对一题5分)",
-        imgUrl: "",
+        imgUrl: "",//单个图片，根据图片做题
         images: [
           {
             url: "/src/assets/imgs/2/n_1.png",
