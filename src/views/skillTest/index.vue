@@ -33,16 +33,28 @@
           <div class="qs-select">
             <div class="qs-select-area">
               <div class="qs-select-area-item qs-select-area-item-img">
-                <img :src="item.url" alt="" v-for="item in selectedData" :key="index" @click="cancelSelectedHandle(item,index)">
+                <img :src="item.url" alt="" v-for="(item,index) in selectedData" :key="index" @click="cancelSelectedHandle(item,index)">
               </div>
             </div>
           </div>
         </div>
+        <!-- 视频 ，四个视频，选择正确的 -->
+          <div class="qs-select-wrapper" v-if="currentData.type == 4">
+            <div class="qs-video-box">
+              <div class="video-item" v-for="item in currentData.videos" >
+                <video  controls>
+                  <source :src="item.url" type="video/ogg">
+                </video>
+                <el-radio v-model="item.isChecked" label="" size="medium"></el-radio>
+              </div>
+            </div>
+          </div>
+
         <!-- 选择题类型 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 2">
           <div class="qs-select-radio-list">
             <label v-for="(item, index) in currentData.selectList" :key="index">
-              <div class="radio-list-item" @click="clickSelectItem(item, index)" hover-class="highSelectColor">
+              <div class="radio-list-item" @click="clickSelectItem(item, index)">
                 <p>{{ index + 1 }}、</p>
                 <input type='radio' :value="item.value" :checked="item.isChecked" />
                 <div>{{ item.label }}</div>
