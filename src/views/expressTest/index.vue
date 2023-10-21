@@ -6,7 +6,7 @@
           <p class="desc-text">{{ currentData.question }}</p>
         </div>
         <!-- 视频 ，四个视频，选择正确的 -->
-        <!-- <div class="qs-select-wrapper" v-if="currentData.type == 1">
+        <div class="qs-select-wrapper" v-if="currentData.type == 1">
           <div class="qs-video-box">
             <div class="video-item" v-for="(item, index) in currentData.videos" :key="index">
               <video controls>
@@ -15,9 +15,9 @@
               <el-checkbox v-model="item.isChecked" size="medium" @change="radioChange(item, index)"></el-checkbox>
             </div>
           </div>
-        </div> -->
+        </div>
         <!-- 根据图片匹配属于那个行业类别 -->
-        <!--  <div class="qs-select-wrapper" v-if="currentData.type == 2">
+        <div class="qs-select-wrapper" v-if="currentData.type == 2">
           <div class="qs-img">
             <el-carousel :autoplay="false" type="card" arrow="always" indicator-position="outside" height="200px"
               @change="carouselChange">
@@ -35,7 +35,7 @@
               </el-button>
             </div>
           </div>
-        </div> -->
+        </div>
         <!-- 填写根据资费，填写费用 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 3">
           <div class="qs-img">
@@ -46,8 +46,6 @@
               <div class="qs-select-input" v-for="(item, index) in currentData.inputText" :key="index">
                 <p class="qs-text">
                   {{ item.text }}
-                  <!-- <el-input class="qs-input" v-model="item.value" @change="changeHandle($event, item, index)"
-                    type="number" pattern="[0-9]*" :maxlength="3"></el-input> -->
                   <input class="qs-input" v-model="item.value" type="number" pattern="[0-9]*" :maxlength="3"
                     @change="changeHandle(item, index)" />
                   <span>元。</span>
@@ -56,28 +54,29 @@
             </div>
           </div>
         </div>
-        <!-- 图片描述类型 -->
-        <!-- <div class="qs-select-wrapper" v-if="currentData.type == 1">
+        <!-- 图片描述类型 按照上述区域合理设计路线 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 4">
           <div class="qs-img">
-            <img :src="currentData.imgUrl" />
+            <img :src="currentData.images[0].url" />
           </div>
           <div class="qs-select">
             <div class="qs-select-area">
               <div class="qs-select-area-item">
-                <p class="select-area-item" v-for="item in selectedData" :key="index">{{ item.label }}</p>
+                <p class="select-area-item" v-for="item in selectedData" :key="index">{{ item.value }}</p>
               </div>
             </div>
             <div class="qs-select-list">
               <p class="list-item" v-for="(item, index) in currentData.selectList"
-                :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">{{
-                  item.label }}</p>
+                :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">
+                {{ item.value }}
+              </p>
             </div>
           </div>
-        </div> -->
-        <!-- 多张图片，选出某几张 -->
-        <!-- <div class="qs-select-wrapper" v-if="currentData.type == 3">
+        </div>
+        <!-- 多张图片，选出某几禁寄送的 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 5">
           <div class="qs-img-box">
-            <div class="qs-img-list" v-for="item in currentData.images" @click="previewImgHandle(item, index)">
+            <div class="qs-img-list" v-for="(item, index) in currentData.images" @click="previewImgHandle(item, index)">
               <img :src="item.url" />
             </div>
           </div>
@@ -89,9 +88,7 @@
               </div>
             </div>
           </div>
-        </div> -->
-
-
+        </div>
         <!-- 选择题类型 -->
         <!-- <div class="qs-select-wrapper" v-if="currentData.type == 2">
           <div class="qs-select-radio-list">
@@ -106,12 +103,12 @@
         </div> -->
       </div>
       <div class="qs-btns">
-        <!-- <el-button size="small" @click="preBtn">上一题</el-button> -->
-        <!-- <el-button type="" size="small" @click="nextBtn">下一题</el-button> -->
+        <el-button size="small" @click="preBtn">上一题</el-button>
+        <el-button type="" size="small" @click="nextBtn">下一题</el-button>
       </div>
     </div>
     <!-- 大图预览 -->
-    <!-- <div class="preview" v-show="previewModal">
+    <div class="preview" v-show="previewModal">
       <div class="preview-img">
         <img :src="previewObj.url" alt="">
       </div>
@@ -119,13 +116,13 @@
         <el-button type="" size="small" @click="cancelPrevView">取消</el-button>
         <el-button type="primary" size="small" @click="selectImgHandle">确定</el-button>
       </div>
-    </div> -->
+    </div>
     <!-- 提示 -->
     <div class="tips" v-show="tipsModal">
-      <!-- <div class="tips-box">
+      <div class="tips-box">
         <p class="tips-title">{{ tipsTitle }}</p>
         <el-button type="primary" size="mini" @click="() => tipsModal = false">确定</el-button>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
