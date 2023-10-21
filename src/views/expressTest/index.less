@@ -1,0 +1,277 @@
+
+.page-wrapper {
+  width: 100%;
+  height: 100%;
+  // overflow-x: hidden;
+  position: relative;
+  background: #FDFDFD;
+
+  .qs-wrapper {
+    box-sizing: border-box;
+    padding: 0 1%;
+
+    .qs-desc {
+      box-sizing: border-box;
+
+      /* padding: 0 5%; */
+      .desc-text {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 0 2%;
+        margin-bottom: 3px;
+      }
+
+      .desc-tip {
+        display: block;
+        font-size: 13px;
+      }
+
+    }
+
+    .qs-select-wrapper {
+      .qs-img {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 5px;
+
+        img {
+          width: 100%;
+          height: 100%; 
+          // max-height: 200px;
+
+        }
+        ::v-deep{
+          .el-carousel{
+            .el-carousel__container{
+              .el-carousel__arrow{
+                font-size: 30px;
+                font-weight: 700;
+                background-color: #1514148c;
+                &:hover{
+                  background-color: #1514148c;
+                }
+              }
+            }
+            .el-carousel__indicators{
+              .el-carousel__indicator{
+                padding: 12px 2px;
+              }
+            }
+          }
+        }
+      }
+      .qs-img-box{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        .qs-img-list{
+          width: 10%;
+          height: 10%;
+          margin: 1%;
+          img{
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      .qs-video-box{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        .video-item{
+          width: 45%;
+          margin: 1%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          video{
+            width: 100%;
+            margin-bottom: 5px;
+          }
+          ::v-deep{
+            .el-checkbox{
+              .el-checkbox__input{
+                .el-checkbox__inner{
+                  border-radius: 50%;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .qs-select {
+        box-sizing: border-box;
+
+        .qs-select-area {
+          width: 100%;
+          position: relative;
+          box-sizing: border-box;
+          border: 5px solid rgb(137, 175, 245);
+          background: rgb(235, 234, 234);
+          border-radius: 50px;
+          padding: 1% 5%;
+          .qs-select-area-item {
+            width: 100%;
+            // min-height: 70px;
+            min-height: 55px;
+            // background: red;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+            .select-area-item {
+              // width: 18px;
+              padding: 2%;
+              text-align: center;
+              background: rgb(192, 214, 255);
+              margin: 0 1% 0 0;
+              border-radius: 15%;
+            }
+          }
+          .qs-select-area-item-img{
+            img{
+              width: 25%;
+            }
+          }
+        }
+        .qs-select-list {
+          width: 100%;
+          /* min-height: 100px; */
+          display: flex;
+          align-items: center;
+          justify-content:center;
+          flex-wrap: wrap;
+          box-sizing: border-box;
+          margin-top: 10px;
+          
+          .list-item {
+            // width: 18px;
+            padding: 2%;
+            text-align: center;
+            background: #f8f4ed;
+            margin: 0 1% 1% 1%;
+            border-radius: 15%;
+          }
+          .list-item-active {
+            background: rgb(192, 214, 255);
+          }
+        }
+        .list-item-btns{
+          justify-content: flex-start;
+          .list-item-btn{
+            margin: 1%;
+            padding: 5px 10px;
+          }
+        }
+
+      }
+      .qs-select-radio-list {
+        margin-top: 10px;
+        .radio-list-item {
+          display: flex;
+          margin-bottom: 5px;
+        }
+      }
+      .qs-select-input-box{
+        .qs-select-input{
+          display: flex;
+          // flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          text-wrap: nowrap;
+          font-size: 14px;
+          margin: 5px 0;
+          .qs-text{
+            text-wrap: wrap;
+          }
+          .qs-input{
+            min-width: 10%;
+            max-width: 20%;
+            border: none;
+            border-bottom: 1px solid #000;
+            border-radius: 0;
+            box-shadow: none;
+            &:focus{
+              border: none;
+              border-bottom: 1px solid #000;
+            }
+            #text-field-container{
+              #editing-view-port{
+                border: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    .qs-btns{
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 10px 0;
+    }
+  }
+  // 图片预览
+  .preview{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255, 1);
+    .preview-img{
+      box-sizing: border-box;
+      width: 100%;
+      padding: 5% 2%;
+      img{
+        width: 100%;
+        height: 100%;
+        border-radius: 2%;
+      }
+    }
+    .pre-btn{
+      // margin-top: 5%;
+      padding-bottom: 2%;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+  }
+  // 信息提示
+  .tips{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(44, 44, 44, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .tips-box{
+      min-width: 40%;
+      max-width: 50%;
+      background: rgb(255,255,255,1);
+      border-radius: 2%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;    
+      box-sizing: border-box;
+      padding: 3%;
+      .tips-title{
+        line-height: 20px;
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+
+    }
+  }
+}
+
+
