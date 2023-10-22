@@ -5,17 +5,147 @@
         <div class="qs-desc">
           <p class="desc-text">{{ currentData.question }}</p>
         </div>
+        <!-- 多张图片，选出某几禁寄送的 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 5">
+          <div class="qs-img-box-wrapper">
+            <div class="qs-img-box">
+              <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
+              <div class="qs-img-item" @click="previewImgHandle">
+                <img :src="currentData.images[circleIndex].url" />
+              </div>
+              <p class="arrow" @click="preCircleImg"><i class="el-icon-arrow-right"></i></p>
+            </div>
+            <div>
+              <p class="total">{{ currentData.images[circleIndex].desc }}</p>
+              <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
+            </div>
+          </div>
+          <div class="qs-select">
+            <div class="qs-select-area">
+              <div class="qs-select-area-item qs-select-area-item-img">
+                <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
+                  @click="cancelSelectedHandle(item, index)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 对寄送物品查验，选出禁寄物品 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 8">
+          <div class="qs-img-box-wrapper">
+            <div v-if="!showSubImage">
+              <div class="qs-img-box">
+                <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
+                <div class="qs-img-item" @click="currentImgTypeView">
+                  <img :src="currentData.images[circleIndex].url" />
+                </div>
+                <p class="arrow" @click="preCircleImg"><i class="el-icon-arrow-right"></i></p>
+              </div>
+              <div>
+                <p class="total">{{ currentData.images[circleIndex].desc }}</p>
+                <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
+              </div>
+            </div>
+            <div class="sub-images" v-else>
+              <div class="sub-images-list">
+                <div class="sub-images-item" v-for="subItem in subImages">
+                  <img :src="subItem.url" alt="">
+                  <p class="sub-item-desc">{{ subItem.desc }}</p>
+                </div>
+              </div>
+              <p class="back-btn"><el-button type="text" icon="el-icon-back" @click="back">返回</el-button></p>
+            </div>
+          </div>
+          <div class="qs-select">
+            <div class="qs-select-area">
+              <div class="qs-select-area-item qs-select-area-item-img">
+                <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
+                  @click="cancelSelectedHandle(item, index)">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 根据资费，填写费用 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 3">
+          <div class="qs-img">
+            <img :src="currentData.images[0].url" />
+          </div>
+          <div class="qs-select">
+            <div class="qs-select-input-box">
+              <p class="arrow" @click="nextCircle"><i class="el-icon-arrow-up"></i></p>
+              <div class="qs-select-input">
+                <p class="qs-text">
+                  {{ currentData.inputText[circleIndex].text }}
+                  <input class="qs-input" v-model="currentData.inputText[circleIndex].value" type="number"
+                    pattern="[0-9]*" :maxlength="3" @change="changeHandle()" />
+                  <span>元。</span>
+                </p>
+              </div>
+              <p class="arrow" @click="preCircle"><i class="el-icon-arrow-down"></i></p>
+            </div>
+            <p class='subTotal'>{{ circleIndex + 1 }}/{{ currentData.inputText.length }}</p>
+          </div>
+        </div>
+        <!-- 图片描述类型 按照上述区域合理设计路线 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 4">
+          <div class="qs-img">
+            <img :src="currentData.images[0].url" />
+          </div>
+          <div class="qs-select">
+            <div class="qs-select-area">
+              <div class="qs-select-area-item">
+                <p class="select-area-item" v-for="item in selectedData" :key="index">{{ item.value }}</p>
+              </div>
+            </div>
+            <div class="qs-select-list">
+              <p class="list-item" v-for="(item, index) in currentData.selectList"
+                :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">
+                {{ item.value }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 根据图片，选择对应省份 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 7">
+          <div class="qs-img-box-wrapper">
+            <div class="qs-img-box">
+              <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
+              <div class="qs-img-item qs-img-city" @click="previewImgHandle">
+                <img :src="currentData.images[circleIndex].url" />
+                <span class="city-name"
+                  :class="currentData.images[circleIndex].selectValue == '' ? 'city-name-fade' : ''">
+                  {{ currentData.images[circleIndex].selectValue }}
+                </span>
+              </div>
+              <p class="arrow" @click="preCircleImg"><i class="el-icon-arrow-right"></i></p>
+            </div>
+            <div>
+              <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
+            </div>
+            <div class="city-select">
+              <el-select v-model="cityValue" placeholder="请选择省份" @change="cityChange">
+                <el-option v-for="item in currentData.citys" :key="item.cityValue" :label="item.cityName"
+                  :value="item.cityValue">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+        </div>
+
         <!-- 视频 ，四个视频，选择正确的 -->
-        <!-- <div class="qs-select-wrapper" v-if="currentData.type == 1">
+        <div class="qs-select-wrapper" v-if="currentData.type == 1">
           <div class="qs-video-box">
             <div class="video-item" v-for="(item, index) in currentData.videos" :key="index">
-              <video controls>
-                <source :src="item.url" type="video/ogg">
-              </video>
+              <video :src="item.url" controls></video>
               <el-checkbox v-model="item.isChecked" size="medium" @change="radioChange(item, index)"></el-checkbox>
             </div>
           </div>
-        </div> -->
+        </div>
+
+
+
+
         <!-- 根据图片匹配属于那个行业类别 -->
         <!-- <div class="qs-select-wrapper" v-if="currentData.type == 2">
           <div class="qs-img">
@@ -36,86 +166,21 @@
             </div>
           </div>
         </div> -->
-        <!-- 填写根据资费，填写费用 -->
-       <!--  <div class="qs-select-wrapper" v-if="currentData.type == 3">
-          <div class="qs-img">
-            <img :src="currentData.images[0].url" />
-          </div>
-          <div class="qs-select">
-            <div class="qs-select-input-box">
-              <div class="qs-select-input" v-for="(item, index) in currentData.inputText" :key="index">
-                <p class="qs-text">
-                  {{ item.text }}
-                  <input class="qs-input" v-model="item.value" type="number" pattern="[0-9]*" :maxlength="3"
-                    @change="changeHandle(item, index)" />
-                  <span>元。</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div> -->
-        <!-- 图片描述类型 按照上述区域合理设计路线 -->
-        <!-- <div class="qs-select-wrapper" v-if="currentData.type == 4">
-          <div class="qs-img">
-            <img :src="currentData.images[0].url" />
-          </div>
-          <div class="qs-select">
-            <div class="qs-select-area">
-              <div class="qs-select-area-item">
-                <p class="select-area-item" v-for="item in selectedData" :key="index">{{ item.value }}</p>
-              </div>
-            </div>
-            <div class="qs-select-list">
-              <p class="list-item" v-for="(item, index) in currentData.selectList"
-                :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">
-                {{ item.value }}
-              </p>
-            </div>
-          </div>
-        </div> -->
-        <!-- 多张图片，选出某几禁寄送的 -->
-        <!-- <div class="qs-select-wrapper" v-if="currentData.type == 5">
-          <div class="qs-img-box">
-            <div class="qs-img-list" v-for="(item, index) in currentData.images" @click="previewImgHandle(item, index)">
-              <img :src="item.url" />
-            </div>
-          </div>
-          <div class="qs-select">
-            <div class="qs-select-area">
-              <div class="qs-select-area-item qs-select-area-item-img">
-                <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
-                  @click="cancelSelectedHandle(item, index)">
-              </div>
-            </div>
-          </div>
-        </div> -->
+
         <!-- 剔除超出配送范围的，对其它配送的排序 -->
-        <div class="qs-select-wrapper" v-if="currentData.type == 6">
+        <!-- <div class="qs-select-wrapper" v-if="currentData.type == 6">
           <div class="qs-serial-box">
-            <div class="qs-serial-list" :class="item.isChecked ?'qs-serial-list-active':''" v-for="(item, index) in currentData.selectList">
-              <!-- <img :src="item.url" /> -->
+            <div class="qs-serial-list" :class="item.isChecked ? 'qs-serial-list-active' : ''"
+              v-for="(item, index) in currentData.rowList" @click="serialClickHandle(item, index)">
               <p>{{ item.text }}{{ item.serialNumber }}号</p>
             </div>
           </div>
           <div class="qs-select">
             <div class="qs-select-area">
-              <div class="qs-select-area-item qs-select-area-item-img">
-                <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
-                  @click="cancelSelectedHandle(item, index)">
+              <div class="qs-select-area-item">
+                <p class="select-area-item" v-for="(item, index) in selectedData">{{ item.serialNumber }}号</p>
               </div>
             </div>
-          </div>
-        </div>
-        <!-- 选择题类型 -->
-        <!-- <div class="qs-select-wrapper" v-if="currentData.type == 2">
-          <div class="qs-select-radio-list">
-            <label v-for="(item, index) in currentData.selectList" :key="index">
-              <div class="radio-list-item" @click="clickSelectItem(item, index)">
-                <p>{{ index + 1 }}、</p>
-                <input type='radio' :value="item.value" :checked="item.isChecked" />
-                <div>{{ item.label }}</div>
-              </div>
-            </label>
           </div>
         </div> -->
       </div>

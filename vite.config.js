@@ -18,8 +18,8 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  base:'./',
+  base: "./",
   server: {
-    // host: "172.16.3.219",
+    // host: "192.168.2.185",
   },
 });
