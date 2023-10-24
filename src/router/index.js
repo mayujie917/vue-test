@@ -18,11 +18,6 @@ const router = new VueRouter({
       name: "expressTest",
       component: () => import("../views/expressTest/index.vue"),
     },
-    {
-      path: "/skillTest",
-      name: "skillTest",
-      component: () => import("../views/skillTest/index.vue"),
-    },
   ],
 });
 

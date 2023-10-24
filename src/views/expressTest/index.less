@@ -7,7 +7,8 @@
 
   .qs-wrapper {
     box-sizing: border-box;
-    padding: 0 1%;
+    // padding: 0 1%;
+    position: relative;
 
     .qs-desc {
       box-sizing: border-box;
@@ -36,7 +37,7 @@
 
         img {
           width: 100%;
-          height: 100%;
+          height: 200px;
           // max-height: 200px;
 
         }
@@ -69,7 +70,7 @@
           // height: 300px;
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: space-between;
           flex-wrap: wrap;
 
           .arrow {
@@ -80,15 +81,15 @@
             justify-content: center;
 
             i {
-              font-size: 24px;
+              font-size: 30px;
               font-weight: 700;
             }
           }
 
           .qs-img-item {
             width: 70%;
-            height: 200px;
-            margin: 1%;
+            // height: 0px;
+            // margin: 1%;
             text-align: center;
 
             .img-desc {
@@ -97,7 +98,8 @@
 
             img {
               // width: 100%;
-              height: 100%;
+              // height: 100%;
+              height: 140px;
             }
           }
 
@@ -136,6 +138,7 @@
 
             img {
               width: 100%;
+              height: 280px;
             }
           }
         }
@@ -146,15 +149,7 @@
           text-align: center;
         }
 
-        .city-select {
-          width: 100%;
-          box-sizing: border-box;
-          padding: 0 2%;
 
-          .el-select {
-            width: 100%;
-          }
-        }
 
         .sub-images {
           .sub-images-list {
@@ -162,10 +157,12 @@
 
             .sub-images-item {
               width: 25%;
-              height: 100px;
+              // height: 100px;
+              text-align: center;
 
               img {
-                height: 80%;
+                // height: 80%;
+                height: 100px;
                 width: 100%;
               }
 
@@ -182,7 +179,38 @@
         }
       }
 
+      .qs-img-box-charge {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-around;
 
+        .qs-img-box-charge-city {
+          // width: 60%;
+          flex: 1;
+
+          .qs-img-box {
+            width: 100%;
+
+            .arrow {
+              width: 8%;
+            }
+
+            .qs-img-item {
+              flex: 1;
+            }
+          }
+        }
+
+        .city-select {
+          width: 15%;
+          box-sizing: border-box;
+          padding: 0 1%;
+
+          .el-select {
+            width: 100%;
+          }
+        }
+      }
 
       .qs-serial-box {
         display: flex;
@@ -256,22 +284,23 @@
 
       .qs-select {
         box-sizing: border-box;
+        padding: 0 1%;
 
         .qs-select-area {
           width: 100%;
           position: relative;
           box-sizing: border-box;
-          border: 5px solid rgb(137, 175, 245);
-          background: rgb(235, 234, 234);
-          border-radius: 50px;
+          border: 12px solid #a89171;
+          background: #50a8cc;
+          border-radius: 15px;
           padding: 1% 5%;
 
           .qs-select-area-item {
             width: 100%;
-            min-height: 55px;
+            min-height: 120px;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: space-evenly;
             flex-wrap: wrap;
             box-sizing: border-box;
 
@@ -286,7 +315,8 @@
 
           .qs-select-area-item-img {
             img {
-              width: 25%;
+              // width: 25%;
+              height: 100px;
             }
           }
         }
@@ -327,7 +357,7 @@
         .subTotal {
           width: 100%;
           text-align: center;
-          margin: 5% 0;
+          margin: 1% 0;
         }
 
       }
@@ -361,8 +391,8 @@
           text-wrap: nowrap;
           font-size: 14px;
           margin: 5px 0;
-          border: 2px solid #4095e5;
-          background-color: #93d2f3;
+          border: 12px solid #a89171;
+          background-color: #50a8cc;
           border-radius: 15px;
           padding: 2%;
 
@@ -377,7 +407,7 @@
             border-bottom: 1px solid #000;
             border-radius: 0;
             box-shadow: none;
-            background-color: #93d2f3;
+            background-color: #50a8cc;
             color: #000;
 
             &:focus {
@@ -401,7 +431,7 @@
       display: flex;
       align-items: center;
       justify-content: space-around;
-      padding: 10px 0;
+      padding: 5px 0;
     }
   }
 
@@ -418,10 +448,11 @@
       box-sizing: border-box;
       width: 100%;
       padding: 5% 2%;
+      text-align: center;
 
       img {
-        width: 100%;
-        height: 100%;
+        // width: 100%;
+        height: 200px;
         border-radius: 2%;
       }
     }

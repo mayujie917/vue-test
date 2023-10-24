@@ -108,20 +108,22 @@
 
         <!-- 根据图片，选择对应省份 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 7">
-          <div class="qs-img-box-wrapper">
-            <div class="qs-img-box">
-              <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
-              <div class="qs-img-item qs-img-city" @click="previewImgHandle">
-                <img :src="currentData.images[circleIndex].url" />
-                <span class="city-name"
-                  :class="currentData.images[circleIndex].selectValue == '' ? 'city-name-fade' : ''">
-                  {{ currentData.images[circleIndex].selectValue }}
-                </span>
+          <div class="qs-img-box-wrapper qs-img-box-charge">
+            <div class="qs-img-box-charge-city">
+              <div class="qs-img-box">
+                <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
+                <div class="qs-img-item qs-img-city" @click="previewImgHandle">
+                  <img :src="currentData.images[circleIndex].url" />
+                  <span class="city-name"
+                    :class="currentData.images[circleIndex].selectValue == '' ? 'city-name-fade' : ''">
+                    {{ currentData.images[circleIndex].selectValue }}
+                  </span>
+                </div>
+                <p class="arrow" @click="preCircleImg"><i class="el-icon-arrow-right"></i></p>
               </div>
-              <p class="arrow" @click="preCircleImg"><i class="el-icon-arrow-right"></i></p>
-            </div>
-            <div>
-              <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
+              <div>
+                <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
+              </div>
             </div>
             <div class="city-select">
               <el-select v-model="cityValue" placeholder="请选择省份" @change="cityChange">
@@ -188,17 +190,18 @@
         <el-button size="small" @click="preBtn">上一题</el-button>
         <el-button type="" size="small" @click="nextBtn">下一题</el-button>
       </div>
-    </div>
-    <!-- 大图预览 -->
-    <div class="preview" v-show="previewModal">
-      <div class="preview-img">
-        <img :src="previewObj.url" alt="">
+      <!-- 大图预览 -->
+      <div class="preview" v-show="previewModal">
+        <div class="preview-img">
+          <img :src="previewObj.url" alt="">
+        </div>
+        <div class="pre-btn">
+          <el-button type="" size="small" @click="cancelPrevView">取消</el-button>
+          <el-button type="primary" size="small" @click="selectImgHandle">确定</el-button>
+        </div>
       </div>
-      <div class="pre-btn">
-        <el-button type="" size="small" @click="cancelPrevView">取消</el-button>
-        <el-button type="primary" size="small" @click="selectImgHandle">确定</el-button>
-      </div>
     </div>
+
     <!-- 提示 -->
     <div class="tips" v-show="tipsModal">
       <div class="tips-box">

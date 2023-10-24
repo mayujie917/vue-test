@@ -1,10 +1,82 @@
+import { rowNormalData, rowErrorData } from "./data";
+
+let normalList = [];
+/**
+ *
+ * @param {*} type 答题类型
+ * @param {*} t  可寄送无品数量
+ * @param {*} f  不可急送无品数量
+ * @param {*} total  题的数量
+ */
+function getSerialDataBy(type, t, f, total) {
+  if (type == 5) {
+    // 16 件 ，可寄送物品， 4 件不可寄送物品
+    normalList = [];
+    let normalData = getRandomData(t, rowNormalData.length); //可寄送数据
+    normalList = [];
+    let errorData = getRandomData(f, rowErrorData.length); // 不可寄数据
+    normalList = [];
+    let mixData = [];
+    normalData.forEach((item) => {
+      mixData.push(rowNormalData[item]);
+    });
+    errorData.forEach((item) => {
+      mixData.push(rowErrorData[item]);
+    });
+    let randomArr = getRandomData(20, total);
+    normalList = [];
+    let targetData = [];
+    randomArr.forEach((item) => {
+      targetData.push(mixData[item]);
+    });
+    return targetData;
+  } else if (type == 8) {
+    //寄递 物品5件，每件里面有4 小件
+    let allData = [...rowNormalData, ...rowErrorData];
+    let maxAllData = [];
+    normalList = [];
+    let maxArray = getRandomData(allData.length);
+    maxArray.forEach((item) => {
+      maxAllData.push(allData[item]); // 正常、禁寄物品，混合后的数据
+    });
+    normalList = [];
+    let _normalData = [];
+    let _normalSubData = [];
+    let _normalArr = getRandomData(t, maxAllData.length);
+    _normalArr.forEach((item) => {
+      _normalData.push(allData[item]);
+    });
+    console.log("_normalData", _normalData);
+
+    _normalData.forEach((item) => {
+      normalList = [];
+      item.subImages = [];
+      let _arr = getRandomData(f, maxAllData.length);
+      _arr.forEach((el) => {
+        item.subImages.push(allData[el]);
+      });
+    });
+    return _normalData;
+  }
+}
+
+function getRandomData(t, total) {
+  let _random = Math.floor(Math.random() * total);
+  if (normalList.length < t) {
+    if (normalList.indexOf(_random) == -1) normalList.push(_random);
+    getRandomData(t, total);
+  }
+  return normalList;
+}
+
 export const list = [
   {
     // 1多张图片中，选出禁寄物品
     type: 5,
     question:
       "1、根据所给的寄递物品图片，点击禁寄物品图片放入制定区域。（总分25分）",
-    images: [
+    images: getSerialDataBy(5, 16, 4, 20),
+    /*  images: [
       {
         url: "http://123.57.230.57:6011/assets/imgs/2/n_1.png",
         type: 1, //可寄送物品
@@ -119,15 +191,16 @@ export const list = [
         isChecked: false,
         desc: "樟脑油",
       },
-    ],
+    ], */
     correct_answer: "17,97,23,34,13,89,77,53,71,64",
     incorrect_answers: [""],
     selectList: [],
   },
   {
     type: 8,
-    question: "2、根据所给的奇进物品图片，点击物品进行查验。（总分25分）",
-    images: [
+    question: "2、根据所给的寄递物品图片，点击物品进行查验。（总分25分）",
+    images: getSerialDataBy(8, 5, 4, 5),
+    /* images: [
       {
         url: "http://123.57.230.57:6011/assets/imgs/2/n_1.png",
         type: 1, //可寄送物品
@@ -372,7 +445,7 @@ export const list = [
       //   isChecked: false,
       //   desc: "樟脑油",
       // },
-    ],
+    ], */
   },
   {
     // 3根据图片，选择缺少的省份

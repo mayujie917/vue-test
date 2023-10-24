@@ -1,4 +1,5 @@
 import { list } from "@/data/index.js";
+console.log("1111", list);
 
 export let data = {
   name: "express",
