@@ -453,8 +453,8 @@ export const list = [
     question: "3、根据所给面单寄达地名选择相对于省份名。（总分25分）",
     images: [
       {
-        // url: "http://123.57.230.57:6011/assets/imgs/1/1.png",
-        url: "/public/assets/imgs/1/1.png",
+        url: "http://123.57.230.57:6011/assets/imgs/1/1.png",
+        // url: "/public/assets/imgs/1/1.png",
         cityValue: "1",
         cityName: "北京市",
         selectValue: "",
