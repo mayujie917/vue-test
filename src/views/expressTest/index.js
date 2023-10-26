@@ -119,11 +119,23 @@ export let data = {
         return this.$message("已经是最后一个了！");
       ++this.circleIndex;
     },
+    // 直接选中图片
+    selectCircleImgHandle() {
+      if (this.selectedData.length == 4) return;
+      let _temp = this.currentData.images[this.circleIndex];
+      if (_temp.isChecked) {
+        // 判断是否已经选过
+        this.tipsTitle = "该物品已经选择过了！";
+        this.tipsModal = true;
+        return false;
+      }
+      this.previewObj = _temp;
+      this.selectImgHandle();
+    },
     // 1.预览大图
     previewImgHandle() {
       if (this.selectedData.length == 4) return;
       let _temp = this.currentData.images[this.circleIndex];
-      console.log(22333, _temp);
       if (_temp.isChecked) {
         // 判断是否已经选过
         this.tipsTitle = "该物品已经选择过了！";

@@ -34,9 +34,10 @@
         box-sizing: border-box;
         width: 100%;
         padding: 5px;
+        text-align: center;
 
         img {
-          width: 100%;
+          // width: 100%;
           height: 200px;
           // max-height: 200px;
 
@@ -99,7 +100,9 @@
             img {
               // width: 100%;
               // height: 100%;
-              height: 140px;
+              height: 180px;
+              width: 100%;
+              object-fit: contain;
             }
           }
 
@@ -145,7 +148,7 @@
 
         .total {
           width: 100%;
-          margin: 5px 0;
+          // margin: 5px 0;
           text-align: center;
         }
 
@@ -159,10 +162,12 @@
               width: 25%;
               // height: 100px;
               text-align: center;
+              box-sizing: border-box;
+              padding: 2%;
 
               img {
                 // height: 80%;
-                height: 100px;
+                // height: 180px;
                 width: 100%;
               }
 
@@ -174,7 +179,7 @@
 
           .back-btn {
             text-align: center;
-            margin: 3% 0;
+            margin: 1% 0;
           }
         }
       }
@@ -202,7 +207,7 @@
         }
 
         .city-select {
-          width: 15%;
+          width: 16%;
           box-sizing: border-box;
           padding: 0 1%;
 
@@ -326,7 +331,7 @@
           padding: 0 2%;
           display: flex;
           align-items: center;
-          justify-content: flex-start;
+          justify-content: space-evenly;
           flex-wrap: wrap;
           box-sizing: border-box;
           margin-top: 10px;

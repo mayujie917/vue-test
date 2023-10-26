@@ -10,7 +10,7 @@
           <div class="qs-img-box-wrapper">
             <div class="qs-img-box">
               <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
-              <div class="qs-img-item" @click="previewImgHandle">
+              <div class="qs-img-item" @click="selectCircleImgHandle">
                 <img :src="currentData.images[circleIndex].url" />
               </div>
               <p class="arrow" @click="preCircleImg"><i class="el-icon-arrow-right"></i></p>
