@@ -9,7 +9,7 @@
         <div class="qs-select-wrapper" v-if="currentData.type == 5">
           <div class="qs-img-box-wrapper">
             <div class="qs-img-box">
-              <p class="arrow" @click="nextCircleImgSpecial"><i class="el-icon-arrow-left"></i></p>
+              <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
               <div class="qs-img-item" @click="selectCircleImgHandle">
                 <img :src="currentData.images[circleIndex].url" />
               </div>
