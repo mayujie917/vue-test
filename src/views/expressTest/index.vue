@@ -9,7 +9,7 @@
         <div class="qs-select-wrapper" v-if="currentData.type == 5">
           <div class="qs-img-box-wrapper">
             <div class="qs-img-box">
-              <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
+              <p class="arrow" @click="nextCircleImgSpecial"><i class="el-icon-arrow-left"></i></p>
               <div class="qs-img-item" @click="selectCircleImgHandle">
                 <img :src="currentData.images[circleIndex].url" />
               </div>
@@ -93,9 +93,11 @@
           </div>
           <div class="qs-select">
             <div class="qs-select-area">
-              <div class="qs-select-area-item">
+              <draggable class="qs-select-area-item" v-model="selectedData">
+                <!-- <div class="qs-select-area-item"> -->
                 <p class="select-area-item" v-for="item in selectedData" :key="index">{{ item.value }}</p>
-              </div>
+                <!-- </div> -->
+              </draggable>
             </div>
             <div class="qs-select-list">
               <p class="list-item" v-for="(item, index) in currentData.selectList"
@@ -112,7 +114,7 @@
             <div class="qs-img-box-charge-city">
               <div class="qs-img-box">
                 <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
-                <div class="qs-img-item qs-img-city" @click="previewImgHandle">
+                <div class="qs-img-item qs-img-city">
                   <img :src="currentData.images[circleIndex].url" />
                   <span class="city-name"
                     :class="currentData.images[circleIndex].selectValue == '' ? 'city-name-fade' : ''">

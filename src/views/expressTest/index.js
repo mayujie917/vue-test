@@ -1,8 +1,9 @@
 import { list } from "@/data/index.js";
-console.log("1111", list);
+import draggable from "vuedraggable";
 
 export let data = {
   name: "express",
+  components: { draggable },
   data() {
     return {
       tipsModal: false, //提示弹窗
@@ -106,6 +107,15 @@ export let data = {
     /**
      * type 5 ,多张图片中，选出禁寄物品
      */
+    nextCircleImgSpecial() {
+      if (this.circleIndex == 0) return;
+      let temp = this.currentData.images[this.circleIndex - 1];
+      console.log("temp", temp);
+      if (temp.isChecked) {
+        --this.circleIndex;
+      }
+    },
+
     nextCircleImg() {
       let _total = this.currentData.images.length;
       if (this.circleIndex <= 0) {
