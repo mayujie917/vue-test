@@ -4,8 +4,8 @@ let normalList = [];
 /**
  *
  * @param {*} type 答题类型
- * @param {*} t  可寄送无品数量
- * @param {*} f  不可急送无品数量
+ * @param {*} t  可寄送物品数量
+ * @param {*} f  不可寄送物品数量
  * @param {*} total  题的数量
  */
 function getSerialDataBy(type, t, f, total) {

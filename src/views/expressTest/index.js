@@ -27,7 +27,6 @@ export let data = {
   mounted() {
     this.list = list;
     this.currentData = this.list[this.currentIndex];
-    console.log(2333, this.currentData);
   },
 
   methods: {
@@ -51,7 +50,6 @@ export let data = {
      * type 2 选择图片对应的行业
      */
     selectTradeHandle(item, index) {
-      console.log("item", item, index);
       let _data = this.list[this.currentIndex];
       if (item.isChecked) {
         item.isChecked = false;
@@ -63,7 +61,6 @@ export let data = {
           _data.images[this.carouselIndex].classType;
       }
       this.$set(this, "currentData", _data);
-      console.log("_data", _data);
     },
     carouselChange(index) {
       this.carouselIndex = index;
@@ -107,17 +104,35 @@ export let data = {
     /**
      * type 5 ,多张图片中，选出禁寄物品
      */
+    // 已经选中的 上一个、下一个时跳过
     nextCircleImgSpecial() {
       if (this.circleIndex == 0) return;
-      let temp = this.currentData.images[this.circleIndex - 1];
-      console.log("temp", temp);
-      if (temp.isChecked) {
-        --this.circleIndex;
+      let _temp = this.currentData.images.slice(0, this.circleIndex).reverse();
+      let _index = _temp.findIndex((item) => !item.isChecked);
+      if (_index != -1) {
+        let _subIndex = this.currentData.images.findIndex(
+          (item) => item.desc == _temp[_index].desc
+        );
+        if (_subIndex != -1) {
+          this.circleIndex = _subIndex;
+        }
+      }
+    },
+    preCircleImgSpecial() {
+      let _temp = this.currentData.images[this.circleIndex + 1];
+      if (_temp && _temp.isChecked) {
+        ++this.circleIndex;
+        this.preCircleImgSpecial();
+      } else {
+        if (this.circleIndex < this.currentData.images.length - 1) {
+          ++this.circleIndex;
+        } else {
+          return this.$message("已经是最后一个了！");
+        }
       }
     },
 
     nextCircleImg() {
-      let _total = this.currentData.images.length;
       if (this.circleIndex <= 0) {
         return this.$message("已经是第一个了！");
       }
@@ -188,13 +203,11 @@ export let data = {
      *
      */
     serialClickHandle(item, index) {
-      console.log(111, item, index);
       if (item.isChecked) {
         item.isChecked = false;
         let _index = this.selectedData.findIndex(
           (el) => el.value == item.value
         );
-        console.log("index", _index);
         if (_index != -1) {
           this.selectedData[_index].isChecked = false;
           this.selectedData.splice(_index, 1);
@@ -206,7 +219,6 @@ export let data = {
         this.list[this.currentIndex].selectList = this.selectedData;
       }
       this.$set(this, "currentData", this.list[this.currentIndex]);
-      console.log(1111, this.list[this.currentIndex]);
     },
     /**
      * type 7 根据图片，选择对应的身份
