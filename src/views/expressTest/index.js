@@ -1,6 +1,8 @@
 import { list } from "@/data/index.js";
 import draggable from "vuedraggable";
 
+import { getTypeOneList } from "./../../api/express";
+
 export let data = {
   name: "express",
   components: { draggable },
@@ -27,9 +29,15 @@ export let data = {
   mounted() {
     this.list = list;
     this.currentData = this.list[this.currentIndex];
+    this.getData();
   },
 
   methods: {
+    getData(){
+      getTypeOneList().then(res=>{
+        console.log(333,res);
+      });
+    },
     /**
      * type 1 类别 视频选中
      */
