@@ -34,7 +34,7 @@
         text-align: center;
 
         img {
-          max-height: 200vh;
+          height: 30vh;
         }
 
         ::v-deep {
@@ -60,6 +60,18 @@
         }
       }
 
+      .qs-cost {
+        img {
+          height: 40vh;
+        }
+      }
+
+      .qs-other-img {
+        img {
+          height: 36vh;
+        }
+      }
+
       .qs-img-box-wrapper {
         .qs-img-box {
           display: flex;
@@ -75,7 +87,7 @@
             justify-content: center;
 
             i {
-              font-size: 30px;
+              font-size: 50px;
               font-weight: 700;
             }
           }
@@ -89,7 +101,7 @@
             }
 
             img {
-              max-height: 180px;
+              height: 35vh;
               width: 100%;
               object-fit: contain;
             }
@@ -130,8 +142,9 @@
 
             img {
               width: 100%;
-              max-height: 367px;
-              object-fit: contain;
+              // max-height: 367px;
+              height: 62vh;
+              object-fit: fill;
             }
           }
         }
@@ -155,7 +168,8 @@
 
               img {
                 width: 100%;
-                max-height: 180px;
+                // max-height: 180px;
+                height: 18vh;
                 object-fit: contain;
               }
 
@@ -290,12 +304,50 @@
 
           .qs-select-area-item {
             width: 100%;
-            min-height: 120px;
+            height: 20vh;
             display: flex;
             align-items: center;
             justify-content: flex-start;
             flex-wrap: wrap;
             box-sizing: border-box;
+            position: relative;
+
+            .qs-select-bg {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              position: absolute;
+              top: 0;
+              left: 0;
+
+              .select-bg-item {
+                width: 25%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: #cf594d;
+                font-size: 16px;
+                font-weight: 700;
+
+                &::after {
+                  display: block;
+                  content: '';
+                  width: 5px;
+                  height: 30%;
+                  background-color: #cecece;
+                  position: absolute;
+                  right: 0;
+                }
+
+                &:last-of-type {
+                  &::after {
+                    display: none;
+                  }
+                }
+              }
+            }
 
             .select-area-item {
               padding: 1%;
@@ -306,10 +358,15 @@
             }
           }
 
+          .qs-select-drag {
+            height: 10vh;
+          }
+
           .qs-select-area-item-img {
             img {
-              // width: 25%;
-              height: 100px;
+              width: 25%;
+              height: 100%;
+              object-fit: contain;
             }
           }
         }
@@ -372,7 +429,7 @@
           text-align: center;
 
           i {
-            font-size: 24px;
+            font-size: 40px;
             font-weight: 700;
           }
         }
@@ -383,11 +440,11 @@
           justify-content: flex-start;
           text-wrap: nowrap;
           font-size: 14px;
-          margin: 5px 0;
-          border: 12px solid #a89171;
+          margin: 2px 0;
+          border: 8px solid #a89171;
           background-color: #50a8cc;
           border-radius: 15px;
-          padding: 2%;
+          padding: 1% 2%;
 
           .qs-text {
             text-wrap: wrap;
@@ -416,8 +473,6 @@
           }
         }
       }
-
-
     }
 
     .qs-btns {
@@ -428,36 +483,8 @@
     }
   }
 
-  // 图片预览
-  .preview {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(255, 255, 255, 1);
 
-    .preview-img {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 5% 2%;
-      text-align: center;
 
-      img {
-        // width: 100%;
-        height: 200px;
-        border-radius: 2%;
-      }
-    }
-
-    .pre-btn {
-      // margin-top: 5%;
-      padding-bottom: 2%;
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-    }
-  }
 
   // 信息提示
   .tips {

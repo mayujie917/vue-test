@@ -23,6 +23,24 @@
           <div class="qs-select">
             <div class="qs-select-area">
               <div class="qs-select-area-item qs-select-area-item-img">
+                <div class="qs-select-bg">
+                  <div class="select-bg-item">
+                    <p>1</p>
+                    <p>禁忌物品</p>
+                  </div>
+                  <div class="select-bg-item">
+                    <p>2</p>
+                    <p>禁忌物品</p>
+                  </div>
+                  <div class="select-bg-item">
+                    <p>3</p>
+                    <p>禁忌物品</p>
+                  </div>
+                  <div class="select-bg-item">
+                    <p>4</p>
+                    <p>禁忌物品</p>
+                  </div>
+                </div>
                 <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
                   @click="cancelSelectedHandle(item, index)">
               </div>
@@ -59,6 +77,24 @@
           <div class="qs-select">
             <div class="qs-select-area">
               <div class="qs-select-area-item qs-select-area-item-img">
+                <div class="qs-select-bg">
+                  <div class="select-bg-item">
+                    <p>1</p>
+                    <p>禁忌物品</p>
+                  </div>
+                  <div class="select-bg-item">
+                    <p>2</p>
+                    <p>禁忌物品</p>
+                  </div>
+                  <div class="select-bg-item">
+                    <p>3</p>
+                    <p>禁忌物品</p>
+                  </div>
+                  <div class="select-bg-item">
+                    <p>4</p>
+                    <p>禁忌物品</p>
+                  </div>
+                </div>
                 <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
                   @click="cancelSelectedHandle(item, index)">
               </div>
@@ -67,7 +103,7 @@
         </div>
         <!-- 根据资费，填写费用 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 3">
-          <div class="qs-img">
+          <div class="qs-img qs-cost">
             <img :src="currentData.images[0].url" />
           </div>
           <div class="qs-select">
@@ -88,15 +124,13 @@
         </div>
         <!-- 图片描述类型 按照上述区域合理设计路线 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 4">
-          <div class="qs-img">
+          <div class="qs-img qs-other-img">
             <img :src="currentData.images[0].url" />
           </div>
           <div class="qs-select">
             <div class="qs-select-area">
-              <draggable class="qs-select-area-item" v-model="selectedData">
-                <!-- <div class="qs-select-area-item"> -->
+              <draggable class="qs-select-area-item qs-select-drag" v-model="selectedData">
                 <p class="select-area-item" v-for="item in selectedData" :key="index">{{ item.value }}</p>
-                <!-- </div> -->
               </draggable>
             </div>
             <div class="qs-select-list">
@@ -146,9 +180,6 @@
             </div>
           </div>
         </div>
-
-
-
 
         <!-- 根据图片匹配属于那个行业类别 -->
         <!-- <div class="qs-select-wrapper" v-if="currentData.type == 2">
@@ -219,5 +250,6 @@ import { data } from "./index";
 export default data;
 </script>
 <style lang="less" scoped>
-@import url('./index.less');
+// @import url('./index.less');
+@import url('./express.less');
 </style>

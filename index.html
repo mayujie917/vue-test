@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=750, initial-scale=0.5" />
     <title>Vite App</title>
     <!-- <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
     <script>
@@ -13,6 +13,22 @@
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      const WIDTH = 750;
+      const mobileAdapter = () => {
+        let scale = screen.width / WIDTH;
+        let content = `width=${WIDTH}, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}`;
+        let meta = document.querySelector("meta[name=viewport]");
+        if (!meta) {
+          meta = document.createElement("meta");
+          meta.setAttribute("name", "viewport");
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute("content", content);
+      };
+      mobileAdapter();
+      window.onorientationchange = mobileAdapter; //屏幕翻转时再次执行
+    </script>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
