@@ -1,4 +1,4 @@
-import { list } from "@/data/index.js";
+import { list, numberList } from "@/data/index.js";
 import draggable from "vuedraggable";
 
 import { getTypeOneList } from "./../../api/express";
@@ -23,6 +23,7 @@ export let data = {
       currentData: {}, //当前问题
       list: [], //原始数据
       selectedData: [], // 当前已选中的数据，每次切换题，从原数据更具checked 重新获取
+      numberList: numberList,
     };
   },
 
@@ -33,9 +34,9 @@ export let data = {
   },
 
   methods: {
-    getData(){
-      getTypeOneList().then(res=>{
-        console.log(333,res);
+    getData() {
+      getTypeOneList().then((res) => {
+        console.log(333, res);
       });
     },
     /**
@@ -268,6 +269,12 @@ export let data = {
       if (this.currentIndex >= this.list.length - 1)
         return this.$message("已经是最后一题！");
       ++this.currentIndex;
+      this.circleIndex = 0;
+      this.repairData();
+    },
+    // 下一题
+    nextItem(index) {
+      this.currentIndex = index;
       this.circleIndex = 0;
       this.repairData();
     },
