@@ -219,27 +219,19 @@
           </div>
         </div> -->
       </div>
-      <!-- <div class="qs-btns">
-        <el-button size="small" @click="preBtn">上一题</el-button>
-        <el-button type="" size="small" @click="nextBtn">下一题</el-button>
-      </div> -->
       <div class="qs-options">
         <div class="options-btn">
-          <el-button size="small" type="success">提交</el-button>
-          <el-button size="small" type="primary">重置</el-button>
+          <el-button size="small" type="success" @click="submitHandle">提交</el-button>
+          <el-button size="small" type="primary" @click="resetHandle">重置</el-button>
         </div>
         <div class="options-list">
           <el-button class="btn-text" :class="currentIndex == index ? 'btn-text-active' : ''" size="small" type="text"
             v-for="(item, index) in list" :key="index" @click="nextItem(index)">
             第{{ numberList[index] }}题</el-button>
-          <!-- <el-button size="small" type="text">第二题</el-button>
-          <el-button size="small" type="text">第三题</el-button>
-          <el-button size="small" type="text">第四题</el-button>
-          <el-button size="small" type="text">第五题</el-button> -->
         </div>
       </div>
       <!-- 大图预览 -->
-      <div class="preview" v-show="previewModal">
+      <!-- <div class="preview" v-show="previewModal">
         <div class="preview-img">
           <img :src="previewObj.url" alt="">
         </div>
@@ -247,7 +239,7 @@
           <el-button type="" size="small" @click="cancelPrevView">取消</el-button>
           <el-button type="primary" size="small" @click="selectImgHandle">确定</el-button>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- 提示 -->

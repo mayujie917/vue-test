@@ -1,6 +1,7 @@
 import { list, numberList } from "@/data/index.js";
 import draggable from "vuedraggable";
 
+console.log("1111list", list);
 import { getTypeOneList } from "./../../api/express";
 
 export let data = {
@@ -31,6 +32,7 @@ export let data = {
     this.list = list;
     this.currentData = this.list[this.currentIndex];
     this.getData();
+    console.log(1222, this.list);
   },
 
   methods: {
@@ -167,7 +169,7 @@ export let data = {
       this.selectImgHandle();
     },
     // 1.预览大图
-    previewImgHandle() {
+    /*  previewImgHandle() {
       if (this.selectedData.length == 4) return;
       let _temp = this.currentData.images[this.circleIndex];
       if (_temp.isChecked) {
@@ -178,7 +180,7 @@ export let data = {
       }
       this.previewObj = _temp;
       this.previewModal = true;
-    },
+    }, */
     // 2.确认选中图片
     selectImgHandle() {
       this.previewModal = false;
@@ -252,35 +254,24 @@ export let data = {
         this.selectedData.push(_currentData);
       }
       this.subImages = _currentData.subImages;
+      console.log("list", this.list);
+      console.log("currentData", this.currentData);
+      console.log("selectedData", this.currentData);
     },
     back() {
       this.showSubImage = false;
     },
-
-    // 上一题
-    preBtn() {
-      if (this.currentIndex <= 0) return this.$message("已经是第一题！");
-      --this.currentIndex;
-      this.circleIndex = 0; //循环轮播 重置
-      this.repairData();
-    },
-    // 下一题
-    nextBtn() {
-      if (this.currentIndex >= this.list.length - 1)
-        return this.$message("已经是最后一题！");
-      ++this.currentIndex;
-      this.circleIndex = 0;
-      this.repairData();
-    },
-    // 下一题
+    // 点击进入第几题
     nextItem(index) {
       this.currentIndex = index;
+      this.currentData = this.list[this.currentIndex];
       this.circleIndex = 0;
       this.repairData();
     },
     repairData() {
       this.subIndex = 0;
       let _tempArr = this.list[this.currentIndex];
+      console.log("_tempArr", _tempArr);
       this.$set(this, "currentData", _tempArr);
       this.selectedData = [];
       if (_tempArr.images && _tempArr.images.length) {
@@ -298,5 +289,49 @@ export let data = {
         });
       }
     },
+    /**
+     * 1.每次判断当前是否是最后一个
+     *  - 不是最后一题，校验当前题是否已做完：没有做完提示有题未答，已经做完，自动跳转到下一题
+     *  - 是最后一题，校验前面题是否都已经作答，有未作答的提示，已经全部做完，二次提示是否提交
+     */
+    // 提交
+    submitHandle() {
+      if (this.currentIndex < this.list.length - 1) {
+        // 根据不同题type判断
+        const { type, images } = this.currentData;
+        let flag = false;
+        if (type == 5) {
+          let _temp = images.filter((item) => item.isChecked);
+          _temp.length < 4 ? (flag = true) : (flag = false);
+        } else if (type == 8) {
+          let _temp = images.filter((item) => item.isChecked);
+          _temp.length < 4 ? (flag = true) : (flag = false);
+        } else if (type == 7) {
+          let _temp = images.filter((item) => !item.selectValue);
+          _temp.length ? (flag = true) : (flag = false);
+        } else if (type == 3) {
+          let _tempInputText = this.currentData.inputText;
+          let _temp = _tempInputText.filter((item) => !item.value);
+          _temp.length ? (flag = true) : (flag = false);
+        } else if (type == 4) {
+          let _tempSelectList = this.currentData.selectList;
+          let _temp = _tempSelectList.every((item) => !item.isChecked);
+          _temp ? (flag = true) : (flag = false);
+        } else if (type == 1) {
+          let _tempVideos = this.currentData.videos;
+          let _temp = _tempVideos.every((item) => !item.isChecked);
+          _temp ? (flag = true) : (flag = false);
+        }
+        if (flag) {
+          return this.$message.warning("当前题未作答完，请作答？");
+        } else {
+          // 自动跳转下一题
+          this.nextItem(this.currentIndex + 1);
+        }
+      } else {
+      }
+    },
+    // 重置
+    resetHandle() {},
   },
 };

@@ -24,6 +24,8 @@ function getSerialDataBy(type, t, f, total) {
     let normalData = getRandomData(t, rowNormalData.length); //可寄送数据
     normalList = [];
     let errorData = getRandomData(f, rowErrorData.length); // 不可寄数据
+    console.log("normalData", normalData);
+    console.log("errorData", errorData);
     normalList = [];
     let mixData = [];
     normalData.forEach((item) => {
@@ -33,11 +35,14 @@ function getSerialDataBy(type, t, f, total) {
       mixData.push(rowErrorData[item]);
     });
     let randomArr = getRandomData(20, total);
+    console.log("mixData", mixData);
+    console.log("randomArr", randomArr);
     normalList = [];
     let targetData = [];
     randomArr.forEach((item) => {
       targetData.push(mixData[item]);
     });
+    console.log("11targetData", targetData);
     return targetData;
   } else if (type == 8) {
     //寄递 物品5件，每件里面有4 小件
@@ -201,7 +206,7 @@ export const list = [
         desc: "樟脑油",
       },
     ], */
-    correct_answer: "17,97,23,34,13,89,77,53,71,64",
+    correct_answer: "",
     incorrect_answers: [""],
     selectList: [],
     isCurrent: false,
