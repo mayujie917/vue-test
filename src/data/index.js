@@ -17,50 +17,48 @@ let normalList = [];
  * @param {*} f  不可寄送物品数量
  * @param {*} total  题的数量
  */
-function getSerialDataBy(type, t, f, total) {
+export function getSerialDataBy(type, t, f, total) {
   if (type == 5) {
+    let _rowNormalData = JSON.parse(JSON.stringify(rowNormalData));
+    let _rowErrorData = JSON.parse(JSON.stringify(rowErrorData));
     // 16 件 ，可寄送物品， 4 件不可寄送物品
     normalList = [];
-    let normalData = getRandomData(t, rowNormalData.length); //可寄送数据
+    let normalData = getRandomData(t, _rowNormalData.length); //可寄送数据
     normalList = [];
-    let errorData = getRandomData(f, rowErrorData.length); // 不可寄数据
-    console.log("normalData", normalData);
-    console.log("errorData", errorData);
+    let errorData = getRandomData(f, _rowErrorData.length); // 不可寄数据
     normalList = [];
     let mixData = [];
     normalData.forEach((item) => {
-      mixData.push(rowNormalData[item]);
+      mixData.push(_rowNormalData[item]);
     });
     errorData.forEach((item) => {
-      mixData.push(rowErrorData[item]);
+      mixData.push(_rowErrorData[item]);
     });
     let randomArr = getRandomData(20, total);
-    console.log("mixData", mixData);
-    console.log("randomArr", randomArr);
     normalList = [];
     let targetData = [];
     randomArr.forEach((item) => {
       targetData.push(mixData[item]);
     });
-    console.log("11targetData", targetData);
     return targetData;
   } else if (type == 8) {
+    let _rowNormalData = JSON.parse(JSON.stringify(rowNormalData));
+    let _rowErrorData = JSON.parse(JSON.stringify(rowErrorData));
     //寄递 物品5件，每件里面有4 小件
-    let allData = [...rowNormalData, ...rowErrorData];
+    let allData = [..._rowNormalData, ..._rowErrorData];
     let maxAllData = [];
     normalList = [];
-    let maxArray = getRandomData(allData.length);
+    let maxArray = getRandomData(5, allData.length - 1);
     maxArray.forEach((item) => {
       maxAllData.push(allData[item]); // 正常、禁寄物品，混合后的数据
     });
+
     normalList = [];
     let _normalData = [];
-    let _normalSubData = [];
     let _normalArr = getRandomData(t, maxAllData.length);
     _normalArr.forEach((item) => {
       _normalData.push(allData[item]);
     });
-    console.log("_normalData", _normalData);
 
     _normalData.forEach((item) => {
       normalList = [];
@@ -385,8 +383,7 @@ export const list = [
     question: "3、根据所给面单寄达地名选择相对于省份名。（总分25分）",
     images: [
       {
-        url: "http://123.57.230.57:6011/assets/imgs/1/111.png",
-        // url: "/public/assets/imgs/1/111.png",
+        url: "http://123.57.230.57:6011/assets/imgs/1/1.png",
         cityValue: "1",
         cityName: "北京市",
         selectValue: "",
@@ -537,7 +534,7 @@ export const list = [
       "4、根据所给的“国内快递基础资费表”，在横线处填写资费。（总分25分）",
     images: [
       {
-        url: "http://123.57.230.57:6011/assets/imgs/jisuan/jisuan_1.png",
+        url: "http://123.57.230.57:6011/assets/imgs/jisuan/1_1.png",
         // values: [3, 5, 42, 8, 7], //对应的费用实际费用
       },
     ],
@@ -582,8 +579,8 @@ export const list = [
       "5、某市东环路100cm号为投递站点，投递人员按照上述区域合理设计路线，保障邮件优先级别，同时在不违反交通规则的前提下，投递线路为最优。（投递出班时间为每日8:30，每投递一个邮件需要7分钟)",
     images: [
       {
-        url: "http://123.57.230.57:6011/assets/imgs/qs1.png",
-        // url: "/assets/imgs/qs1.png",
+        url: "http://123.57.230.57:6011/assets/imgs/map/1.jpg",
+        url: "/assets/imgs/map/1.jpg",
         values: [17, 97, 23, 34, 13, 89, 77, 53, 71, 64], //正确配送路线
       },
     ],

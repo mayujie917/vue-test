@@ -1,8 +1,12 @@
-import { list, numberList } from "@/data/index.js";
+import { list, numberList, getSerialDataBy } from "@/data/index.js";
 import draggable from "vuedraggable";
 
-console.log("1111list", list);
-import { getTypeOneList } from "./../../api/express";
+import {
+  getTypeAList,
+  getTypeBList,
+  getTypeCList,
+  getTypeDList,
+} from "./../../api/express";
 
 export let data = {
   name: "express",
@@ -29,16 +33,29 @@ export let data = {
   },
 
   mounted() {
+    list.forEach((item) => {
+      if (item.type == 5) {
+        item.images.forEach((el) => {
+          if (el.subImages) {
+            delete el.subImages;
+          }
+        });
+      }
+    });
     this.list = list;
     this.currentData = this.list[this.currentIndex];
     this.getData();
-    console.log(1222, this.list);
   },
 
   methods: {
     getData() {
-      getTypeOneList().then((res) => {
-        console.log(333, res);
+      Promise.all([
+        getTypeAList(),
+        getTypeBList(),
+        getTypeCList(),
+        getTypeDList(),
+      ]).then((res) => {
+        console.log("res", res);
       });
     },
     /**
@@ -266,12 +283,12 @@ export let data = {
       this.currentIndex = index;
       this.currentData = this.list[this.currentIndex];
       this.circleIndex = 0;
+      this.showSubImage = false;
       this.repairData();
     },
     repairData() {
       this.subIndex = 0;
       let _tempArr = this.list[this.currentIndex];
-      console.log("_tempArr", _tempArr);
       this.$set(this, "currentData", _tempArr);
       this.selectedData = [];
       if (_tempArr.images && _tempArr.images.length) {
