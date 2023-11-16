@@ -55,10 +55,42 @@ export function getSerialDataBy(type, t, f, total) {
 
     normalList = [];
     let _normalData = [];
-    let _normalArr = getRandomData(t, maxAllData.length);
+    /*     let _normalArr = getRandomData(t, maxAllData.length);
     _normalArr.forEach((item) => {
       _normalData.push(allData[item]);
-    });
+    }); */
+    _normalData = [
+      {
+        url: "http://123.57.230.57:6011/assets/imgs/normal/毛绒玩具.png",
+        type: 1,
+        isChecked: false,
+        desc: "毛绒玩具",
+      },
+      {
+        url: "http://123.57.230.57:6011/assets/imgs/normal/鞋子.png",
+        type: 1,
+        isChecked: false,
+        desc: "鞋子",
+      },
+      {
+        url: "http://123.57.230.57:6011/assets/imgs/normal/衣服.png",
+        type: 1,
+        isChecked: false,
+        desc: "衣服",
+      },
+      {
+        url: "http://123.57.230.57:6011/assets/imgs/normal/雨伞.png",
+        type: 1,
+        isChecked: false,
+        desc: "雨伞",
+      },
+      {
+        url: "http://123.57.230.57:6011/assets/imgs/normal/裤子.png",
+        type: 1,
+        isChecked: false,
+        desc: "裤子",
+      },
+    ];
 
     _normalData.forEach((item) => {
       normalList = [];
@@ -534,7 +566,7 @@ export const list = [
       "4、根据所给的“国内快递基础资费表”，在横线处填写资费。（总分25分）",
     images: [
       {
-        url: "http://123.57.230.57:6011/assets/imgs/jisuan/1_1.png",
+        url: "http://123.57.230.57:6011/assets/imgs/jisuan/1-1.jpg",
         // values: [3, 5, 42, 8, 7], //对应的费用实际费用
       },
     ],

@@ -280,11 +280,13 @@ export let data = {
     },
     // 点击进入第几题
     nextItem(index) {
+      console.log(1111, this.list[this.currentIndex]);
       this.currentIndex = index;
       this.currentData = this.list[this.currentIndex];
       this.circleIndex = 0;
       this.showSubImage = false;
       this.repairData();
+      console.log("list", this.list);
     },
     repairData() {
       this.subIndex = 0;

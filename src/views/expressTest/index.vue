@@ -26,19 +26,19 @@
                 <div class="qs-select-bg">
                   <div class="select-bg-item">
                     <p>1</p>
-                    <p>禁忌物品</p>
+                    <p>禁寄物品</p>
                   </div>
                   <div class="select-bg-item">
                     <p>2</p>
-                    <p>禁忌物品</p>
+                    <p>禁寄物品</p>
                   </div>
                   <div class="select-bg-item">
                     <p>3</p>
-                    <p>禁忌物品</p>
+                    <p>禁寄物品</p>
                   </div>
                   <div class="select-bg-item">
                     <p>4</p>
-                    <p>禁忌物品</p>
+                    <p>禁寄物品</p>
                   </div>
                 </div>
                 <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
@@ -80,19 +80,19 @@
                 <div class="qs-select-bg">
                   <div class="select-bg-item">
                     <p>1</p>
-                    <p>禁忌物品</p>
+                    <p>禁寄物品</p>
                   </div>
                   <div class="select-bg-item">
                     <p>2</p>
-                    <p>禁忌物品</p>
+                    <p>禁寄物品</p>
                   </div>
                   <div class="select-bg-item">
                     <p>3</p>
-                    <p>禁忌物品</p>
+                    <p>禁寄物品</p>
                   </div>
                   <div class="select-bg-item">
                     <p>4</p>
-                    <p>禁忌物品</p>
+                    <p>禁寄物品</p>
                   </div>
                 </div>
                 <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
