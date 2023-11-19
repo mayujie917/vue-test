@@ -66,7 +66,7 @@
             </div>
             <div class="sub-images" v-else>
               <div class="sub-images-list">
-                <div class="sub-images-item" v-for="subItem in subImages">
+                <div class="sub-images-item" v-for="subItem in subImages" @click="confirmSelect">
                   <img :src="subItem.url" alt="">
                   <p class="sub-item-desc">{{ subItem.desc }}</p>
                 </div>
@@ -76,8 +76,8 @@
           </div>
           <div class="qs-select">
             <div class="qs-select-area">
-              <div class="qs-select-area-item qs-select-area-item-img">
-                <div class="qs-select-bg">
+              <div class="qs-select-area-item qs-select-area-item-img qs-select-area-item-other-img">
+                <div class="qs-select-bg  qs-select-other-bg">
                   <div class="select-bg-item">
                     <p>1</p>
                     <p>禁寄物品</p>
@@ -86,14 +86,14 @@
                     <p>2</p>
                     <p>禁寄物品</p>
                   </div>
-                  <div class="select-bg-item">
+                  <!-- <div class="select-bg-item">
                     <p>3</p>
                     <p>禁寄物品</p>
                   </div>
                   <div class="select-bg-item">
                     <p>4</p>
                     <p>禁寄物品</p>
-                  </div>
+                  </div> -->
                 </div>
                 <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
                   @click="cancelSelectedHandle(item, index)">
@@ -129,8 +129,8 @@
           </div>
           <div class="qs-select">
             <div class="qs-select-area">
-              <draggable class="qs-select-area-item qs-select-drag" v-model="selectedData">
-                <p class="select-area-item" v-for="item in selectedData" :key="index">{{ item.value }}</p>
+              <draggable class="qs-select-area-item qs-select-drag" v-model="dragSelectedData">
+                <p class="select-area-item" v-for="(item, index) in dragSelectedData" :key="index">{{ item.value }}</p>
               </draggable>
             </div>
             <div class="qs-select-list">

@@ -68,7 +68,7 @@ export function getSerialDataBy(type, t, f, total) {
       },
       {
         url: "http://123.57.230.57:6011/assets/imgs/normal/鞋子.png",
-        type: 1,
+        type: 2,
         isChecked: false,
         desc: "鞋子",
       },
@@ -80,7 +80,7 @@ export function getSerialDataBy(type, t, f, total) {
       },
       {
         url: "http://123.57.230.57:6011/assets/imgs/normal/雨伞.png",
-        type: 1,
+        type: 2,
         isChecked: false,
         desc: "雨伞",
       },
@@ -252,6 +252,168 @@ export const list = [
     isDone: false,
     score: 0,
     totalScore: 25,
+    /* images: [
+      {
+        url: "http://123.57.230.57:6011/assets/imgs/2/n_1.png",
+        type: 1, //可寄送物品
+        isChecked: false, // 是否已经选中
+        desc: "玻璃杯",
+        subImages: [
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_2.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "纸巾",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_3.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "书本",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_4.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "户口本",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_5.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "裤子",
+          },
+        ],
+      },
+      {
+        url: "http://123.57.230.57:6011/assets/imgs/2/n_2.png",
+        type: 1, //可寄送物品
+        isChecked: false,
+        desc: "纸巾",
+        subImages: [
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_2.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "纸巾",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_3.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "书本",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_4.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "户口本",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_5.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "裤子",
+          },
+        ],
+      },
+      {
+        url: "http://123.57.230.57:6011/assets/imgs/2/n_3.png",
+        type: 1, //可寄送物品
+        isChecked: false,
+        desc: "书本",
+        subImages: [
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_2.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "纸巾",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_3.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "书本",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_4.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "户口本",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_5.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "裤子",
+          },
+        ],
+      },
+      {
+        url: "http://123.57.230.57:6011/assets/imgs/2/n_4.png",
+        type: 2, //不可寄送物品
+        isChecked: false,
+        desc: "户口本",
+        subImages: [
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_2.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "纸巾",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_3.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "书本",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_4.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "户口本",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_5.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "裤子",
+          },
+        ],
+      },
+      {
+        url: "http://123.57.230.57:6011/assets/imgs/2/n_5.png",
+        type: 1, //可寄送物品
+        isChecked: false,
+        desc: "裤子",
+        subImages: [
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_2.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "纸巾",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_3.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "书本",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_4.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "户口本",
+          },
+          {
+            url: "http://123.57.230.57:6011/assets/imgs/2/n_5.png",
+            type: 1, //可寄送物品
+            isChecked: false,
+            desc: "裤子",
+          },
+        ],
+      },
+    ], */
   },
   {
     // 3根据图片，选择缺少的省份
@@ -270,7 +432,7 @@ export const list = [
         cityName: "天津市",
         selectValue: "",
       },
-      {
+      /*  {
         url: "http://123.57.230.57:6011/assets/imgs/1/3.png",
         cityValue: "3",
         cityName: "上海市",
@@ -377,7 +539,7 @@ export const list = [
         cityValue: "23",
         cityName: "云南省",
         selectValue: "",
-      },
+      }, */
     ],
     citys: [
       { cityValue: "1", cityName: "北京市" },
@@ -445,6 +607,7 @@ export const list = [
         realValue: 7,
       },
     ],
+    // value: [], // 输入的费用
     total: 0, // 资费总额
     imagesText: [],
     isCurrent: false,
@@ -474,6 +637,11 @@ export const list = [
       {
         id: 97, //选项内容
         value: "97", //选项值
+        isChecked: false, // 是否选中
+      },
+      {
+        id: 17, //选项内容
+        value: "17", //选项值
         isChecked: false, // 是否选中
       },
       {
@@ -515,11 +683,6 @@ export const list = [
       {
         id: 64, //选项内容
         value: "64", //选项值
-        isChecked: false, // 是否选中
-      },
-      {
-        id: 100, //选项内容
-        value: "100", //选项值
         isChecked: false, // 是否选中
       },
     ],

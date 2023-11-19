@@ -28,6 +28,7 @@ export let data = {
       currentData: {}, //当前问题
       list: [], //原始数据
       selectedData: [], // 当前已选中的数据，每次切换题，从原数据更具checked 重新获取
+      dragSelectedData: [],
       numberList: numberList,
     };
   },
@@ -121,13 +122,14 @@ export let data = {
     selectItemHandle(item) {
       item.isChecked = !item.isChecked;
       if (item.isChecked) {
-        this.selectedData.push(item);
+        this.dragSelectedData.push(item);
       } else {
         item.isChecked = false;
-        let _i = this.selectedData.findIndex((e) => e.id == item.id);
+        let _i = this.dragSelectedData.findIndex((e) => e.id == item.id);
         console.log("index", _i);
-        this.selectedData.splice(_i, 1);
+        this.dragSelectedData.splice(_i, 1);
       }
+      console.log("selectedDdragSelectedDataata", this.dragSelectedData);
     },
     /**
      * type 5 ,多张图片中，选出禁寄物品
@@ -185,19 +187,6 @@ export let data = {
       this.previewObj = _temp;
       this.selectImgHandle();
     },
-    // 1.预览大图
-    /*  previewImgHandle() {
-      if (this.selectedData.length == 4) return;
-      let _temp = this.currentData.images[this.circleIndex];
-      if (_temp.isChecked) {
-        // 判断是否已经选过
-        this.tipsTitle = "该物品已经选择过了！";
-        this.tipsModal = true;
-        return false;
-      }
-      this.previewObj = _temp;
-      this.previewModal = true;
-    }, */
     // 2.确认选中图片
     selectImgHandle() {
       this.previewModal = false;
@@ -264,29 +253,27 @@ export let data = {
     currentImgTypeView() {
       this.showSubImage = true;
       let _currentData = this.currentData.images[this.circleIndex];
-
-      if (this.selectedData.length > 4) return;
+      this.subImages = _currentData.subImages;
+    },
+    confirmSelect() {
+      let _currentData = this.currentData.images[this.circleIndex];
+      if (this.selectedData.length > 2) return;
       if (!_currentData.isChecked) {
         _currentData.isChecked = true;
         this.selectedData.push(_currentData);
       }
-      this.subImages = _currentData.subImages;
-      console.log("list", this.list);
-      console.log("currentData", this.currentData);
-      console.log("selectedData", this.currentData);
     },
     back() {
       this.showSubImage = false;
     },
     // 点击进入第几题
     nextItem(index) {
-      console.log(1111, this.list[this.currentIndex]);
       this.currentIndex = index;
       this.currentData = this.list[this.currentIndex];
       this.circleIndex = 0;
       this.showSubImage = false;
       this.repairData();
-      console.log("list", this.list);
+      // console.log("list", this.list);
     },
     repairData() {
       this.subIndex = 0;
@@ -315,40 +302,123 @@ export let data = {
      */
     // 提交
     submitHandle() {
-      if (this.currentIndex < this.list.length - 1) {
-        // 根据不同题type判断
-        const { type, images } = this.currentData;
-        let flag = false;
-        if (type == 5) {
-          let _temp = images.filter((item) => item.isChecked);
-          _temp.length < 4 ? (flag = true) : (flag = false);
-        } else if (type == 8) {
-          let _temp = images.filter((item) => item.isChecked);
-          _temp.length < 4 ? (flag = true) : (flag = false);
-        } else if (type == 7) {
-          let _temp = images.filter((item) => !item.selectValue);
-          _temp.length ? (flag = true) : (flag = false);
-        } else if (type == 3) {
-          let _tempInputText = this.currentData.inputText;
-          let _temp = _tempInputText.filter((item) => !item.value);
-          _temp.length ? (flag = true) : (flag = false);
-        } else if (type == 4) {
-          let _tempSelectList = this.currentData.selectList;
-          let _temp = _tempSelectList.every((item) => !item.isChecked);
-          _temp ? (flag = true) : (flag = false);
-        } else if (type == 1) {
-          let _tempVideos = this.currentData.videos;
-          let _temp = _tempVideos.every((item) => !item.isChecked);
-          _temp ? (flag = true) : (flag = false);
-        }
-        if (flag) {
-          return this.$message.warning("当前题未作答完，请作答？");
-        } else {
+      console.log("index", this.currentIndex, this.list.length);
+      let flag = this.checkItem();
+      let allDone = this.list.every((item) => item.isDone); // 是否全部已作答
+
+      if (!allDone) {
+        // 2.计算各题得分
+        this.list.forEach((item) => {
+          item.score = this.countScore(item);
+        });
+        console.log(1111, this.list);
+        let _score = 0; // 总分
+        this.list.forEach((item) => {
+          _score += item.score;
+        });
+        // TODO 提交接口
+      } else {
+        if (flag)
+          return this.$message.warning("还有题目未作答，请检查并作答？");
+        if (this.currentIndex < this.list.length - 1) {
           // 自动跳转下一题
           this.nextItem(this.currentIndex + 1);
         }
-      } else {
       }
+    },
+    // 计算每个题的得分
+    countScore(item) {
+      if (item.type == 5) {
+        // 20个物品中选择4个违禁品
+        // 1.选中的物品
+        let _selectItem = item.images.filter((item) => item.isChecked);
+        // 2.选中物品中不是违禁品数量
+        let _count = _selectItem.filter((item) => item.type == 1);
+        let _score = 25 - _count.length * 5; // 选错一个扣5分
+        return _score;
+      } else if (item.type == 8) {
+        // 1.选中的物品
+        let _selectItem = item.images.filter((item) => item.isChecked);
+        console.log("_selectItem", _selectItem);
+        // 2.选中物品中不是违禁品数量
+        let _count = _selectItem.filter((item) => item.type == 1);
+        console.log("_count", _count);
+        let _score = 25 - _count.length * 10; // 选错一个扣10分
+        return _score;
+      } else if (item.type == 7) {
+        let _selectItem = item.images.filter((item) => item.selectValue != "");
+        let _count = 0;
+        _selectItem.forEach((item) => {
+          if (item.cityName == item.selectValue) {
+            _count += 1;
+          } else {
+            _count -= 1;
+          }
+        });
+        return _count * 5;
+      } else if (item.type == 3) {
+        let _selectItem = item.inputText.filter((item) => item.value != "");
+        let _count = 0;
+        _selectItem.forEach((item) => {
+          if (item.value == item.realValue) {
+            _count += 1;
+          } else {
+            _count -= 1;
+          }
+        });
+        return _count * 5;
+      } else if (item.type == 4) {
+        // 路线排序
+        let _selectItem = this.dragSelectedData.filter(
+          (item) => item.isChecked
+        );
+        let _standItem = item.images[0].values;
+        let _score = 20;
+        _standItem.forEach((item, index) => {
+          if (!_selectItem[index] || _selectItem[index].value != item) {
+            _score -= 2;
+          }
+        });
+        return _score;
+      } else if (item.type == 1) {
+        // 视频 10分
+        let _selectItem = item.videos.filter((item) => item.isChecked);
+        let _current = _selectItem[0];
+        if (_current.isTrue) {
+          return 10;
+        } else {
+          return 0;
+        }
+      }
+    },
+    // 检查当前题是否已作答
+    checkItem() {
+      // 根据不同题type判断
+      const { type, images } = this.currentData;
+      let flag = false;
+      if (type == 5) {
+        let _temp = images.filter((item) => item.isChecked);
+        _temp.length < 4 ? (flag = true) : (flag = false);
+      } else if (type == 8) {
+        let _temp = images.filter((item) => item.isChecked);
+        _temp.length < 4 ? (flag = true) : (flag = false);
+      } else if (type == 7) {
+        let _temp = images.filter((item) => !item.selectValue);
+        _temp.length ? (flag = true) : (flag = false);
+      } else if (type == 3) {
+        let _tempInputText = this.currentData.inputText;
+        let _temp = _tempInputText.filter((item) => !item.value);
+        _temp.length ? (flag = true) : (flag = false);
+      } else if (type == 4) {
+        let _tempSelectList = this.currentData.selectList;
+        let _temp = _tempSelectList.every((item) => !item.isChecked);
+        _temp ? (flag = true) : (flag = false);
+      } else if (type == 1) {
+        let _tempVideos = this.currentData.videos;
+        let _temp = _tempVideos.every((item) => !item.isChecked);
+        _temp ? (flag = true) : (flag = false);
+      }
+      return flag;
     },
     // 重置
     resetHandle() {},
