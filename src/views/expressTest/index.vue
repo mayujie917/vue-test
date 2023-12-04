@@ -123,7 +123,7 @@
           </div>
         </div>
         <!-- 图片描述类型 按照上述区域合理设计路线 -->
-        <div class="qs-select-wrapper" v-if="currentData.type == 4">
+        <!-- <div class="qs-select-wrapper" v-if="currentData.type == 4">
           <div class="qs-img qs-other-img">
             <img :src="currentData.images[0].url" />
           </div>
@@ -138,6 +138,47 @@
                 :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">
                 {{ item.value }}
               </p>
+            </div>
+          </div>
+        </div> -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 6">
+          <div class="qs-img-box-wrapper">
+            <div class="qs-img-box">
+              <p class="arrow" @click="nextCircleImgSpecial"><i class="el-icon-arrow-left"></i></p>
+              <div class="qs-img-item qs-img-bg" @click="selectCircleImgHandle">
+                <img :src="currentData.images[circleIndex].url" />
+              </div>
+              <p class="arrow" @click="preCircleImgSpecial"><i class="el-icon-arrow-right"></i></p>
+            </div>
+            <div>
+              <p class="total">{{ currentData.images[circleIndex].desc }}</p>
+              <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
+            </div>
+          </div>
+          <div class="qs-select">
+            <div class="qs-select-area">
+              <div class="qs-select-area-item qs-select-area-item-img">
+                <div class="qs-select-bg">
+                  <div class="select-bg-item">
+                    <p>1</p>
+                    <p>禁寄物品</p>
+                  </div>
+                  <div class="select-bg-item">
+                    <p>2</p>
+                    <p>禁寄物品</p>
+                  </div>
+                  <div class="select-bg-item">
+                    <p>3</p>
+                    <p>禁寄物品</p>
+                  </div>
+                  <div class="select-bg-item">
+                    <p>4</p>
+                    <p>禁寄物品</p>
+                  </div>
+                </div>
+                <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
+                  @click="cancelSelectedHandle(item, index)">
+              </div>
             </div>
           </div>
         </div>
@@ -180,44 +221,6 @@
             </div>
           </div>
         </div>
-
-        <!-- 根据图片匹配属于那个行业类别 -->
-        <!-- <div class="qs-select-wrapper" v-if="currentData.type == 2">
-          <div class="qs-img">
-            <el-carousel :autoplay="false" type="card" arrow="always" indicator-position="outside" height="200px"
-              @change="carouselChange">
-              <el-carousel-item v-for="(item, index) in currentData.images" :key="index">
-                <img :src="item.url" />
-              </el-carousel-item>
-            </el-carousel>
-          </div>
-          <div class="qs-select">
-            <div class="qs-select-list list-item-btns">
-              <el-button class="list-item-btn" v-for="(item, index) in currentData.imagesText" :key="index"
-                :type="item.isChecked ? 'primary' : 'default'" round size="medium"
-                @click="selectTradeHandle(item, index)">
-                {{ item.text }}
-              </el-button>
-            </div>
-          </div>
-        </div> -->
-
-        <!-- 剔除超出配送范围的，对其它配送的排序 -->
-        <!-- <div class="qs-select-wrapper" v-if="currentData.type == 6">
-          <div class="qs-serial-box">
-            <div class="qs-serial-list" :class="item.isChecked ? 'qs-serial-list-active' : ''"
-              v-for="(item, index) in currentData.rowList" @click="serialClickHandle(item, index)">
-              <p>{{ item.text }}{{ item.serialNumber }}号</p>
-            </div>
-          </div>
-          <div class="qs-select">
-            <div class="qs-select-area">
-              <div class="qs-select-area-item">
-                <p class="select-area-item" v-for="(item, index) in selectedData">{{ item.serialNumber }}号</p>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
       <div class="qs-options">
         <div class="options-btn">
@@ -230,16 +233,6 @@
             第{{ numberList[index] }}题</el-button>
         </div>
       </div>
-      <!-- 大图预览 -->
-      <!-- <div class="preview" v-show="previewModal">
-        <div class="preview-img">
-          <img :src="previewObj.url" alt="">
-        </div>
-        <div class="pre-btn">
-          <el-button type="" size="small" @click="cancelPrevView">取消</el-button>
-          <el-button type="primary" size="small" @click="selectImgHandle">确定</el-button>
-        </div>
-      </div> -->
     </div>
 
     <!-- 提示 -->

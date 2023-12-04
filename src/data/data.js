@@ -272,4 +272,34 @@ export const rowErrorData = [
     isChecked: false,
     desc: "RMB",
   },
+  {
+    url: "http://123.57.230.57:6011/assets/imgs/error/桃子.png",
+    type: 2,
+    isChecked: false,
+    desc: "桃子",
+  },
+  {
+    url: "http://123.57.230.57:6011/assets/imgs/error/电脑.png",
+    type: 2,
+    isChecked: false,
+    desc: "电脑",
+  },
+  {
+    url: "http://123.57.230.57:6011/assets/imgs/error/荔枝.png",
+    type: 2,
+    isChecked: false,
+    desc: "荔枝",
+  },
+  {
+    url: "http://123.57.230.57:6011/assets/imgs/error/纸箱.png",
+    type: 2,
+    isChecked: false,
+    desc: "纸箱",
+  },
+  {
+    url: "http://123.57.230.57:6011/assets/imgs/error/钻戒.png",
+    type: 2,
+    isChecked: false,
+    desc: "钻戒",
+  },
 ];
