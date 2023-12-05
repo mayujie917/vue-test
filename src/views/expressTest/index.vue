@@ -145,7 +145,7 @@
           <div class="qs-img-box-wrapper">
             <div class="qs-img-box">
               <p class="arrow" @click="nextCircleImgSpecial"><i class="el-icon-arrow-left"></i></p>
-              <div class="qs-img-item qs-img-bg" @click="selectCircleImgHandle">
+              <div class="qs-img-item qs-img-bg" @click="selectCircleImgTypeSixHandle">
                 <img :src="currentData.images[circleIndex].url" />
               </div>
               <p class="arrow" @click="preCircleImgSpecial"><i class="el-icon-arrow-right"></i></p>
@@ -157,8 +157,8 @@
           </div>
           <div class="qs-select">
             <div class="qs-select-area">
-              <div class="qs-select-area-item qs-select-area-item-img">
-                <div class="qs-select-bg">
+              <div class="qs-select-area-item qs-select-area-item-img qs-select-area-item-other-img">
+                <div class="qs-select-bg  qs-select-other-bg">
                   <div class="select-bg-item">
                     <p>1</p>
                     <p>禁寄物品</p>
@@ -167,14 +167,14 @@
                     <p>2</p>
                     <p>禁寄物品</p>
                   </div>
-                  <div class="select-bg-item">
+                  <!-- <div class="select-bg-item">
                     <p>3</p>
                     <p>禁寄物品</p>
                   </div>
                   <div class="select-bg-item">
                     <p>4</p>
                     <p>禁寄物品</p>
-                  </div>
+                  </div> -->
                 </div>
                 <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
                   @click="cancelSelectedHandle(item, index)">

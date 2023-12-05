@@ -187,6 +187,19 @@ export let data = {
       this.previewObj = _temp;
       this.selectImgHandle();
     },
+    // type 6
+    selectCircleImgTypeSixHandle() {
+      if (this.selectedData.length == 2) return;
+      let _temp = this.currentData.images[this.circleIndex];
+      if (_temp.isChecked) {
+        // 判断是否已经选过
+        this.tipsTitle = "该物品已经选择过了！";
+        this.tipsModal = true;
+        return false;
+      }
+      this.previewObj = _temp;
+      this.selectImgHandle();
+    },
     // 2.确认选中图片
     selectImgHandle() {
       this.previewModal = false;
