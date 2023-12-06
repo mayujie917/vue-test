@@ -195,7 +195,7 @@
         <!-- 客户投诉 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 9">
           <div class="complaint-box">
-            <img class="complaint-box-bg" src="http://123.57.230.57:6011/assets/imgs/other/question.png" alt="">
+            <img class="complaint-box-bg" src="../../../public/assets/imgs/other/question.png" alt="">
           </div>
           <!-- <div class="complaint-box">
             <div class="answer-box">
