@@ -5,6 +5,37 @@
         <div class="qs-desc">
           <p class="desc-text">{{ currentData.question }}</p>
         </div>
+        <!-- 视频 ，四个视频，选择正确的 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 1">
+          <div class="qs-video-box">
+            <div class="video-item" v-for="(item, index) in currentData.videos" :key="index">
+              <video :src="item.url" controls></video>
+              <el-checkbox v-model="item.isChecked" size="medium" @change="radioChange(item, index)"></el-checkbox>
+            </div>
+          </div>
+        </div>
+
+        <!-- 根据资费，填写费用 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 3">
+          <div class="qs-img qs-cost">
+            <img :src="currentData.images[0].url" />
+          </div>
+          <div class="qs-select">
+            <div class="qs-select-input-box">
+              <p class="arrow" @click="nextCircle"><i class="el-icon-arrow-up"></i></p>
+              <div class="qs-select-input">
+                <p class="qs-text">
+                  {{ currentData.inputText[circleIndex].text }}
+                  <input class="qs-input" v-model="currentData.inputText[circleIndex].value" type="number"
+                    pattern="[0-9]*" :maxlength="3" @change="changeHandle()" />
+                  <span>元。</span>
+                </p>
+              </div>
+              <p class="arrow" @click="preCircle"><i class="el-icon-arrow-down"></i></p>
+            </div>
+            <p class='subTotal'>{{ circleIndex + 1 }}/{{ currentData.inputText.length }}</p>
+          </div>
+        </div>
         <!-- 多张图片，选出某几禁寄送的 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 5">
           <div class="qs-img-box-wrapper">
@@ -47,7 +78,67 @@
             </div>
           </div>
         </div>
-
+        <div class="qs-select-wrapper" v-if="currentData.type == 6">
+          <div class="qs-img-box-wrapper">
+            <div class="qs-img-box">
+              <p class="arrow" @click="nextCircleImgSpecial"><i class="el-icon-arrow-left"></i></p>
+              <div class="qs-img-item qs-img-bg" @click="selectCircleImgTypeSixHandle">
+                <img :src="currentData.images[circleIndex].url" />
+              </div>
+              <p class="arrow" @click="preCircleImgSpecial"><i class="el-icon-arrow-right"></i></p>
+            </div>
+            <div>
+              <p class="total">{{ currentData.images[circleIndex].desc }}</p>
+              <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
+            </div>
+          </div>
+          <div class="qs-select">
+            <div class="qs-select-area">
+              <div class="qs-select-area-item qs-select-area-item-img qs-select-area-item-other-img">
+                <div class="qs-select-bg  qs-select-other-bg">
+                  <div class="select-bg-item">
+                    <p>1</p>
+                    <p>禁寄物品</p>
+                  </div>
+                  <div class="select-bg-item">
+                    <p>2</p>
+                    <p>禁寄物品</p>
+                  </div>
+                </div>
+                <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
+                  @click="cancelSelectedHandle(item, index)">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 根据图片，选择对应省份 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 7">
+          <div class="qs-img-box-wrapper qs-img-box-charge">
+            <div class="qs-img-box-charge-city">
+              <div class="qs-img-box">
+                <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
+                <div class="qs-img-item qs-img-city">
+                  <img :src="currentData.images[circleIndex].url" />
+                  <span class="city-name"
+                    :class="currentData.images[circleIndex].selectValue == '' ? 'city-name-fade' : ''">
+                    {{ currentData.images[circleIndex].selectValue }}
+                  </span>
+                </div>
+                <p class="arrow" @click="preCircleImg"><i class="el-icon-arrow-right"></i></p>
+              </div>
+              <div>
+                <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
+              </div>
+            </div>
+            <div class="city-select">
+              <el-select v-model="cityValue" placeholder="请选择省份" @change="cityChange">
+                <el-option v-for="item in currentData.citys" :key="item.cityValue" :label="item.cityName"
+                  :value="item.cityValue">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+        </div>
         <!-- 对寄送物品查验，选出禁寄物品 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 8">
           <div class="qs-img-box-wrapper">
@@ -101,27 +192,38 @@
             </div>
           </div>
         </div>
-        <!-- 根据资费，填写费用 -->
-        <div class="qs-select-wrapper" v-if="currentData.type == 3">
-          <div class="qs-img qs-cost">
-            <img :src="currentData.images[0].url" />
+        <!-- 客户投诉 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 9">
+          <div class="complaint-box">
+            <img class="complaint-box-bg" src="http://123.57.230.57:6011/assets/imgs/other/question.png" alt="">
           </div>
-          <div class="qs-select">
-            <div class="qs-select-input-box">
-              <p class="arrow" @click="nextCircle"><i class="el-icon-arrow-up"></i></p>
-              <div class="qs-select-input">
-                <p class="qs-text">
-                  {{ currentData.inputText[circleIndex].text }}
-                  <input class="qs-input" v-model="currentData.inputText[circleIndex].value" type="number"
-                    pattern="[0-9]*" :maxlength="3" @change="changeHandle()" />
-                  <span>元。</span>
-                </p>
+          <!-- <div class="complaint-box">
+            <div class="answer-box">
+              <div class="answer-box-left">
+                <img src="http://123.57.230.57:6011/assets/imgs/other/快递员.png" alt="">
               </div>
-              <p class="arrow" @click="preCircle"><i class="el-icon-arrow-down"></i></p>
+              <div class="answer-box-right">
+                <div class="question-list">
+                  <p class="list-item">1.</p>
+                  <p class="list-item">2.</p>
+                  <p class="list-item">3.</p>
+                </div>
+              </div>
             </div>
-            <p class='subTotal'>{{ circleIndex + 1 }}/{{ currentData.inputText.length }}</p>
-          </div>
+            <div class="question-box">
+              <div class="question-box-left">
+                <div class="question-text">
+                  <p>我没收到快递，</p>
+                  <p>为什么显示已签收?</p>
+                </div>
+              </div>
+              <div class="question-box-right">
+                <img src="http://123.57.230.57:6011/assets/imgs/other/省钱.png" alt="">
+              </div>
+            </div>
+          </div> -->
         </div>
+
         <!-- 图片描述类型 按照上述区域合理设计路线 -->
         <!-- <div class="qs-select-wrapper" v-if="currentData.type == 4">
           <div class="qs-img qs-other-img">
@@ -141,86 +243,6 @@
             </div>
           </div>
         </div> -->
-        <div class="qs-select-wrapper" v-if="currentData.type == 6">
-          <div class="qs-img-box-wrapper">
-            <div class="qs-img-box">
-              <p class="arrow" @click="nextCircleImgSpecial"><i class="el-icon-arrow-left"></i></p>
-              <div class="qs-img-item qs-img-bg" @click="selectCircleImgTypeSixHandle">
-                <img :src="currentData.images[circleIndex].url" />
-              </div>
-              <p class="arrow" @click="preCircleImgSpecial"><i class="el-icon-arrow-right"></i></p>
-            </div>
-            <div>
-              <p class="total">{{ currentData.images[circleIndex].desc }}</p>
-              <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
-            </div>
-          </div>
-          <div class="qs-select">
-            <div class="qs-select-area">
-              <div class="qs-select-area-item qs-select-area-item-img qs-select-area-item-other-img">
-                <div class="qs-select-bg  qs-select-other-bg">
-                  <div class="select-bg-item">
-                    <p>1</p>
-                    <p>禁寄物品</p>
-                  </div>
-                  <div class="select-bg-item">
-                    <p>2</p>
-                    <p>禁寄物品</p>
-                  </div>
-                  <!-- <div class="select-bg-item">
-                    <p>3</p>
-                    <p>禁寄物品</p>
-                  </div>
-                  <div class="select-bg-item">
-                    <p>4</p>
-                    <p>禁寄物品</p>
-                  </div> -->
-                </div>
-                <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
-                  @click="cancelSelectedHandle(item, index)">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 根据图片，选择对应省份 -->
-        <div class="qs-select-wrapper" v-if="currentData.type == 7">
-          <div class="qs-img-box-wrapper qs-img-box-charge">
-            <div class="qs-img-box-charge-city">
-              <div class="qs-img-box">
-                <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
-                <div class="qs-img-item qs-img-city">
-                  <img :src="currentData.images[circleIndex].url" />
-                  <span class="city-name"
-                    :class="currentData.images[circleIndex].selectValue == '' ? 'city-name-fade' : ''">
-                    {{ currentData.images[circleIndex].selectValue }}
-                  </span>
-                </div>
-                <p class="arrow" @click="preCircleImg"><i class="el-icon-arrow-right"></i></p>
-              </div>
-              <div>
-                <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
-              </div>
-            </div>
-            <div class="city-select">
-              <el-select v-model="cityValue" placeholder="请选择省份" @change="cityChange">
-                <el-option v-for="item in currentData.citys" :key="item.cityValue" :label="item.cityName"
-                  :value="item.cityValue">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-        </div>
-
-        <!-- 视频 ，四个视频，选择正确的 -->
-        <div class="qs-select-wrapper" v-if="currentData.type == 1">
-          <div class="qs-video-box">
-            <div class="video-item" v-for="(item, index) in currentData.videos" :key="index">
-              <video :src="item.url" controls></video>
-              <el-checkbox v-model="item.isChecked" size="medium" @change="radioChange(item, index)"></el-checkbox>
-            </div>
-          </div>
-        </div>
       </div>
       <div class="qs-options">
         <div class="options-btn">

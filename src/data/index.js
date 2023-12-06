@@ -138,82 +138,6 @@ function getRandomData(t, total) {
 
 export const list = [
   {
-    // 4个视频，根据题目选择正确视频
-    type: 1, // 答题类型 视频
-    question: "6、投递员接收客户名片有偏字时，选择正确的场景.(本题总计10分)",
-    videos: [
-      {
-        url: "http://123.57.230.57:6011/assets/videos/1_dui.mp4",
-        isChecked: false, //是否选中
-        isTrue: true, // 标记是否是正确答案 true 正确，false 错误
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/videos/2_cuo.mp4",
-        isChecked: false,
-        isTrue: false,
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/videos/3_cuo.mp4",
-        isChecked: false,
-        isTrue: false,
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/videos/4_cuo.mp4",
-        isChecked: false,
-        isTrue: false,
-      },
-    ],
-    isCurrent: false,
-    isDone: false,
-    score: 0,
-  },
-  {
-    // 根据图片显示快递费用， 输入对应的费用
-    type: 3, // 输入费用
-    question:
-      "4、根据所给的“国内快递基础资费表”，在横线处填写资费。（总分25分）",
-    images: [
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/jisuan/1-1.jpg",
-        // values: [3, 5, 42, 8, 7], //对应的费用实际费用
-      },
-    ],
-    // 条目
-    inputText: [
-      {
-        text: "1.江苏宿迁收寄1件到苏州的国内快递，重量350克，计算资费(共)",
-        value: "", //输入的费用
-        realValue: 3, //实际费用   value、realValue比较计算费用
-      },
-      {
-        text: "2.江苏宿迁收寄1件到南京的国内快递，重量1 公斤，计算资费(共)",
-        value: "",
-        realValue: 5,
-      },
-      {
-        text: "3.江苏宿迁收寄1件到海南的国内快递，重量3公斤，计算资费(共)",
-        value: "",
-        realValue: 42,
-      },
-      {
-        text: "4.江苏宿迁收寄1件到湖南的国内快递，重量1 公斤，计算资费(共)",
-        value: "",
-        realValue: 8,
-      },
-      {
-        text: "5.江苏宿迁收寄3件到吉林的国内快递，重量500克，计算资费(共)",
-        value: "",
-        realValue: 7,
-      },
-    ],
-    total: 0, // 资费总额
-    imagesText: [],
-    isCurrent: false,
-    isDone: false,
-    score: 0,
-    totalScore: 25,
-  },
-  {
     // 1多张图片中，选出禁寄物品
     type: 5,
     question:
@@ -343,6 +267,62 @@ export const list = [
     score: 0, //得分
     totalScore: 25, //当前题分值
   },
+  {
+    type: 8,
+    question: "2、根据所给的寄递物品图片，点击物品进行查验。（总分25分）",
+    images: getSerialDataBy(8, 5, 4, 5),
+    isCurrent: false,
+    isDone: false,
+    score: 0,
+    totalScore: 25,
+  },
+  {
+    // 根据图片显示快递费用， 输入对应的费用
+    type: 3, // 输入费用
+    question:
+      "4、根据所给的“国内快递基础资费表”，在横线处填写资费。（总分25分）",
+    images: [
+      {
+        url: "http://123.57.230.57:6011/assets/imgs/jisuan/1-1.jpg",
+        // values: [3, 5, 42, 8, 7], //对应的费用实际费用
+      },
+    ],
+    // 条目
+    inputText: [
+      {
+        text: "1.江苏宿迁收寄1件到苏州的国内快递，重量350克，计算资费(共)",
+        value: "", //输入的费用
+        realValue: 3, //实际费用   value、realValue比较计算费用
+      },
+      {
+        text: "2.江苏宿迁收寄1件到南京的国内快递，重量1 公斤，计算资费(共)",
+        value: "",
+        realValue: 5,
+      },
+      {
+        text: "3.江苏宿迁收寄1件到海南的国内快递，重量3公斤，计算资费(共)",
+        value: "",
+        realValue: 42,
+      },
+      {
+        text: "4.江苏宿迁收寄1件到湖南的国内快递，重量1 公斤，计算资费(共)",
+        value: "",
+        realValue: 8,
+      },
+      {
+        text: "5.江苏宿迁收寄3件到吉林的国内快递，重量500克，计算资费(共)",
+        value: "",
+        realValue: 7,
+      },
+    ],
+    total: 0, // 资费总额
+    imagesText: [],
+    isCurrent: false,
+    isDone: false,
+    score: 0,
+    totalScore: 25,
+  },
+
   {
     type: 6,
     question:
@@ -481,24 +461,24 @@ export const list = [
     ],
     citys: [
       { cityValue: "1", cityName: "北京市" },
-      { cityValue: "3", cityName: "上海市" },
       { cityValue: "17", cityName: "湖北省" },
       { cityValue: "2", cityName: "天津市" },
       { cityValue: "5", cityName: "河北省" },
+      { cityValue: "3", cityName: "上海市" },
       { cityValue: "6", cityName: "山西省" },
-      { cityValue: "15", cityName: "山东省" },
+      { cityValue: "14", cityName: "江西省" },
+      { cityValue: "13", cityName: "福建省" },
       { cityValue: "4", cityName: "重庆市" },
       { cityValue: "16", cityName: "河南省" },
-      { cityValue: "13", cityName: "福建省" },
-      { cityValue: "10", cityName: "江苏省" },
       { cityValue: "11", cityName: "浙江省" },
+      { cityValue: "15", cityName: "山东省" },
       { cityValue: "7", cityName: "辽宁省" },
       { cityValue: "9", cityName: "黑龙江省" },
-      { cityValue: "12", cityName: "安徽省" },
-      { cityValue: "14", cityName: "江西省" },
-      { cityValue: "23", cityName: "云南省" },
+      { cityValue: "10", cityName: "江苏省" },
       { cityValue: "22", cityName: "贵州省" },
+      { cityValue: "12", cityName: "安徽省" },
       { cityValue: "20", cityName: "海南省" },
+      { cityValue: "23", cityName: "云南省" },
       { cityValue: "21", cityName: "四川省" },
     ],
     isCurrent: false,
@@ -507,13 +487,44 @@ export const list = [
     totalScore: 25,
   },
   {
-    type: 8,
-    question: "2、根据所给的寄递物品图片，点击物品进行查验。（总分25分）",
-    images: getSerialDataBy(8, 5, 4, 5),
+    // 4个视频，根据题目选择正确视频
+    type: 1, // 答题类型 视频
+    question: "6、投递员接收客户名片有偏字时，选择正确的场景.(本题总计10分)",
+    videos: [
+      {
+        url: "http://123.57.230.57:6011/assets/videos/1_dui.mp4",
+        isChecked: false, //是否选中
+        isTrue: true, // 标记是否是正确答案 true 正确，false 错误
+      },
+      {
+        url: "http://123.57.230.57:6011/assets/videos/2_cuo.mp4",
+        isChecked: false,
+        isTrue: false,
+      },
+      {
+        url: "http://123.57.230.57:6011/assets/videos/3_cuo.mp4",
+        isChecked: false,
+        isTrue: false,
+      },
+      {
+        url: "http://123.57.230.57:6011/assets/videos/4_cuo.mp4",
+        isChecked: false,
+        isTrue: false,
+      },
+    ],
     isCurrent: false,
     isDone: false,
     score: 0,
-    totalScore: 25,
+  },
+  {
+    type: 9,
+    question:
+      "5.当客户投诉 (快递签收未收到) 时，选出正确的投诉处理流程。 (总分: 10分)",
+
+    isCurrent: false,
+    isDone: false,
+    score: 0,
+    totalScore: 10,
   },
 
   // {
