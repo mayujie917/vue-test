@@ -8,6 +8,9 @@ export const numberList = {
   4: "五",
   5: "六",
   6: "七",
+  7: "八",
+  8: "九",
+  9: "十",
 };
 let normalList = [];
 /**
@@ -527,78 +530,41 @@ export const list = [
     totalScore: 10,
   },
 
-  // {
-  //   //  根据图片内容展示，依次排序配送顺序 路线
-  //   type: 4,
-  //   question:
-  //     "5、某市东环路100cm号为投递站点，投递人员按照上述区域合理设计路线，保障邮件优先级别，同时在不违反交通规则的前提下，投递线路为最优。（投递出班时间为每日8:30，每投递一个邮件需要7分钟)",
-  //   images: [
-  //     {
-  //       url: "http://123.57.230.57:6011/assets/imgs/map/1.jpg",
-  //       // url: "/assets/imgs/map/1.jpg",
-  //       values: [97, 77, 89, 13, 23, 34, 17, 53, 71, 64, 100], //正确配送路线
-  //     },
-  //   ],
-  //   selectList: [
-  //     {
-  //       id: 17, //选项内容 对应实际正确的路线值
-  //       value: "17", //选项值
-  //       isChecked: false, // 是否选中
-  //     },
-  //     {
-  //       id: 97, //选项内容
-  //       value: "97", //选项值
-  //       isChecked: false, // 是否选中
-  //     },
-  //     {
-  //       id: 23, //选项内容
-  //       value: "23", //选项值
-  //       isChecked: false, // 是否选中
-  //     },
-  //     {
-  //       id: 34, //选项内容
-  //       value: "34", //选项值
-  //       isChecked: false, // 是否选中
-  //     },
-  //     {
-  //       id: 13, //选项内容
-  //       value: "13", //选项值
-  //       isChecked: false, // 是否选中
-  //     },
-  //     {
-  //       id: 89, //选项内容
-  //       value: "89", //选项值
-  //       isChecked: false, // 是否选中
-  //     },
-
-  //     {
-  //       id: 77, //选项内容
-  //       value: "77", //选项值
-  //       isChecked: false, // 是否选中
-  //     },
-  //     {
-  //       id: 53, //选项内容
-  //       value: "53", //选项值
-  //       isChecked: false, // 是否选中
-  //     },
-  //     {
-  //       id: 71, //选项内容
-  //       value: "71", //选项值
-  //       isChecked: false, // 是否选中
-  //     },
-  //     {
-  //       id: 64, //选项内容
-  //       value: "64", //选项值
-  //       isChecked: false, // 是否选中
-  //     },
-  //     {
-  //       id: 100, //选项内容
-  //       value: "100", //选项值
-  //       isChecked: false, // 是否选中
-  //     },
-  //   ],
-  //   answers: [],
-  //   isCurrent: false,
-  //   isDone: false,
-  // },
+  {
+    //  根据图片内容展示，依次排序配送顺序 路线
+    type: 4,
+    question:
+      "5、某市东环路100cm号为投递站点，投递人员按照上述区域合理设计路线，保障邮件优先级别，同时在不违反交通规则的前提下，投递线路为最优。（投递出班时间为每日8:30，每投递一个邮件需要7分钟)",
+    images: [
+      {
+        url: "http://123.57.230.57:6011/assets/imgs/map/1.jpg",
+        // url: "/assets/imgs/map/1.jpg",
+        // values: [97, 77, 89, 13, 23, 34, 17, 53, 71, 64, 100], //正确配送路线
+      },
+    ],
+    selectValue:'',
+    selectList: [
+      {
+        id: 1,
+        value: "17-29-16-45-78-45-78-45-47",
+        isChecked: false,
+        isRealValue: true,
+      },
+      {
+        id: 2,
+        value: "17-29-16-45-78-45-78-45-47",
+        isChecked: false,
+        isRealValue: false,
+      },
+      {
+        id: 3,
+        value: "17-29-16-45-78-45-78-45-47",
+        isChecked: false,
+        isRealValue: false,
+      },
+    ],
+    answers: [],
+    isCurrent: false,
+    isDone: false,
+  },
 ];

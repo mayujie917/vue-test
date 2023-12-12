@@ -225,24 +225,26 @@
         </div>
 
         <!-- 图片描述类型 按照上述区域合理设计路线 -->
-        <!-- <div class="qs-select-wrapper" v-if="currentData.type == 4">
+        <div class="qs-select-wrapper" v-if="currentData.type == 4">
           <div class="qs-img qs-other-img">
             <img :src="currentData.images[0].url" />
           </div>
           <div class="qs-select">
-            <div class="qs-select-area">
+            <!-- <div class="qs-select-area">
               <draggable class="qs-select-area-item qs-select-drag" v-model="dragSelectedData">
                 <p class="select-area-item" v-for="(item, index) in dragSelectedData" :key="index">{{ item.value }}</p>
               </draggable>
-            </div>
+            </div> -->
             <div class="qs-select-list">
-              <p class="list-item" v-for="(item, index) in currentData.selectList"
-                :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">
-                {{ item.value }}
-              </p>
+              <el-radio-group v-model="currentData.selectValue">
+                <p class="list-item" v-for="(item, index) in currentData.selectList"
+                  :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">
+                  <el-radio :label="item.id">{{ item.value }}</el-radio>
+                </p>
+              </el-radio-group>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
       <div class="qs-options">
         <div class="options-btn">
