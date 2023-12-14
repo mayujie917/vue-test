@@ -144,7 +144,7 @@ export const list = [
     // 1多张图片中，选出禁寄物品
     type: 5,
     question:
-      "1、根据所给的寄递物品图片，点击禁寄物品图片放入制定区域。（总分25分）",
+      "1、根据所给的寄递物品图片，<span style='color: #f00;font-weight: 700;'>点击</span>禁寄物品图片放入制定区域。（总分25分）",
     images: getSerialDataBy(5, 16, 4, 20),
     /*  images: [
       {
@@ -272,7 +272,8 @@ export const list = [
   },
   {
     type: 8,
-    question: "2、根据所给的寄递物品图片，点击物品进行查验。（总分25分）",
+    question:
+      "2、根据所给的寄递物品图片，<span style='color: #f00;font-weight: 700;'>点击</span>物品进行查验。（总分25分）",
     images: getSerialDataBy(8, 5, 4, 5),
     isCurrent: false,
     isDone: false,
@@ -329,7 +330,7 @@ export const list = [
   {
     type: 6,
     question:
-      "4.根据显示的快递物品，进行智能快递箱派送预处理，点击不能投递的物品图片放入下方.(总分: 20分，做题超过5分钟不得分)",
+      "4.根据显示的快递物品，进行智能快递箱派送预处理，<span style='color: #f00;font-weight: 700;'>点击</span>不能投递的物品图片放入下方.(总分: 20分，做题超过5分钟不得分)",
     images: getSerialDataBy(6, 8, 2, 10),
     isCurrent: false,
     isDone: false,
@@ -542,23 +543,23 @@ export const list = [
         // values: [97, 77, 89, 13, 23, 34, 17, 53, 71, 64, 100], //正确配送路线
       },
     ],
-    selectValue:'',
+    selectValue: "",
     selectList: [
       {
         id: 1,
-        value: "17-29-16-45-78-45-78-45-47",
+        value: "100-89-13-23-97-71-64-17-53-77-100",
         isChecked: false,
         isRealValue: true,
       },
       {
         id: 2,
-        value: "17-29-16-45-78-45-78-45-47",
+        value: "100-13-23-97-34-53-71-64-17-88-77-100",
         isChecked: false,
         isRealValue: false,
       },
       {
         id: 3,
-        value: "17-29-16-45-78-45-78-45-47",
+        value: "100-77-89-17-23-97-53-71-64-34-84-100",
         isChecked: false,
         isRealValue: false,
       },

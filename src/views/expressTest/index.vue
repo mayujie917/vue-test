@@ -3,7 +3,7 @@
     <div class="qs-wrapper">
       <div class="qs-content">
         <div class="qs-desc">
-          <p class="desc-text">{{ currentData.question }}</p>
+          <p class="desc-text" v-html="currentData.question"></p>
         </div>
         <!-- 视频 ，四个视频，选择正确的 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 1">
@@ -194,10 +194,10 @@
         </div>
         <!-- 客户投诉 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 9">
-          <div class="complaint-box">
-            <img class="complaint-box-bg" src="../../../public/assets/imgs/other/question.png" alt="">
-          </div>
           <!-- <div class="complaint-box">
+            <img class="complaint-box-bg" src="../../../public/assets/imgs/other/question.png" alt="">
+          </div> -->
+          <div class="complaint-box">
             <div class="answer-box">
               <div class="answer-box-left">
                 <img src="http://123.57.230.57:6011/assets/imgs/other/快递员.png" alt="">
@@ -221,7 +221,7 @@
                 <img src="http://123.57.230.57:6011/assets/imgs/other/省钱.png" alt="">
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
 
         <!-- 图片描述类型 按照上述区域合理设计路线 -->
@@ -230,19 +230,25 @@
             <img :src="currentData.images[0].url" />
           </div>
           <div class="qs-select">
-            <!-- <div class="qs-select-area">
-              <draggable class="qs-select-area-item qs-select-drag" v-model="dragSelectedData">
+            <div class="qs-select-area qs-select-radio">
+              <!-- <draggable class="qs-select-area-item qs-select-drag" v-model="dragSelectedData">
                 <p class="select-area-item" v-for="(item, index) in dragSelectedData" :key="index">{{ item.value }}</p>
-              </draggable>
-            </div> -->
-            <div class="qs-select-list">
+              </draggable> -->
               <el-radio-group v-model="currentData.selectValue">
                 <p class="list-item" v-for="(item, index) in currentData.selectList"
                   :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">
-                  <el-radio :label="item.id">{{ item.value }}</el-radio>
+                  <el-radio :label="item.id"> {{ index + 1 }}、{{ item.value }}</el-radio>
                 </p>
               </el-radio-group>
             </div>
+            <!-- <div class="qs-select-list">
+              <el-radio-group v-model="currentData.selectValue">
+                <p class="list-item" v-for="(item, index) in currentData.selectList"
+                  :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">
+                  <el-radio :label="item.id"> {{ index + 1 }}、{{ item.value }}</el-radio>
+                </p>
+              </el-radio-group>
+            </div> -->
           </div>
         </div>
       </div>
