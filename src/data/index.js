@@ -81,11 +81,11 @@ export function getSerialDataBy(type, t, f, total) {
 
     normalList = [];
     let _normalData = [];
-    /*     let _normalArr = getRandomData(t, maxAllData.length);
+    let _normalArr = getRandomData(t, maxAllData.length);
     _normalArr.forEach((item) => {
       _normalData.push(allData[item]);
-    }); */
-    _normalData = [
+    });
+    /*  _normalData = [
       {
         url: "http://123.57.230.57:6011/assets/imgs/normal/毛绒玩具.png",
         type: 1,
@@ -116,7 +116,7 @@ export function getSerialDataBy(type, t, f, total) {
         isChecked: false,
         desc: "裤子",
       },
-    ];
+    ]; */
 
     _normalData.forEach((item) => {
       normalList = [];
@@ -144,147 +144,30 @@ export const list = [
     // 1多张图片中，选出禁寄物品
     type: 5,
     question:
-      "1、根据所给的寄递物品图片，<span style='color: #f00;font-weight: 700;'>点击</span>禁寄物品图片放入制定区域。（总分25分）",
+      "1、根据所给的寄递物品图片，<span style='color: #f00;font-weight: 700;'>点击</span>禁寄物品图片放入制定区域。",
     images: getSerialDataBy(5, 16, 4, 20),
-    /*  images: [
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_1.png",
-        type: 1, //可寄送物品
-        isChecked: false, // 是否已经选中
-        desc: "玻璃杯",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_2.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "纸巾",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_3.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "书本",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_4.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "户口本",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_5.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "裤子",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_7.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "玩具",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_8.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "食品",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_9.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "球拍",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_10.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "圆珠笔",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_12.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "手册",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_14.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "牙签",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_15.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "牙刷",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_16.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "T恤",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_17.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "晾衣架",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/n_18.png",
-        type: 1, //可寄送物品
-        isChecked: false,
-        desc: "雨伞",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/b_17.png",
-        type: 2, //禁寄送物品
-        isChecked: false,
-        desc: "存储卡",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/b_18.png",
-        type: 2, //禁寄送物品
-        isChecked: false,
-        desc: "油漆",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/b_23.png",
-        type: 2, //禁寄送物品
-        isChecked: false,
-        desc: "象牙",
-      },
-      {
-        url: "http://123.57.230.57:6011/assets/imgs/2/b_25.png",
-        type: 2, //禁寄送物品
-        isChecked: false,
-        desc: "樟脑油",
-      },
-    ], */
     correct_answer: "",
     incorrect_answers: [""],
     selectList: [],
     isCurrent: false,
     isDone: false, // 当前题是否已作答
     score: 0, //得分
-    totalScore: 25, //当前题分值
+    totalScore: 20, //当前题分值
   },
   {
     type: 8,
     question:
-      "2、根据所给的寄递物品图片，<span style='color: #f00;font-weight: 700;'>点击</span>物品进行查验。（总分25分）",
+      "2、根据所给的寄递物品图片，<span style='color: #f00;font-weight: 700;'>点击</span>物品进行查验。",
     images: getSerialDataBy(8, 5, 4, 5),
     isCurrent: false,
     isDone: false,
     score: 0,
-    totalScore: 25,
+    totalScore: 20,
   },
   {
     // 根据图片显示快递费用， 输入对应的费用
     type: 3, // 输入费用
-    question:
-      "4、根据所给的“国内快递基础资费表”，在横线处填写资费。（总分25分）",
+    question: "4、根据所给的“国内快递基础资费表”，在横线处填写资费",
     images: [
       {
         url: "http://123.57.230.57:6011/assets/imgs/jisuan/1-1.jpg",
@@ -324,23 +207,23 @@ export const list = [
     isCurrent: false,
     isDone: false,
     score: 0,
-    totalScore: 25,
+    totalScore: 20,
   },
 
   {
     type: 6,
     question:
-      "4.根据显示的快递物品，进行智能快递箱派送预处理，<span style='color: #f00;font-weight: 700;'>点击</span>不能投递的物品图片放入下方.(总分: 20分，做题超过5分钟不得分)",
+      "4.根据显示的快递物品，进行智能快递箱派送预处理，<span style='color: #f00;font-weight: 700;'>点击</span>不能投递的物品图片放入下方。",
     images: getSerialDataBy(6, 8, 2, 10),
     isCurrent: false,
     isDone: false,
     score: 0,
-    totalScore: 25,
+    totalScore: 20,
   },
   {
     // 3根据图片，选择缺少的省份
     type: 7,
-    question: "3、根据所给面单寄达地名选择相对于省份名。（总分25分）",
+    question: "3、根据所给面单寄达地名选择相对于省份名。",
     images: [
       {
         url: "http://123.57.230.57:6011/assets/imgs/1/1.png",
@@ -488,12 +371,12 @@ export const list = [
     isCurrent: false,
     isDone: false,
     score: 0,
-    totalScore: 25,
+    totalScore: 20,
   },
   {
     // 4个视频，根据题目选择正确视频
     type: 1, // 答题类型 视频
-    question: "6、投递员接收客户名片有偏字时，选择正确的场景.(本题总计10分)",
+    question: "6、投递员接收客户名片有偏字时，选择正确的场景。",
     videos: [
       {
         url: "http://123.57.230.57:6011/assets/videos/1_dui.mp4",
@@ -522,13 +405,52 @@ export const list = [
   },
   {
     type: 9,
+    // question: "5.当客户投诉 (快递签收未收到) 时，选出正确的投诉处理流程",
     question:
-      "5.当客户投诉 (快递签收未收到) 时，选出正确的投诉处理流程。 (总分: 10分)",
+      "5.当客户投诉（遗失和破损）时，选出正确的投诉处理流程。（总分：10分）",
 
+    images: [
+      {
+        id: 1,
+        text: "回访收件人，确定收件人是否解决",
+        index: 3, //选择顺序
+        isTrue: true, // 是否是正确选项，
+        isChecked: false, // 是否已选择
+      },
+      {
+        id: 2,
+        text: "半小时内电联投诉人，并耐心听取客户诉求",
+        index: 1,
+        isTrue: true, // 是否是正确选项，
+        isChecked: false, // 是否已选择
+      },
+      {
+        id: 3,
+        text: "让客户自己联系总公司处理",
+        index: 4,
+        isTrue: false, // 是否是正确选项，
+        isChecked: false, // 是否已选择
+      },
+      {
+        id: 4,
+        text: "核实情况，并积极处理",
+        index: 2,
+        isTrue: true, // 是否是正确选项，
+        isChecked: false, // 是否已选择
+      },
+      {
+        id: 5,
+        text: "有空的时候电联客户了解情况",
+        index: -1, //不是正确选项，顺序为-1
+        isTrue: false, // 是否是正确选项，
+        isChecked: false, // 是否已选择
+      },
+    ],
+    selectValue: [1, 2, 3, 4], // 正确选择顺序
     isCurrent: false,
     isDone: false,
     score: 0,
-    totalScore: 10,
+    totalScore: 20,
   },
 
   {
@@ -543,7 +465,7 @@ export const list = [
         // values: [97, 77, 89, 13, 23, 34, 17, 53, 71, 64, 100], //正确配送路线
       },
     ],
-    selectValue: "",
+    selectValue: "1", // 正确答案
     selectList: [
       {
         id: 1,
@@ -567,5 +489,6 @@ export const list = [
     answers: [],
     isCurrent: false,
     isDone: false,
+    totalScore: 20, //分值
   },
 ];

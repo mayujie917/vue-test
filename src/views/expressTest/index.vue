@@ -27,7 +27,7 @@
                 <p class="qs-text">
                   {{ currentData.inputText[circleIndex].text }}
                   <input class="qs-input" v-model="currentData.inputText[circleIndex].value" type="number"
-                    pattern="[0-9]*" :maxlength="3" @change="changeHandle()" />
+                    placeholder="点击输入价格" pattern="[0-9]*" :maxlength="3" @change="changeHandle()" />
                   <span>元。</span>
                 </p>
               </div>
@@ -36,15 +36,31 @@
             <p class='subTotal'>{{ circleIndex + 1 }}/{{ currentData.inputText.length }}</p>
           </div>
         </div>
+        <!-- 图片描述类型 按照上述区域合理设计路线 -->
+        <div class="qs-select-wrapper" v-if="currentData.type == 4">
+          <div class="qs-img qs-other-img">
+            <img :src="currentData.images[0].url" />
+          </div>
+          <div class="qs-select">
+            <div class="qs-select-area qs-select-radio">
+              <el-radio-group v-model="currentData.selectValue" @change="selectItemHandle">
+                <p class="list-item" v-for="(item, index) in currentData.selectList"
+                  :class="item.isChecked ? 'list-item-active' : ''" :key="index">
+                  <el-radio :label="item.id"> {{ index + 1 }}、{{ item.value }}</el-radio>
+                </p>
+              </el-radio-group>
+            </div>
+          </div>
+        </div>
         <!-- 多张图片，选出某几禁寄送的 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 5">
           <div class="qs-img-box-wrapper">
             <div class="qs-img-box">
-              <p class="arrow" @click="nextCircleImgSpecial"><i class="el-icon-arrow-left"></i></p>
+              <p class="arrow" @click="nextCircleImgSpecial"><span>上一题</span><i class="el-icon-arrow-left"></i></p>
               <div class="qs-img-item" @click="selectCircleImgHandle">
                 <img :src="currentData.images[circleIndex].url" />
               </div>
-              <p class="arrow" @click="preCircleImgSpecial"><i class="el-icon-arrow-right"></i></p>
+              <p class="arrow" @click="preCircleImgSpecial"><span>下一题</span><i class="el-icon-arrow-right"></i></p>
             </div>
             <div>
               <p class="total">{{ currentData.images[circleIndex].desc }}</p>
@@ -81,11 +97,11 @@
         <div class="qs-select-wrapper" v-if="currentData.type == 6">
           <div class="qs-img-box-wrapper">
             <div class="qs-img-box">
-              <p class="arrow" @click="nextCircleImgSpecial"><i class="el-icon-arrow-left"></i></p>
+              <p class="arrow" @click="nextCircleImgSpecial"><span>上一题</span><i class="el-icon-arrow-left"></i></p>
               <div class="qs-img-item qs-img-bg" @click="selectCircleImgTypeSixHandle">
                 <img :src="currentData.images[circleIndex].url" />
               </div>
-              <p class="arrow" @click="preCircleImgSpecial"><i class="el-icon-arrow-right"></i></p>
+              <p class="arrow" @click="preCircleImgSpecial"><span>下一题</span><i class="el-icon-arrow-right"></i></p>
             </div>
             <div>
               <p class="total">{{ currentData.images[circleIndex].desc }}</p>
@@ -116,15 +132,15 @@
           <div class="qs-img-box-wrapper qs-img-box-charge">
             <div class="qs-img-box-charge-city">
               <div class="qs-img-box">
-                <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
+                <p class="arrow" @click="nextCircleImg"><span>上一题</span><i class="el-icon-arrow-left"></i></p>
                 <div class="qs-img-item qs-img-city">
                   <img :src="currentData.images[circleIndex].url" />
                   <span class="city-name"
                     :class="currentData.images[circleIndex].selectValue == '' ? 'city-name-fade' : ''">
-                    {{ currentData.images[circleIndex].selectValue }}
+                    {{ currentData.images[circleIndex].selectValue ? currentData.images[circleIndex].cityName : '' }}
                   </span>
                 </div>
-                <p class="arrow" @click="preCircleImg"><i class="el-icon-arrow-right"></i></p>
+                <p class="arrow" @click="preCircleImg"><span>下一题</span><i class="el-icon-arrow-right"></i></p>
               </div>
               <div>
                 <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
@@ -144,11 +160,11 @@
           <div class="qs-img-box-wrapper">
             <div v-if="!showSubImage">
               <div class="qs-img-box">
-                <p class="arrow" @click="nextCircleImg"><i class="el-icon-arrow-left"></i></p>
+                <p class="arrow" @click="nextCircleImg"><span>上一题</span><i class="el-icon-arrow-left"></i></p>
                 <div class="qs-img-item" @click="currentImgTypeView">
                   <img :src="currentData.images[circleIndex].url" />
                 </div>
-                <p class="arrow" @click="preCircleImg"><i class="el-icon-arrow-right"></i></p>
+                <p class="arrow" @click="preCircleImg"><span>下一题</span><i class="el-icon-arrow-right"></i></p>
               </div>
               <div>
                 <p class="total">{{ currentData.images[circleIndex].desc }}</p>
@@ -177,14 +193,6 @@
                     <p>2</p>
                     <p>禁寄物品</p>
                   </div>
-                  <!-- <div class="select-bg-item">
-                    <p>3</p>
-                    <p>禁寄物品</p>
-                  </div>
-                  <div class="select-bg-item">
-                    <p>4</p>
-                    <p>禁寄物品</p>
-                  </div> -->
                 </div>
                 <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
                   @click="cancelSelectedHandle(item, index)">
@@ -194,9 +202,6 @@
         </div>
         <!-- 客户投诉 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 9">
-          <!-- <div class="complaint-box">
-            <img class="complaint-box-bg" src="../../../public/assets/imgs/other/question.png" alt="">
-          </div> -->
           <div class="complaint-box">
             <div class="answer-box">
               <div class="answer-box-left">
@@ -204,9 +209,8 @@
               </div>
               <div class="answer-box-right">
                 <div class="question-list">
-                  <p class="list-item">1.</p>
-                  <p class="list-item">2.</p>
-                  <p class="list-item">3.</p>
+                  <p class="list-item" v-for="(item, index) in checkboxList">{{ index + 1 }}、{{ item.text }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -222,33 +226,15 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- 图片描述类型 按照上述区域合理设计路线 -->
-        <div class="qs-select-wrapper" v-if="currentData.type == 4">
-          <div class="qs-img qs-other-img">
-            <img :src="currentData.images[0].url" />
-          </div>
           <div class="qs-select">
-            <div class="qs-select-area qs-select-radio">
-              <!-- <draggable class="qs-select-area-item qs-select-drag" v-model="dragSelectedData">
-                <p class="select-area-item" v-for="(item, index) in dragSelectedData" :key="index">{{ item.value }}</p>
-              </draggable> -->
-              <el-radio-group v-model="currentData.selectValue">
-                <p class="list-item" v-for="(item, index) in currentData.selectList"
-                  :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">
-                  <el-radio :label="item.id"> {{ index + 1 }}、{{ item.value }}</el-radio>
+            <div class="qs-select-area qs-select-checkbox">
+              <el-checkbox-group v-model="checkboxValue" @change="selectCheckboxHandle">
+                <p class="list-item" v-for="(item, index) in currentData.images"
+                  :class="item.isChecked ? 'list-item-active' : ''" :key="index">
+                  <el-checkbox :label="item.id"> {{ index + 1 }}、{{ item.text }}</el-checkbox>
                 </p>
-              </el-radio-group>
+              </el-checkbox-group>
             </div>
-            <!-- <div class="qs-select-list">
-              <el-radio-group v-model="currentData.selectValue">
-                <p class="list-item" v-for="(item, index) in currentData.selectList"
-                  :class="item.isChecked ? 'list-item-active' : ''" :key="index" @click="selectItemHandle(item)">
-                  <el-radio :label="item.id"> {{ index + 1 }}、{{ item.value }}</el-radio>
-                </p>
-              </el-radio-group>
-            </div> -->
           </div>
         </div>
       </div>
@@ -258,9 +244,9 @@
           <el-button size="small" type="primary" @click="resetHandle">重置</el-button>
         </div>
         <div class="options-list">
-          <el-button class="btn-text" :class="currentIndex == index ? 'btn-text-active' : ''" size="small" type="text"
+          <el-button class="btn-text" :class="indexList.includes(index) ? 'btn-text-active' : ''" size="small" type="text"
             v-for="(item, index) in list" :key="index" @click="nextItem(index)">
-            第{{ numberList[index] }}题</el-button>
+            第{{ numberList[index] }}项</el-button>
         </div>
       </div>
     </div>

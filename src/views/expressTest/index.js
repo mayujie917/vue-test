@@ -28,8 +28,11 @@ export let data = {
       currentData: {}, //当前问题
       list: [], //原始数据
       selectedData: [], // 当前已选中的数据，每次切换题，从原数据更具checked 重新获取
-      dragSelectedData: [],
+      // dragSelectedData: [],
       numberList: numberList,
+      indexList: [],
+      checkboxList: [], //type 9
+      checkboxValue: [],
     };
   },
 
@@ -45,6 +48,7 @@ export let data = {
     });
     this.list = list;
     this.currentData = this.list[this.currentIndex];
+    this.indexList = [0];
     this.getData();
   },
 
@@ -120,16 +124,39 @@ export let data = {
      * type 4 根据图片，选择配送路线
      */
     selectItemHandle(item) {
-      item.isChecked = !item.isChecked;
-      if (item.isChecked) {
-        this.dragSelectedData.push(item);
-      } else {
-        item.isChecked = false;
-        let _i = this.dragSelectedData.findIndex((e) => e.id == item.id);
-        console.log("index", _i);
-        this.dragSelectedData.splice(_i, 1);
+      console.log(2333, item);
+      console.log("currentData", this.currentData);
+      // item.isChecked = !item.isChecked;
+      // if (item.isChecked) {
+      //   this.dragSelectedData.push(item);
+      // } else {
+      //   item.isChecked = false;
+      //   let _i = this.dragSelectedData.findIndex((e) => e.id == item.id);
+      //   console.log("index", _i);
+      //   this.dragSelectedData.splice(_i, 1);
+      // }
+      // console.log("selectedDdragSelectedDataata", this.dragSelectedData);
+    },
+    // type 9
+    selectCheckboxHandle(data) {
+      // 最多选择四个
+      if (data.length > 4) {
+        let _data = data.splice(0, data.length - 1);
+        data = _data;
+        this.checkboxValue = data;
+        return;
       }
-      console.log("selectedDdragSelectedDataata", this.dragSelectedData);
+      this.checkboxValue = data;
+      this.checkboxList = [];
+      this.currentData.images.forEach((item) => (item.isChecked = false));
+      data.forEach((item) => {
+        this.currentData.images.forEach((e) => {
+          if (e.id == item) {
+            e.isChecked = true;
+            this.checkboxList.push(e);
+          }
+        });
+      });
     },
     /**
      * type 5 ,多张图片中，选出禁寄物品
@@ -255,9 +282,10 @@ export let data = {
      * @returns
      */
     cityChange(val) {
-      let _data = this.list[this.currentIndex];
+      // let _data = this.list[this.currentIndex];
+      let _data = this.currentData;
       let _tag = _data.citys.filter((item) => item.cityValue == val);
-      _data.images[this.circleIndex].selectValue = _tag[0]["cityName"];
+      _data.images[this.circleIndex].selectValue = _tag[0]["cityValue"];
     },
     /**
      * type 8 从当前类别中，选出禁寄的物品
@@ -281,12 +309,25 @@ export let data = {
     },
     // 点击进入第几题
     nextItem(index) {
+      console.log(2333, index);
+      if (!this.indexList.includes(index)) {
+        this.indexList.push(index);
+      }
       this.currentIndex = index;
+      // this.selectedData = [];
       this.currentData = this.list[this.currentIndex];
+      // const { type } = this.currentData;
+      // if (type == 5 || type == 8 || type == 6) {
+      //   this.currentData.images.forEach((item) => {
+      //     if (item.isChecked) {
+      //       this.selectedData.push(item);
+      //     }
+      //   });
+      // }
       this.circleIndex = 0;
       this.showSubImage = false;
+      console.log("currentData", this.currentData);
       this.repairData();
-      // console.log("list", this.list);
     },
     repairData() {
       this.subIndex = 0;
@@ -307,6 +348,8 @@ export let data = {
           }
         });
       }
+      console.log("selectedData", this.selectedData);
+      console.log("selectValue", this.selectValue);
     },
     /**
      * 1.每次判断当前是否是最后一个
@@ -315,60 +358,75 @@ export let data = {
      */
     // 提交
     submitHandle() {
-      console.log("index", this.currentIndex, this.list.length);
-      let flag = this.checkItem();
-      let allDone = this.list.every((item) => item.isDone); // 是否全部已作答
-
-      if (!allDone) {
-        // 2.计算各题得分
+      if (this.currentIndex < this.list.length - 1) {
+        ++this.currentIndex;
+        this.nextItem(this.currentIndex);
+      } else {
+        // 全部已作答，计算总分
         this.list.forEach((item) => {
           item.score = this.countScore(item);
         });
-        console.log(1111, this.list);
+        console.log(this.list);
         let _score = 0; // 总分
         this.list.forEach((item) => {
           _score += item.score;
         });
-        // TODO 提交接口
-      } else {
-        if (flag)
-          return this.$message.warning("还有题目未作答，请检查并作答？");
-        if (this.currentIndex < this.list.length - 1) {
-          // 自动跳转下一题
-          this.nextItem(this.currentIndex + 1);
-        }
+        console.log(1222, _score);
+        // // 最后一题，检测是否有未作答题目
+        // let allDone = this.list.every((item) => item.isDone); // 是否全部已作答
+        // console.log("allDon", allDone);
+        // if (allDone) {
+        //   // 全部已作答，计算总分
+        //   this.list.forEach((item) => {
+        //     item.score = this.countScore(item);
+        //   });
+        //   console.log(this.list);
+        //   let _score = 0; // 总分
+        //   this.list.forEach((item) => {
+        //     _score += item.score;
+        //   });
+        //   console.log(1222, _score);
+        //   // TODO 提交接口
+        // } else {
+        //   // 提示还有题未答，继续作答
+        //   this.$message.warning("还有题目未作答，请检查并作答！");
+        // }
       }
+
+      // console.log("index", this.currentIndex, this.list.length);
+      // let flag = this.checkItem();
+      // let allDone = this.list.every((item) => item.isDone); // 是否全部已作答
+
+      // if (!allDone) {
+      //   // 2.计算各题得分
+      //   this.list.forEach((item) => {
+      //     item.score = this.countScore(item);
+      //   });
+      //   console.log(1111, this.list);
+      //   let _score = 0; // 总分
+      //   this.list.forEach((item) => {
+      //     _score += item.score;
+      //   });
+      //   // TODO 提交接口
+      // } else {
+      //   if (flag)
+      //     return this.$message.warning("还有题目未作答，请检查并作答？");
+      //   if (this.currentIndex < this.list.length - 1) {
+      //     // 自动跳转下一题
+      //     this.nextItem(this.currentIndex + 1);
+      //   }
+      // }
     },
     // 计算每个题的得分
     countScore(item) {
-      if (item.type == 5) {
-        // 20个物品中选择4个违禁品
-        // 1.选中的物品
-        let _selectItem = item.images.filter((item) => item.isChecked);
-        // 2.选中物品中不是违禁品数量
-        let _count = _selectItem.filter((item) => item.type == 1);
-        let _score = 25 - _count.length * 5; // 选错一个扣5分
-        return _score;
-      } else if (item.type == 8) {
-        // 1.选中的物品
-        let _selectItem = item.images.filter((item) => item.isChecked);
-        console.log("_selectItem", _selectItem);
-        // 2.选中物品中不是违禁品数量
-        let _count = _selectItem.filter((item) => item.type == 1);
-        console.log("_count", _count);
-        let _score = 25 - _count.length * 10; // 选错一个扣10分
-        return _score;
-      } else if (item.type == 7) {
-        let _selectItem = item.images.filter((item) => item.selectValue != "");
-        let _count = 0;
-        _selectItem.forEach((item) => {
-          if (item.cityName == item.selectValue) {
-            _count += 1;
-          } else {
-            _count -= 1;
-          }
-        });
-        return _count * 5;
+      if (item.type == 1) {
+        let _selectItem = item.videos.filter((item) => item.isChecked);
+        let _current = _selectItem[0];
+        if (_current.isTrue) {
+          return 20;
+        } else {
+          return 0;
+        }
       } else if (item.type == 3) {
         let _selectItem = item.inputText.filter((item) => item.value != "");
         let _count = 0;
@@ -379,26 +437,57 @@ export let data = {
             _count -= 1;
           }
         });
-        return _count * 5;
+        return (_count / item.inputText) * 20;
       } else if (item.type == 4) {
-        // 路线排序
-        let _selectItem = this.dragSelectedData.filter(
-          (item) => item.isChecked
-        );
-        let _standItem = item.images[0].values;
-        let _score = 20;
-        _standItem.forEach((item, index) => {
-          if (!_selectItem[index] || _selectItem[index].value != item) {
-            _score -= 2;
+        // 配送路线 单选
+        let score = 0;
+        item.selectList.forEach((item) => {
+          if (item.id == item.selectValue && item.isRealValue) {
+            score = item.totalScore;
           }
         });
+        return score;
+      } else if (item.type == 5) {
+        // 20个物品中选择4个违禁品
+        // 1.选中的物品
+        let _selectItem = item.images.filter((item) => item.isChecked);
+        // 2.选中物品中不是违禁品数量
+        let _count = _selectItem.filter((item) => item.type == 1);
+        // let _score = 20 - _count.length * 5; // 选错一个扣5分
+        return (_count.length / 4) * 20;
+      } else if (item.type == 6) {
+        // 1.选中的物品
+        let _selectItem = item.images.filter((item) => item.isChecked);
+        // 2.选中物品中不是违禁品数量
+        let _count = _selectItem.filter((item) => item.type == 1);
+        return (_count.length / 2) * 20;
+      } else if (item.type == 7) {
+        // 匹配省份
+        let _count = 0;
+        item.images.forEach((item) => {
+          if (item.cityValue == item.selectValue) {
+            _count += 1;
+          }
+        });
+        return (_count / item.images.length) * 20;
+      } else if (item.type == 8) {
+        // 1.选中的物品
+        let _selectItem = item.images.filter((item) => item.isChecked);
+        console.log("_selectItem", _selectItem);
+        // 2.选中物品中不是违禁品数量
+        let _count = _selectItem.filter((item) => item.type == 1);
+        console.log("_count", _count);
+        let _score = 20 - _count.length * 10; // 选错一个扣10分
         return _score;
-      } else if (item.type == 1) {
-        // 视频 10分
-        let _selectItem = item.videos.filter((item) => item.isChecked);
-        let _current = _selectItem[0];
-        if (_current.isTrue) {
-          return 10;
+      } else if (item.type == 9) {
+        let _temp = this.checkboxList.map((item) => item.index);
+        let _rightTemp = item.selectValue;
+        // 选中数据和正确数据比较
+        if (
+          _rightTemp.length == _temp.length &&
+          _rightTemp.toString() == _temp.toString()
+        ) {
+          return 20;
         } else {
           return 0;
         }
