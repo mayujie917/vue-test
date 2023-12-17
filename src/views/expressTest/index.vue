@@ -22,7 +22,7 @@
           </div>
           <div class="qs-select">
             <div class="qs-select-input-box">
-              <p class="arrow" @click="nextCircle"><i class="el-icon-arrow-up"></i></p>
+              <p class="arrow" @click="nextCircle"><span>上一题</span><i class="el-icon-arrow-up"></i></p>
               <div class="qs-select-input">
                 <p class="qs-text">
                   {{ currentData.inputText[circleIndex].text }}
@@ -31,7 +31,7 @@
                   <span>元。</span>
                 </p>
               </div>
-              <p class="arrow" @click="preCircle"><i class="el-icon-arrow-down"></i></p>
+              <p class="arrow" @click="preCircle"><span>下一题</span><i class="el-icon-arrow-down"></i></p>
             </div>
             <p class='subTotal'>{{ circleIndex + 1 }}/{{ currentData.inputText.length }}</p>
           </div>
@@ -65,6 +65,10 @@
             <div>
               <p class="total">{{ currentData.images[circleIndex].desc }}</p>
               <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
+            </div>
+            <!-- 指示图 -->
+            <div class="gif-img" v-show="showGif">
+              <img src="../../assets/imgs/finger.gif" alt="">
             </div>
           </div>
           <div class="qs-select">

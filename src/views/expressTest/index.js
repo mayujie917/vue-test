@@ -33,6 +33,7 @@ export let data = {
       indexList: [],
       checkboxList: [], //type 9
       checkboxValue: [],
+      showGif: true,
     };
   },
 
@@ -50,6 +51,9 @@ export let data = {
     this.currentData = this.list[this.currentIndex];
     this.indexList = [0];
     this.getData();
+    setTimeout(() => {
+      this.showGif = false;
+    }, 3000);
   },
 
   methods: {

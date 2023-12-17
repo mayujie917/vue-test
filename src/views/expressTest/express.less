@@ -68,7 +68,7 @@
       }
 
       .qs-cost {
-        height: 48.1vh;
+        height: 50.7vh;
 
         img {
           width: 100%;
@@ -88,6 +88,21 @@
       }
 
       .qs-img-box-wrapper {
+        position: relative;
+
+        .gif-img {
+          width: 100px;
+          height: 100px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
         .qs-img-box {
           display: flex;
           align-items: center;
@@ -194,8 +209,6 @@
           font-size: 18px;
         }
 
-
-
         .sub-images {
           .sub-images-list {
             display: flex;
@@ -225,6 +238,7 @@
 
             button {
               font-size: 1.7rem;
+              padding: 5px 20px;
             }
           }
         }
@@ -558,6 +572,9 @@
         .arrow {
           width: 100%;
           text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
           i {
             font-size: 40px;
