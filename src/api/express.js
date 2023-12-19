@@ -12,4 +12,13 @@ export function getTypeCList(params) {
 export function getTypeDList(params) {
   return get("/system/questionBody/listAllD", params);
 }
-export function name(params) {}
+
+//  获取唯一标识
+export function getExamineeByUserId(params) {
+  return get(
+    "http://www.jszhiping.com/prod-api/app/examinee/getExamineeByUserId"
+  );
+}
+export function markHandle(params) {
+  return put("http://www.jszhiping.com/prod-api/examRecord/scoreRecord/mark");
+}

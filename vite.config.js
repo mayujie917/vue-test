@@ -20,6 +20,12 @@ export default defineConfig({
   },
   base: "./",
   server: {
-    // host: "192.168.2.185",
+    proxy: {
+      "/apizp": {
+        target: "http://www.jszhiping.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/apizp/, ""),
+      },
+    },
   },
 });

@@ -6,6 +6,8 @@ import {
   getTypeBList,
   getTypeCList,
   getTypeDList,
+  getExamineeByUserId,
+  markHandle,
 } from "./../../api/express";
 
 export let data = {
@@ -37,7 +39,7 @@ export let data = {
     };
   },
 
-  mounted() {
+  async mounted() {
     list.forEach((item) => {
       if (item.type == 5) {
         item.images.forEach((el) => {
@@ -50,13 +52,33 @@ export let data = {
     this.list = list;
     this.currentData = this.list[this.currentIndex];
     this.indexList = [0];
-    this.getData();
+    await this.getData();
     setTimeout(() => {
       this.showGif = false;
     }, 3000);
+    console.log(2222, this.$route.query);
+    if (this.$route.query.token) {
+      const { token, skillExamId } = this.$route.query;
+      this.token = token;
+      localStorage.setItem('token',this.token);
+      this.skillExamId = skillExamId;
+      this.getExamineeId();
+    }
   },
 
   methods: {
+    //获取 examineeId
+    getExamineeId() {
+      getExamineeByUserId().then(res=>{
+        console.log(2333,res);
+        if(res.code == 0){
+          this.examineeId = res;
+        }else{
+          console.log(res.msg);
+        }
+        
+      })
+    },
     getData() {
       Promise.all([
         getTypeAList(),
@@ -376,25 +398,14 @@ export let data = {
           _score += item.score;
         });
         console.log(1222, _score);
-        // // 最后一题，检测是否有未作答题目
-        // let allDone = this.list.every((item) => item.isDone); // 是否全部已作答
-        // console.log("allDon", allDone);
-        // if (allDone) {
-        //   // 全部已作答，计算总分
-        //   this.list.forEach((item) => {
-        //     item.score = this.countScore(item);
-        //   });
-        //   console.log(this.list);
-        //   let _score = 0; // 总分
-        //   this.list.forEach((item) => {
-        //     _score += item.score;
-        //   });
-        //   console.log(1222, _score);
-        //   // TODO 提交接口
-        // } else {
-        //   // 提示还有题未答，继续作答
-        //   this.$message.warning("还有题目未作答，请检查并作答！");
-        // }
+        let params = {
+          examineeId: this.examineeId,
+          skillExamId: this.skillExamId,
+          skillScore:_score,
+        };
+        markHandle(params).then(res=>{
+          console.log(2333,res);
+        });
       }
 
       // console.log("index", this.currentIndex, this.list.length);

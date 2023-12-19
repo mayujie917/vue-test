@@ -10,22 +10,21 @@ let service = axios.create({
 //http request 拦截器
 service.interceptors.request.use(
 	(config) => {
-		// const token = getCookie('名称');
+		const token = localStorage.getItem('token');
 		config.data = JSON.stringify(config.data);
 		//设置请求头
 		config.headers = {
 			"Content-Type": "application/x-www-form-urlencoded",
 		};
-		// if(token){
-		//   config.params = {'token':token}
-		// }
+		if(token){
+		  config.headers.Authorization = `Bearer ${token}`;
+		}
 		return config;
 	},
 	(error) => {
 		return Promise.reject(err);
 	}
 );
- 
 //http response 拦截器
 service.interceptors.response.use(
 	(response) => {
@@ -79,4 +78,16 @@ export function post(url, data = {}) {
 					}
 				);
     })
+}
+export function put(url, data = {}) {
+  return new Promise((resolve, reject) => {
+    service.put(url, data).then(
+      (response) => {
+        resolve(response.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
 }
