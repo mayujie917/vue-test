@@ -1,5 +1,35 @@
 import { rowNormalData, rowErrorData } from "./data";
 
+export const cityList = [
+  { cityValue: "1", cityName: "北京市" },
+  { cityValue: "2", cityName: "天津市" },
+  { cityValue: "17", cityName: "湖北省" },
+  { cityValue: "5", cityName: "河北省" },
+  { cityValue: "3", cityName: "上海市" },
+  { cityValue: "6", cityName: "山西省" },
+  { cityValue: "14", cityName: "江西省" },
+  { cityValue: "13", cityName: "福建省" },
+  { cityValue: "4", cityName: "重庆市" },
+  { cityValue: "16", cityName: "河南省" },
+  { cityValue: "11", cityName: "浙江省" },
+  { cityValue: "15", cityName: "山东省" },
+  { cityValue: "7", cityName: "辽宁省" },
+  { cityValue: "9", cityName: "黑龙江省" },
+  { cityValue: "10", cityName: "江苏省" },
+  { cityValue: "22", cityName: "贵州省" },
+  { cityValue: "12", cityName: "安徽省" },
+  { cityValue: "20", cityName: "海南省" },
+  { cityValue: "23", cityName: "云南省" },
+  { cityValue: "21", cityName: "四川省" },
+];
+export function getCityData(params) {
+  const cityData = [];
+  let _cityArray = getRandomData(20, 20);
+  _cityArray.forEach((item) => {
+    cityData.push(cityList[item]);
+  });
+  return cityData;
+}
 export const numberList = {
   0: "一",
   1: "二",
@@ -129,7 +159,12 @@ export function getSerialDataBy(type, t, f, total) {
     return _normalData;
   }
 }
-
+/**
+ *
+ * @param {*} t  数组长度
+ * @param {*} total  生成随机数范围
+ * @returns
+ */
 function getRandomData(t, total) {
   let _random = Math.floor(Math.random() * total);
   if (normalList.length < t) {
@@ -209,7 +244,6 @@ export const list = [
     score: 0,
     totalScore: 20,
   },
-
   {
     type: 6,
     question:
@@ -408,39 +442,38 @@ export const list = [
     // question: "5.当客户投诉 (快递签收未收到) 时，选出正确的投诉处理流程",
     question:
       "7、当客户投诉（遗失和破损）时，选出正确的投诉处理流程。（总分：10分）",
-
     images: [
       {
         id: 1,
-        text: "回访收件人，确定收件人是否解决",
+        url: "回访收件人，确定收件人是否解决",
         index: 3, //选择顺序
         isTrue: true, // 是否是正确选项，
         isChecked: false, // 是否已选择
       },
       {
         id: 2,
-        text: "半小时内电联投诉人，并耐心听取客户诉求",
+        url: "半小时内电联投诉人，并耐心听取客户诉求",
         index: 1,
         isTrue: true, // 是否是正确选项，
         isChecked: false, // 是否已选择
       },
       {
         id: 3,
-        text: "让客户自己联系总公司处理",
+        url: "让客户自己联系总公司处理",
         index: 4,
         isTrue: false, // 是否是正确选项，
         isChecked: false, // 是否已选择
       },
       {
         id: 4,
-        text: "核实情况，并积极处理",
+        url: "核实情况，并积极处理",
         index: 2,
         isTrue: true, // 是否是正确选项，
         isChecked: false, // 是否已选择
       },
       {
         id: 5,
-        text: "有空的时候电联客户了解情况",
+        url: "有空的时候电联客户了解情况",
         index: -1, //不是正确选项，顺序为-1
         isTrue: false, // 是否是正确选项，
         isChecked: false, // 是否已选择
@@ -452,7 +485,6 @@ export const list = [
     score: 0,
     totalScore: 20,
   },
-
   {
     //  根据图片内容展示，依次排序配送顺序 路线
     type: 4,
@@ -465,7 +497,7 @@ export const list = [
         // values: [97, 77, 89, 13, 23, 34, 17, 53, 71, 64, 100], //正确配送路线
       },
     ],
-    selectValue: "1", // 正确答案
+    selectValue: "", // 正确答案
     selectList: [
       {
         id: 1,

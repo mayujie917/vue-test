@@ -1,4 +1,9 @@
-import { list, numberList, getSerialDataBy } from "@/data/index.js";
+import {
+  list,
+  numberList,
+  getSerialDataBy,
+  getCityData,
+} from "@/data/index.js";
 import draggable from "vuedraggable";
 
 import {
@@ -6,6 +11,7 @@ import {
   getTypeBList,
   getTypeCList,
   getTypeDList,
+  getTypeEList,
   getExamineeByUserId,
   markHandle,
 } from "./../../api/express";
@@ -23,6 +29,7 @@ export let data = {
       cityValue: "", // 当前选择省份
 
       showSubImage: false,
+      cityData: [],
 
       currentIndex: 0, //当前大题题号
       subIndex: 0, //当前答题下的题号
@@ -40,27 +47,30 @@ export let data = {
   },
 
   async mounted() {
-    list.forEach((item) => {
-      if (item.type == 5) {
-        item.images.forEach((el) => {
-          if (el.subImages) {
-            delete el.subImages;
-          }
-        });
-      }
-    });
-    this.list = list;
-    this.currentData = this.list[this.currentIndex];
-    this.indexList = [0];
+    this.cityData = getCityData();
+    // list.forEach((item) => {
+    //   if (item.type == 5) {
+    //     item.images.forEach((el) => {
+    //       if (el.subImages) {
+    //         delete el.subImages;
+    //       }
+    //     });
+    //   }
+    // });
+    // this.list = list;
+    // this.currentData = this.list[this.currentIndex];
+    // this.indexList = [0];
+    this.list = [];
     await this.getData();
+
     setTimeout(() => {
       this.showGif = false;
-    }, 3000);
+    }, 2500);
     console.log(2222, this.$route.query);
     if (this.$route.query.token) {
       const { token, skillExamId } = this.$route.query;
       this.token = token;
-      localStorage.setItem('token',this.token);
+      localStorage.setItem("token", this.token);
       this.skillExamId = skillExamId;
       this.getExamineeId();
     }
@@ -69,15 +79,14 @@ export let data = {
   methods: {
     //获取 examineeId
     getExamineeId() {
-      getExamineeByUserId().then(res=>{
-        console.log(2333,res);
-        if(res.code == 0){
+      getExamineeByUserId().then((res) => {
+        console.log(2333, res);
+        if (res.code == 0) {
           this.examineeId = res;
-        }else{
+        } else {
           console.log(res.msg);
         }
-        
-      })
+      });
     },
     getData() {
       Promise.all([
@@ -85,8 +94,33 @@ export let data = {
         getTypeBList(),
         getTypeCList(),
         getTypeDList(),
+        getTypeEList(),
       ]).then((res) => {
-        console.log("res", res);
+        console.log(2333, res);
+        res.forEach((item, index) => {
+          if (item.response_code == 0) {
+            let _data = item.results[0];
+            if (_data.questionType == 3) {
+              _data.inputText = _data.question2Type4List;
+              _data.images = [{ url: _data.url }];
+            } else if (_data.questionType == 4) {
+              _data.selectValue = "";
+              _data.images = [{ url: _data.url }];
+              _data.selectList;
+            } else if (_data.questionType == 7) {
+              _data.images = _data.question2Type3List;
+            }
+            _data.question = `${index + 1}、${_data.question}`;
+            this.list.push(_data);
+          }
+        });
+        this.list.forEach((item) => {
+          item.type = item.questionType;
+        });
+        this.currentData = this.list[this.currentIndex];
+        this.indexList = [0];
+        console.log("currentData", this.currentData);
+        console.log("list", this.list);
       });
     },
     /**
@@ -130,7 +164,6 @@ export let data = {
      */
     changeHandle(val) {
       console.log("111", val);
-      // TODO 判断是否有输入值、值是否是数字
     },
     // 循环列表，下一个
     nextCircle() {
@@ -150,21 +183,18 @@ export let data = {
      * type 4 根据图片，选择配送路线
      */
     selectItemHandle(item) {
-      console.log(2333, item);
-      console.log("currentData", this.currentData);
-      // item.isChecked = !item.isChecked;
-      // if (item.isChecked) {
-      //   this.dragSelectedData.push(item);
-      // } else {
-      //   item.isChecked = false;
-      //   let _i = this.dragSelectedData.findIndex((e) => e.id == item.id);
-      //   console.log("index", _i);
-      //   this.dragSelectedData.splice(_i, 1);
-      // }
-      // console.log("selectedDdragSelectedDataata", this.dragSelectedData);
+      this.currentData.selectValue = item;
+      this.currentData.selectList.forEach((e) => {
+        if (item != e.id) {
+          e.isChecked = false;
+        } else {
+          e.isChecked = true;
+        }
+      });
     },
     // type 9
     selectCheckboxHandle(data) {
+      console.log(2333, data);
       // 最多选择四个
       if (data.length > 4) {
         let _data = data.splice(0, data.length - 1);
@@ -177,7 +207,7 @@ export let data = {
       this.currentData.images.forEach((item) => (item.isChecked = false));
       data.forEach((item) => {
         this.currentData.images.forEach((e) => {
-          if (e.id == item) {
+          if (e.desc == item) {
             e.isChecked = true;
             this.checkboxList.push(e);
           }
@@ -308,9 +338,9 @@ export let data = {
      * @returns
      */
     cityChange(val) {
-      // let _data = this.list[this.currentIndex];
       let _data = this.currentData;
-      let _tag = _data.citys.filter((item) => item.cityValue == val);
+      let _tag = this.cityData.filter((item) => item.cityValue == val);
+      console.log(2333, _tag);
       _data.images[this.circleIndex].selectValue = _tag[0]["cityValue"];
     },
     /**
@@ -335,24 +365,14 @@ export let data = {
     },
     // 点击进入第几题
     nextItem(index) {
-      console.log(2333, index);
       if (!this.indexList.includes(index)) {
         this.indexList.push(index);
       }
       this.currentIndex = index;
-      // this.selectedData = [];
       this.currentData = this.list[this.currentIndex];
-      // const { type } = this.currentData;
-      // if (type == 5 || type == 8 || type == 6) {
-      //   this.currentData.images.forEach((item) => {
-      //     if (item.isChecked) {
-      //       this.selectedData.push(item);
-      //     }
-      //   });
-      // }
+      console.log("currentData", this.currentData);
       this.circleIndex = 0;
       this.showSubImage = false;
-      console.log("currentData", this.currentData);
       this.repairData();
     },
     repairData() {
@@ -374,8 +394,7 @@ export let data = {
           }
         });
       }
-      console.log("selectedData", this.selectedData);
-      console.log("selectValue", this.selectValue);
+      this.$forceUpdate();
     },
     /**
      * 1.每次判断当前是否是最后一个
@@ -392,45 +411,20 @@ export let data = {
         this.list.forEach((item) => {
           item.score = this.countScore(item);
         });
-        console.log(this.list);
         let _score = 0; // 总分
         this.list.forEach((item) => {
           _score += item.score;
         });
-        console.log(1222, _score);
         let params = {
           examineeId: this.examineeId,
           skillExamId: this.skillExamId,
-          skillScore:_score,
+          skillScore: _score,
         };
-        markHandle(params).then(res=>{
-          console.log(2333,res);
+        // 提交
+        markHandle(params).then((res) => {
+          console.log(2333, res);
         });
       }
-
-      // console.log("index", this.currentIndex, this.list.length);
-      // let flag = this.checkItem();
-      // let allDone = this.list.every((item) => item.isDone); // 是否全部已作答
-
-      // if (!allDone) {
-      //   // 2.计算各题得分
-      //   this.list.forEach((item) => {
-      //     item.score = this.countScore(item);
-      //   });
-      //   console.log(1111, this.list);
-      //   let _score = 0; // 总分
-      //   this.list.forEach((item) => {
-      //     _score += item.score;
-      //   });
-      //   // TODO 提交接口
-      // } else {
-      //   if (flag)
-      //     return this.$message.warning("还有题目未作答，请检查并作答？");
-      //   if (this.currentIndex < this.list.length - 1) {
-      //     // 自动跳转下一题
-      //     this.nextItem(this.currentIndex + 1);
-      //   }
-      // }
     },
     // 计算每个题的得分
     countScore(item) {
@@ -443,22 +437,20 @@ export let data = {
           return 0;
         }
       } else if (item.type == 3) {
-        let _selectItem = item.inputText.filter((item) => item.value != "");
+        // let _selectItem = item.inputText.filter((item) => item.value != "");
         let _count = 0;
-        _selectItem.forEach((item) => {
+        item.inputText.forEach((item) => {
           if (item.value == item.realValue) {
             _count += 1;
-          } else {
-            _count -= 1;
           }
         });
-        return (_count / item.inputText) * 20;
+        return (_count / item.inputText.length) * 20;
       } else if (item.type == 4) {
         // 配送路线 单选
         let score = 0;
         item.selectList.forEach((item) => {
-          if (item.id == item.selectValue && item.isRealValue) {
-            score = item.totalScore;
+          if (item.isChecked && item.isRealValue) {
+            score = this.currentData.totalScore;
           }
         });
         return score;
@@ -466,15 +458,14 @@ export let data = {
         // 20个物品中选择4个违禁品
         // 1.选中的物品
         let _selectItem = item.images.filter((item) => item.isChecked);
-        // 2.选中物品中不是违禁品数量
-        let _count = _selectItem.filter((item) => item.type == 1);
-        // let _score = 20 - _count.length * 5; // 选错一个扣5分
+        // 2.选中物品中是违禁品数量
+        let _count = _selectItem.filter((item) => item.type == 2);
         return (_count.length / 4) * 20;
       } else if (item.type == 6) {
         // 1.选中的物品
         let _selectItem = item.images.filter((item) => item.isChecked);
-        // 2.选中物品中不是违禁品数量
-        let _count = _selectItem.filter((item) => item.type == 1);
+        // 2.选中物品中是违禁品数量
+        let _count = _selectItem.filter((item) => item.type == 2);
         return (_count.length / 2) * 20;
       } else if (item.type == 7) {
         // 匹配省份
@@ -488,11 +479,9 @@ export let data = {
       } else if (item.type == 8) {
         // 1.选中的物品
         let _selectItem = item.images.filter((item) => item.isChecked);
-        console.log("_selectItem", _selectItem);
-        // 2.选中物品中不是违禁品数量
-        let _count = _selectItem.filter((item) => item.type == 1);
-        console.log("_count", _count);
-        let _score = 20 - _count.length * 10; // 选错一个扣10分
+        // 2.选中物品中是违禁品数量
+        let _count = _selectItem.filter((item) => item.type == 2);
+        let _score = _count.length * 10;
         return _score;
       } else if (item.type == 9) {
         let _temp = this.checkboxList.map((item) => item.index);
@@ -538,6 +527,45 @@ export let data = {
       return flag;
     },
     // 重置
-    resetHandle() {},
+    resetHandle() {
+      const { type } = this.currentData;
+      this.currentData.isCurrent = false;
+      this.currentData.isDone = false;
+      this.currentData.score = false;
+      if (type == 1) {
+        this.currentData.videos.forEach((item) => {
+          item.isChecked = false;
+        });
+      } else if (type == 3) {
+        this.currentData.inputText.forEach((item) => {
+          item.value = "";
+        });
+        this.currentData.total = 0;
+      } else if (type == 4) {
+        this.currentData.selectList.forEach((item) => {
+          item.isChecked = false;
+        });
+        this.currentData.selectValue = "";
+      } else if (type == 5 || type == 6 || type == 8) {
+        this.currentData.images.forEach((item) => {
+          item.isChecked = false;
+        });
+      } else if (type == 7) {
+        this.currentData.images.forEach((item) => {
+          item.selectValue = "";
+        });
+        this.cityValue = "";
+      } else if (type == 9) {
+        this.currentData.images.forEach((item) => {
+          item.isChecked = false;
+        });
+        this.checkboxValue = [];
+        this.checkboxList = [];
+      }
+
+      this.circleIndex = 0;
+      this.showSubImage = false;
+      this.repairData();
+    },
   },
 };

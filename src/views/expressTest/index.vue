@@ -25,9 +25,9 @@
               <p class="arrow" @click="nextCircle"><span>上一题</span><i class="el-icon-arrow-up"></i></p>
               <div class="qs-select-input">
                 <p class="qs-text">
-                  {{ currentData.inputText[circleIndex].text }}
+                  {{ currentData.inputText[circleIndex].url }}
                   <input class="qs-input" v-model="currentData.inputText[circleIndex].value" type="number"
-                    placeholder="点击输入价格" pattern="[0-9]*" :maxlength="3" @change="changeHandle()" />
+                    placeholder="点击输入价格" pattern="[0-9]*" :maxlength="3" @change="changeHandle" />
                   <span>元。</span>
                 </p>
               </div>
@@ -103,7 +103,9 @@
             <div class="qs-img-box">
               <p class="arrow" @click="nextCircleImgSpecial"><span>上一题</span><i class="el-icon-arrow-left"></i></p>
               <div class="qs-img-item qs-img-bg" @click="selectCircleImgTypeSixHandle">
-                <img :src="currentData.images[circleIndex].url" />
+                <div class="img-box">
+                  <img :src="currentData.images[circleIndex].url" />
+                </div>
               </div>
               <p class="arrow" @click="preCircleImgSpecial"><span>下一题</span><i class="el-icon-arrow-right"></i></p>
             </div>
@@ -152,8 +154,7 @@
             </div>
             <div class="city-select">
               <el-select v-model="cityValue" placeholder="请选择省份" @change="cityChange">
-                <el-option v-for="item in currentData.citys" :key="item.cityValue" :label="item.cityName"
-                  :value="item.cityValue">
+                <el-option v-for="item in cityData" :key="item.cityValue" :label="item.cityName" :value="item.cityValue">
                 </el-option>
               </el-select>
             </div>
@@ -213,7 +214,7 @@
               </div>
               <div class="answer-box-right">
                 <div class="question-list">
-                  <p class="list-item" v-for="(item, index) in checkboxList">{{ index + 1 }}、{{ item.text }}
+                  <p class="list-item" v-for="(item, index) in checkboxList">{{ index + 1 }}、{{ item.url }}
                   </p>
                 </div>
               </div>
@@ -235,7 +236,7 @@
               <el-checkbox-group v-model="checkboxValue" @change="selectCheckboxHandle">
                 <p class="list-item" v-for="(item, index) in currentData.images"
                   :class="item.isChecked ? 'list-item-active' : ''" :key="index">
-                  <el-checkbox :label="item.id"> {{ index + 1 }}、{{ item.text }}</el-checkbox>
+                  <el-checkbox :label="item.desc"> {{ index + 1 }}、{{ item.url }}</el-checkbox>
                 </p>
               </el-checkbox-group>
             </div>
