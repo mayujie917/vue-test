@@ -29,5 +29,6 @@ export function getExamineeByUserId(params) {
   );
 }
 export function markHandle(params) {
-  return put("http://www.jszhiping.com/prod-api/examRecord/scoreRecord/mark");
+  console.log('params',params);
+  return put("http://www.jszhiping.com/prod-api/examRecord/scoreRecord/mark",params);
 }

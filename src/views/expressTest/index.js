@@ -43,6 +43,7 @@ export let data = {
       checkboxList: [], //type 9
       checkboxValue: [],
       showGif: true,
+      examineeId:'',
     };
   },
 
@@ -80,9 +81,9 @@ export let data = {
     //获取 examineeId
     getExamineeId() {
       getExamineeByUserId().then((res) => {
-        console.log(2333, res);
-        if (res.code == 0) {
-          this.examineeId = res;
+        console.log(23331111, res);
+        if (res.code == 200) {
+          this.examineeId = res.data.examineeId;
         } else {
           console.log(res.msg);
         }
@@ -90,10 +91,10 @@ export let data = {
     },
     getData() {
       Promise.all([
-        getTypeAList(),
-        getTypeBList(),
-        getTypeCList(),
-        getTypeDList(),
+        // getTypeAList(),
+        // getTypeBList(),
+        // getTypeCList(),
+        // getTypeDList(),
         getTypeEList(),
       ]).then((res) => {
         console.log(2333, res);
