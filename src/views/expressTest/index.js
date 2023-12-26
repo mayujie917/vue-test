@@ -43,7 +43,8 @@ export let data = {
       checkboxList: [], //type 9
       checkboxValue: [],
       showGif: true,
-      examineeId:'',
+      examineeId: "",
+      isFinished: false, // 是否提交完成
     };
   },
 
@@ -91,28 +92,39 @@ export let data = {
     },
     getData() {
       Promise.all([
-        // getTypeAList(),
-        // getTypeBList(),
-        // getTypeCList(),
-        // getTypeDList(),
+        getTypeAList(),
+        getTypeBList(),
+        getTypeCList(),
+        getTypeDList(),
         getTypeEList(),
       ]).then((res) => {
-        console.log(2333, res);
         res.forEach((item, index) => {
           if (item.response_code == 0) {
             let _data = item.results[0];
             if (_data.questionType == 3) {
+              //快递资费
               _data.inputText = _data.question2Type4List;
               _data.images = [{ url: _data.url }];
             } else if (_data.questionType == 4) {
+              //配送路线
               _data.selectValue = "";
               _data.images = [{ url: _data.url }];
-              _data.selectList;
+              _data.selectList = _data.question3TypeList;
+            } else if (_data.questionType == 5) {
+              _data.images.forEach((item) => {
+                item.isChecked = false;
+              });
             } else if (_data.questionType == 7) {
+              //省份
               _data.images = _data.question2Type3List;
+            } else if (_data.questionType == 8) {
+              _data.images.forEach((item) => {
+                item.isChecked = false;
+              });
             }
             _data.question = `${index + 1}、${_data.question}`;
             this.list.push(_data);
+            console.log("list", this.list);
           }
         });
         this.list.forEach((item) => {
@@ -343,6 +355,7 @@ export let data = {
       let _tag = this.cityData.filter((item) => item.cityValue == val);
       console.log(2333, _tag);
       _data.images[this.circleIndex].selectValue = _tag[0]["cityValue"];
+      _data.images[this.circleIndex].cityName = _tag[0]["cityName"];
     },
     /**
      * type 8 从当前类别中，选出禁寄的物品
@@ -421,10 +434,37 @@ export let data = {
           skillExamId: this.skillExamId,
           skillScore: _score,
         };
-        // 提交
-        markHandle(params).then((res) => {
-          console.log(2333, res);
-        });
+        let { flag, type } = this.checkItem();
+        if (!flag) {
+          let _index = -1;
+          this.list.forEach((item, index) => {
+            if (item.type == type) {
+              _index = index;
+            }
+          });
+          return this.$message.warning(
+            `第${_index + 1}项题未作答，请检查并进行作答`
+          );
+        } else {
+          this.$confirm("已全部作答完毕，是否提交试卷!", "提示", {
+            confirmButtonText: "是",
+            cancelButtonText: "否",
+            type: "warning",
+            center: true, //文字居中显示
+            showCancelButton: false, //不显示取消按钮
+            showClose: false, //是否显示右上角的x
+            closeOnClickModal: false, //是否可以点击空白处关闭弹窗
+          }).then(() => {
+            // 提交
+            markHandle(params).then((res) => {
+              console.log(2333, res);
+              if (res.code == 20) {
+                this.$message.success("提交成功！");
+                this.isFinished = true;
+              }
+            });
+          });
+        }
       }
     },
     // 计算每个题的得分
@@ -451,7 +491,7 @@ export let data = {
         let score = 0;
         item.selectList.forEach((item) => {
           if (item.isChecked && item.isRealValue) {
-            score = this.currentData.totalScore;
+            score = 20; //满分
           }
         });
         return score;
@@ -501,31 +541,57 @@ export let data = {
     // 检查当前题是否已作答
     checkItem() {
       // 根据不同题type判断
-      const { type, images } = this.currentData;
-      let flag = false;
-      if (type == 5) {
-        let _temp = images.filter((item) => item.isChecked);
-        _temp.length < 4 ? (flag = true) : (flag = false);
-      } else if (type == 8) {
-        let _temp = images.filter((item) => item.isChecked);
-        _temp.length < 4 ? (flag = true) : (flag = false);
-      } else if (type == 7) {
-        let _temp = images.filter((item) => !item.selectValue);
-        _temp.length ? (flag = true) : (flag = false);
-      } else if (type == 3) {
-        let _tempInputText = this.currentData.inputText;
-        let _temp = _tempInputText.filter((item) => !item.value);
-        _temp.length ? (flag = true) : (flag = false);
-      } else if (type == 4) {
-        let _tempSelectList = this.currentData.selectList;
-        let _temp = _tempSelectList.every((item) => !item.isChecked);
-        _temp ? (flag = true) : (flag = false);
-      } else if (type == 1) {
-        let _tempVideos = this.currentData.videos;
-        let _temp = _tempVideos.every((item) => !item.isChecked);
-        _temp ? (flag = true) : (flag = false);
-      }
-      return flag;
+      // const { type, images } = this.currentData;
+      // let flag = false;
+      // if (type == 5) {
+      //   let _temp = images.filter((item) => item.isChecked);
+      //   _temp.length < 4 ? (flag = true) : (flag = false);
+      // } else if (type == 8) {
+      //   let _temp = images.filter((item) => item.isChecked);
+      //   _temp.length < 4 ? (flag = true) : (flag = false);
+      // } else if (type == 7) {
+      //   let _temp = images.filter((item) => !item.selectValue);
+      //   _temp.length ? (flag = true) : (flag = false);
+      // } else if (type == 3) {
+      //   let _tempInputText = this.currentData.inputText;
+      //   let _temp = _tempInputText.filter((item) => !item.value);
+      //   _temp.length ? (flag = true) : (flag = false);
+      // } else if (type == 4) {
+      //   let _tempSelectList = this.currentData.selectList;
+      //   let _temp = _tempSelectList.every((item) => !item.isChecked);
+      //   _temp ? (flag = true) : (flag = false);
+      // } else if (type == 9) {
+      //   let _temp = images.every((item) => !item.isChecked);
+      //   _temp ? (flag = false) : (flag = true);
+      // }
+      // return { flag, type };
+      let result = this.list.filter((item, index) => {
+        let flag = false;
+        const { type, images } = item;
+        if (type == 5) {
+          let _temp = images.filter((item) => item.isChecked);
+          _temp.length < 4 ? (flag = true) : (flag = false);
+        } else if (type == 8) {
+          let _temp = images.filter((item) => item.isChecked);
+          _temp.length < 4 ? (flag = true) : (flag = false);
+        } else if (type == 7) {
+          let _temp = images.filter((item) => !item.selectValue);
+          _temp.length ? (flag = true) : (flag = false);
+        } else if (type == 3) {
+          let _tempInputText = this.currentData.inputText;
+          let _temp = _tempInputText.filter((item) => !item.value);
+          _temp.length ? (flag = true) : (flag = false);
+        } else if (type == 4) {
+          let _tempSelectList = this.currentData.selectList;
+          let _temp = _tempSelectList.every((item) => !item.isChecked);
+          _temp ? (flag = true) : (flag = false);
+        } else if (type == 9) {
+          let _temp = images.every((item) => !item.isChecked);
+          _temp ? (flag = false) : (flag = true);
+        }
+        return { flag, type };
+      });
+      console.log(2333, result);
     },
     // 重置
     resetHandle() {

@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper">
-    <div class="qs-wrapper">
+    <div class="qs-wrapper" v-if="!isFinished">
       <div class="qs-content">
         <div class="qs-desc">
           <p class="desc-text" v-html="currentData.question"></p>
@@ -254,6 +254,9 @@
             第{{ numberList[index] }}项</el-button>
         </div>
       </div>
+    </div>
+    <div v-else class="qs-wrapper">
+      <p class="qs-content qs-content-finished">考试已结束！</p>
     </div>
 
     <!-- 提示 -->

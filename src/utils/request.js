@@ -1,5 +1,5 @@
 import axios from "axios";
-import qs from 'qs';
+// import qs from 'qs';
 
 let service = axios.create({
   baseURL: "http://123.57.230.57:6012",
