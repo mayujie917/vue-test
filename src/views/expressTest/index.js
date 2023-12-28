@@ -570,6 +570,7 @@ export let data = {
       // }
       // return { flag, type };
 
+      // TODO
       let result = this.list.map((item, index) => {
         let flag = false;
         // let _type;
