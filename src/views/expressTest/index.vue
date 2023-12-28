@@ -46,7 +46,7 @@
               <el-radio-group v-model="currentData.selectValue" @change="selectItemHandle">
                 <p class="list-item" v-for="(item, index) in currentData.selectList"
                   :class="item.isChecked ? 'list-item-active' : ''" :key="index">
-                  <el-radio :label="item.id"> {{ index + 1 }}、{{ item.value }}</el-radio>
+                  <el-radio :label="item.value"> {{ index + 1 }}、{{ item.value }}</el-radio>
                 </p>
               </el-radio-group>
             </div>
