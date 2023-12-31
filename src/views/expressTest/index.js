@@ -45,6 +45,7 @@ export let data = {
       showGif: true,
       examineeId: "",
       isFinished: false, // 是否提交完成
+      flashImg: "", // 路线导向图
     };
   },
 
@@ -203,12 +204,14 @@ export let data = {
      * type 4 根据图片，选择配送路线
      */
     selectItemHandle(item) {
+      console.log(233, item);
       this.currentData.selectValue = item;
       this.currentData.selectList.forEach((e) => {
         if (item != e.value) {
           e.isChecked = false;
         } else {
           e.isChecked = true;
+          this.flashImg = e.urlVar;
         }
       });
     },
