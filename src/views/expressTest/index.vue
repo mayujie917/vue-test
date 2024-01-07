@@ -221,12 +221,12 @@
               </div>
             </div>
             <div class="question-box">
-              <div class="question-box-left">
+              <!-- <div class="question-box-left">
                 <div class="question-text">
                   <p>我没收到快递，</p>
                   <p>为什么显示已签收?</p>
                 </div>
-              </div>
+              </div> -->
               <div class="question-box-right">
                 <img src="http://123.57.230.57:6011/assets/imgs/other/省钱.png" alt="">
               </div>
