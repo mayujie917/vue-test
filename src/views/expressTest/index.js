@@ -374,6 +374,7 @@ export let data = {
      */
     currentImgTypeView() {
       this.showSubImage = true;
+      this.showGif = false;
       let _currentData = this.currentData.images[this.circleIndex];
       this.subImages = _currentData.subImages;
     },

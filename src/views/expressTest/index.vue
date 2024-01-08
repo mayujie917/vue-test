@@ -176,6 +176,10 @@
                 <p class="total">{{ currentData.images[circleIndex].desc }}</p>
                 <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
               </div>
+              <!-- 指示图 -->
+              <div class="gif-img" v-show="showGif && !showSubImage">
+                <img src="../../assets/imgs/finger.gif" alt="">
+              </div>
             </div>
             <div class="sub-images" v-else>
               <div class="sub-images-list">
