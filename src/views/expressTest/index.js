@@ -68,7 +68,7 @@ export let data = {
 
     setTimeout(() => {
       this.showGif = false;
-    }, 2500);
+    }, 5000);
     console.log(2222, this.$route.query);
     if (this.$route.query.token) {
       const { token, skillExamId } = this.$route.query;

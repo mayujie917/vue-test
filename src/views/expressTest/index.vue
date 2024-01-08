@@ -40,7 +40,7 @@
         <div class="qs-select-wrapper" v-if="currentData.type == 4">
           <div class="qs-img qs-other-img">
             <img :src="currentData.images[0].url" />
-            <img class="flash-img " :class="{ 'city-name-fade': flashImg }" :src="flashImg" alt="">
+            <img v-show="flashImg" class="flash-img " :class="{ 'city-name-fade': flashImg }" :src="flashImg" alt="">
           </div>
           <div class="qs-select">
             <div class="qs-select-area qs-select-radio">
