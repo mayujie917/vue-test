@@ -219,7 +219,7 @@
               </div>
               <div class="answer-box-right">
                 <div class="question-list">
-                  <p class="list-item" v-for="(item, index) in checkboxList">{{ index + 1 }}、{{ item.url }}
+                  <p class="list-item" v-for="(item, index) in checkboxList">{{ item.url }}
                   </p>
                 </div>
               </div>
