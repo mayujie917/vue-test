@@ -7,7 +7,7 @@
     <router-view />
   </div>
 </template>
-<style>
+<style lang="less">
 *,
 *::before,
 *::after {
@@ -33,6 +33,18 @@ body {
   /* height: 100vh;
   width: 100%; */
   height: 100vh;
+  width: 100vw;
+
+  // .content {
+  //   width: 100%;
+  //   /* 设定内容区域宽度为100% */
+  //   height: 100%;
+  //   /* 高度与容器保持一致 */
+  //   transform-origin: top left;
+  //   /* 变换原点设置为左上角 */
+  //   transition: all 0.3s ease;
+  //   /* 添加平滑过渡效果 */
+  // }
 }
 </style>
 

@@ -21,6 +21,7 @@ export let data = {
   components: { draggable },
   data() {
     return {
+      orientation: "landscape", // 横屏、竖屏
       tipsModal: false, //提示弹窗
       tipsTitle: "该物品已经选择过了！", // 提示内容
       previewModal: false, // 大图预览
@@ -50,26 +51,20 @@ export let data = {
   },
 
   async mounted() {
+    this.checkOrientation(); // 页面加载时立即调用一次
+
+    window.addEventListener("resize", () => {
+      this.checkOrientation(); // 监听窗口大小变化事件
+    });
+
     this.cityData = getCityData();
-    // list.forEach((item) => {
-    //   if (item.type == 5) {
-    //     item.images.forEach((el) => {
-    //       if (el.subImages) {
-    //         delete el.subImages;
-    //       }
-    //     });
-    //   }
-    // });
-    // this.list = list;
-    // this.currentData = this.list[this.currentIndex];
-    // this.indexList = [0];
+
     this.list = [];
     await this.getData();
 
     setTimeout(() => {
       this.showGif = false;
     }, 5000);
-    console.log(2222, this.$route.query);
     if (this.$route.query.token) {
       const { token, skillExamId } = this.$route.query;
       this.token = token;
@@ -77,6 +72,43 @@ export let data = {
       this.skillExamId = skillExamId;
       this.getExamineeId();
     }
+
+    // // 获取容器和内容元素
+    // const container = document.querySelector("#app");
+    // const content = this.$refs.scaledContent;
+
+    // let scaleFactor = 1; // 初始化缩放因子
+
+    // // 监听容器的resize事件（当容器大小改变时）
+    // window.addEventListener("resize", () => {
+    //   debugger;
+    //   adjustScale(); // 重新计算缩放比例
+    // });
+
+    // function adjustScale() {
+    //   // 计算容器的宽度和高度
+    //   const containerWidth = container.offsetWidth;
+    //   const containerHeight = container.offsetHeight;
+
+    //   // 计算内容区域的宽度和高度
+    //   const contentWidth = content.clientWidth || containerWidth * scaleFactor;
+    //   const contentHeight =
+    //     content.clientHeight || containerHeight * scaleFactor;
+
+    //   // 判断内容区域是否超出了容器边界
+    //   if (contentWidth > containerWidth) {
+    //     scaleFactor = containerWidth / contentWidth; // 按照容器宽度等比例缩放
+    //   } else if (contentHeight > containerHeight) {
+    //     scaleFactor = containerHeight / contentHeight; // 按照容器高度等比例缩放
+    //   } else {
+    //     scaleFactor = 1; // 没有超出边界则还原到原始状态
+    //   }
+
+    //   // 更新内容区域的transform属性值
+    //   content.style.transform = `scale(${scaleFactor})`;
+    // }
+
+    // adjustScale(); // 首次加载时立即调用adjustScale函数
   },
 
   methods: {
@@ -380,7 +412,7 @@ export let data = {
     },
     confirmSelect() {
       let _currentData = this.currentData.images[this.circleIndex];
-      if (this.selectedData.length > 2) return;
+      if (this.selectedData.length >= 2) return;
       if (!_currentData.isChecked) {
         _currentData.isChecked = true;
         this.selectedData.push(_currentData);
@@ -490,6 +522,7 @@ export let data = {
           return 0;
         }
       } else if (item.type == 3) {
+        // 运费
         // let _selectItem = item.inputText.filter((item) => item.value != "");
         let _count = 0;
         item.inputText.forEach((item) => {
@@ -497,7 +530,7 @@ export let data = {
             _count += 1;
           }
         });
-        return (_count / item.inputText.length) * 20;
+        return _count * 4;
       } else if (item.type == 4) {
         // 配送路线 单选
         let score = 0;
@@ -513,13 +546,13 @@ export let data = {
         let _selectItem = item.images.filter((item) => item.isChecked);
         // 2.选中物品中是违禁品数量
         let _count = _selectItem.filter((item) => item.type == 2);
-        return (_count.length / 4) * 20;
+        return _count.length * 5;
       } else if (item.type == 6) {
         // 1.选中的物品
         let _selectItem = item.images.filter((item) => item.isChecked);
         // 2.选中物品中是违禁品数量
         let _count = _selectItem.filter((item) => item.type == 2);
-        return (_count.length / 2) * 20;
+        return _count.length * 10;
       } else if (item.type == 7) {
         // 匹配省份
         let _count = 0;
@@ -528,7 +561,7 @@ export let data = {
             _count += 1;
           }
         });
-        return (_count / item.images.length) * 20;
+        return _count * 20;
       } else if (item.type == 8) {
         // 1.选中的物品
         let _selectItem = item.images.filter((item) => item.isChecked);
@@ -638,6 +671,19 @@ export let data = {
       this.circleIndex = 0;
       this.showSubImage = false;
       this.repairData();
+    },
+    checkOrientation() {
+      const mediaQuery = window.matchMedia("(orientation: landscape)");
+      // debugger;
+      if (mediaQuery.matches) {
+        import("@/assets/styles/landscape.less").then(() => {
+          this.orientation = "landscape"; // 切换到横屏模式
+        });
+      } else {
+        import("@/assets/styles/portrait.less").then(() => {
+          this.orientation = "portrait"; // 切换到默认或其他模式
+        });
+      }
     },
   },
 };

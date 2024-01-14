@@ -1,7 +1,7 @@
 <template>
-  <div :class="orientation" class="content" ref="scaledContent">
+  <div class="page-wrapper">
     <div class="qs-wrapper" v-if="!isFinished">
-      <div class="qs-content-wrap">
+      <div class="qs-content">
         <div class="qs-desc">
           <p class="desc-text" v-html="currentData.question"></p>
         </div>
@@ -17,16 +17,10 @@
 
         <!-- 根据资费，填写费用 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 3">
-          <div class="qs-select-wrapper-sub">
-            <div class="qs-content">
-              <div class="qs-box qs-box-charge">
-                <div class="qs-img-item">
-                  <img :src="currentData.images[0].url" />
-                </div>
-              </div>
-            </div>
+          <div class="qs-img qs-cost">
+            <img :src="currentData.images[0].url" />
           </div>
-          <div class="qs-select qs-select-charge ">
+          <div class="qs-select">
             <div class="qs-select-input-box">
               <p class="arrow" @click="nextCircle"><span>上一题</span><i class="el-icon-arrow-up"></i></p>
               <div class="qs-select-input">
@@ -44,16 +38,9 @@
         </div>
         <!-- 图片描述类型 按照上述区域合理设计路线 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 4">
-          <div class="qs-select-wrapper-sub qs-select-wrapper-line">
-            <div class="qs-content">
-              <div class="qs-box qs-box-line">
-                <div class="qs-img-item">
-                  <img :src="currentData.images[0].url" />
-                  <img v-show="flashImg" class="flash-img " :class="{ 'city-name-fade': flashImg }" :src="flashImg"
-                    alt="">
-                </div>
-              </div>
-            </div>
+          <div class="qs-img qs-other-img">
+            <img :src="currentData.images[0].url" />
+            <img v-show="flashImg" class="flash-img " :class="{ 'city-name-fade': flashImg }" :src="flashImg" alt="">
           </div>
           <div class="qs-select">
             <div class="qs-select-area qs-select-radio">
@@ -66,25 +53,23 @@
             </div>
           </div>
         </div>
-        <!-- 多张图片，选出禁寄送的 -->
+        <!-- 多张图片，选出某几禁寄送的 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 5">
-          <div class="qs-select-wrapper-sub">
-            <div class="qs-content">
-              <div class="qs-box">
-                <p class="arrow" @click="nextCircleImgSpecial"><span>上一题</span><i class="el-icon-arrow-left"></i></p>
-                <div class="qs-img-item" @click="selectCircleImgHandle">
-                  <img :src="currentData.images[circleIndex].url" />
-                </div>
-                <p class="arrow" @click="preCircleImgSpecial"><span>下一题</span><i class="el-icon-arrow-right"></i></p>
+          <div class="qs-img-box-wrapper">
+            <div class="qs-img-box">
+              <p class="arrow" @click="nextCircleImgSpecial"><span>上一题</span><i class="el-icon-arrow-left"></i></p>
+              <div class="qs-img-item" @click="selectCircleImgHandle">
+                <img :src="currentData.images[circleIndex].url" />
               </div>
-              <div class="qs-box-num">
-                <p class="total">{{ currentData.images[circleIndex].desc }}</p>
-                <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
-              </div>
-              <!-- 指示图 -->
-              <div class="gif-img" v-show="showGif">
-                <img src="../../assets/imgs/finger.gif" alt="">
-              </div>
+              <p class="arrow" @click="preCircleImgSpecial"><span>下一题</span><i class="el-icon-arrow-right"></i></p>
+            </div>
+            <div>
+              <p class="total">{{ currentData.images[circleIndex].desc }}</p>
+              <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
+            </div>
+            <!-- 指示图 -->
+            <div class="gif-img" v-show="showGif">
+              <img src="../../assets/imgs/finger.gif" alt="">
             </div>
           </div>
           <div class="qs-select">
@@ -115,26 +100,24 @@
           </div>
         </div>
         <div class="qs-select-wrapper" v-if="currentData.type == 6">
-          <div class="qs-select-wrapper-sub qs-select-wrapper-sub-exp">
-            <div class="qs-content">
-              <div class="qs-box">
-                <p class="arrow" @click="nextCircleImgSpecial"><span>上一题</span><i class="el-icon-arrow-left"></i></p>
-                <div class="qs-img-item qs-img-bg" @click="selectCircleImgTypeSixHandle">
-                  <div class="img-box">
-                    <img :src="currentData.images[circleIndex].url" />
-                  </div>
+          <div class="qs-img-box-wrapper">
+            <div class="qs-img-box">
+              <p class="arrow" @click="nextCircleImgSpecial"><span>上一题</span><i class="el-icon-arrow-left"></i></p>
+              <div class="qs-img-item qs-img-bg" @click="selectCircleImgTypeSixHandle">
+                <div class="img-box">
+                  <img :src="currentData.images[circleIndex].url" />
                 </div>
-                <p class="arrow" @click="preCircleImgSpecial"><span>下一题</span><i class="el-icon-arrow-right"></i></p>
               </div>
-              <div class="qs-box-num">
-                <p class="total">{{ currentData.images[circleIndex].desc }}</p>
-                <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
-              </div>
+              <p class="arrow" @click="preCircleImgSpecial"><span>下一题</span><i class="el-icon-arrow-right"></i></p>
+            </div>
+            <div>
+              <p class="total">{{ currentData.images[circleIndex].desc }}</p>
+              <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
             </div>
           </div>
           <div class="qs-select">
             <div class="qs-select-area">
-              <div class="qs-select-area-item qs-select-area-item-exp">
+              <div class="qs-select-area-item qs-select-area-item-img qs-select-area-item-other-img">
                 <div class="qs-select-bg  qs-select-other-bg">
                   <div class="select-bg-item">
                     <p>1</p>
@@ -153,11 +136,11 @@
         </div>
         <!-- 根据图片，选择对应省份 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 7">
-          <div class="qs-select-wrapper-sub qs-select-wrapper-sub-city">
-            <div class="qs-content">
-              <div class="qs-box">
+          <div class="qs-img-box-wrapper qs-img-box-charge">
+            <div class="qs-img-box-charge-city">
+              <div class="qs-img-box">
                 <p class="arrow" @click="nextCircleImg"><span>上一题</span><i class="el-icon-arrow-left"></i></p>
-                <div class="qs-img-city">
+                <div class="qs-img-item qs-img-city">
                   <img :src="currentData.images[circleIndex].url" />
                   <span class="city-name"
                     :class="currentData.images[circleIndex].selectValue == '' ? 'city-name-fade' : ''">
@@ -166,7 +149,7 @@
                 </div>
                 <p class="arrow" @click="preCircleImg"><span>下一题</span><i class="el-icon-arrow-right"></i></p>
               </div>
-              <div class="qs-box-num">
+              <div>
                 <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
               </div>
             </div>
@@ -180,16 +163,16 @@
         </div>
         <!-- 对寄送物品查验，选出禁寄物品 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 8">
-          <div class="qs-select-wrapper-sub">
-            <div v-if="!showSubImage" class="qs-content qs-parent">
-              <div class="qs-box">
+          <div class="qs-img-box-wrapper">
+            <div v-if="!showSubImage">
+              <div class="qs-img-box">
                 <p class="arrow" @click="nextCircleImg"><span>上一题</span><i class="el-icon-arrow-left"></i></p>
                 <div class="qs-img-item" @click="currentImgTypeView">
                   <img :src="currentData.images[circleIndex].url" />
                 </div>
                 <p class="arrow" @click="preCircleImg"><span>下一题</span><i class="el-icon-arrow-right"></i></p>
               </div>
-              <div class="qs-box-num">
+              <div>
                 <p class="total">{{ currentData.images[circleIndex].desc }}</p>
                 <p class="total">{{ circleIndex + 1 }}/{{ currentData.images.length }}</p>
               </div>
@@ -198,7 +181,7 @@
                 <img src="../../assets/imgs/finger.gif" alt="">
               </div>
             </div>
-            <div class="qs-sub qs-content " v-else>
+            <div class="sub-images" v-else>
               <div class="sub-images-list">
                 <div class="sub-images-item" v-for="subItem in subImages" @click="confirmSelect">
                   <img :src="subItem.url" alt="">
@@ -229,23 +212,27 @@
         </div>
         <!-- 客户投诉 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 9">
-          <div class="qs-select-wrapper-sub qs-select-wrapper-sub-ans">
-            <div class="qs-content">
-              <div class="qs-box answer-box">
-                <div class="answer-box-left">
-                  <div class="left-img">
-                    <img src="http://123.57.230.57:6011/assets/imgs/other/快递员.png" alt="">
-                  </div>
-                  <div class="left-answer">
-                    <div class="question-list">
-                      <p class="list-item" v-for="(item, index) in checkboxList">{{ item.url }}
-                      </p>
-                    </div>
-                  </div>
+          <div class="complaint-box">
+            <div class="answer-box">
+              <div class="answer-box-left">
+                <img src="http://123.57.230.57:6011/assets/imgs/other/快递员.png" alt="">
+              </div>
+              <div class="answer-box-right">
+                <div class="question-list">
+                  <p class="list-item" v-for="(item, index) in checkboxList">{{ item.url }}
+                  </p>
                 </div>
-                <div class="answer-box-right">
-                  <img src="http://123.57.230.57:6011/assets/imgs/other/省钱.png" alt="">
+              </div>
+            </div>
+            <div class="question-box">
+              <!-- <div class="question-box-left">
+                <div class="question-text">
+                  <p>我没收到快递，</p>
+                  <p>为什么显示已签收?</p>
                 </div>
+              </div> -->
+              <div class="question-box-right">
+                <img src="http://123.57.230.57:6011/assets/imgs/other/省钱.png" alt="">
               </div>
             </div>
           </div>
@@ -292,5 +279,6 @@ import { data } from "./index";
 export default data;
 </script>
 <style lang="less" scoped>
-@import url('@/assets/styles/express.less');
+// @import url('./index.less');
+@import url('./express.less');
 </style>

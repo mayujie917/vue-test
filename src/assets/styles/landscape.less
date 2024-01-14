@@ -1,0 +1,752 @@
+// 横屏
+
+.landscape {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 1%;
+  // position: relative;
+
+  .qs-wrapper {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+
+    .qs-content-wrap {
+      width: 100%;
+      height: calc(100% - 45px);
+      box-sizing: border-box;
+
+
+
+      // 题目描述
+      .qs-desc {
+        height: 45px;
+        box-sizing: border-box;
+
+        .desc-text {
+          display: block;
+          font-size: 12px;
+          font-weight: 600;
+          padding: 0 2%;
+          // margin-bottom: 3px;
+
+          .title-mark {
+            color: #f00;
+            font-weight: 700;
+          }
+        }
+
+        .desc-tip {
+          display: block;
+          font-size: 13px;
+        }
+
+      }
+
+      // 内容
+      .qs-select-wrapper {
+        height: calc(100% - 45px);
+        width: 100%;
+        box-sizing: border-box;
+        overflow: scroll;
+
+
+        .qs-select-wrapper-sub {
+          // height: 100%;
+          width: 100%;
+          height: calc(100% - 110px);
+          box-sizing: border-box;
+          display: flex;
+          position: relative;
+
+          .qs-content {
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 3%;
+
+            .qs-box {
+              height: calc(100% - 40px);
+              box-sizing: border-box;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              // flex-wrap: wrap;
+
+              .arrow {
+                width: 12%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                span {
+                  font-size: 14px;
+                }
+
+                i {
+                  font-size: 50px;
+                  font-weight: 700;
+                }
+              }
+
+              .qs-img-item {
+                width: 100%;
+                height: 100%;
+                text-align: center;
+
+                .img-desc {
+                  text-align: center;
+                }
+
+                img {
+                  height: 100%;
+                  width: 100%;
+                  object-fit: scale-down;
+                }
+              }
+
+              .qs-img-bg {
+                width: 75%;
+                // height: 35.4vh;
+                height: 100%;
+                background: url('../../../public/assets/kdg.png') no-repeat;
+                background-size: 100% 100%;
+                background-position: center center;
+                box-sizing: border-box;
+                padding: 2% 0;
+
+                .img-box {
+                  width: 100%;
+                  height: 100%;
+                  box-sizing: border-box;
+                  padding: 2px 0;
+
+                  img {
+                    width: 50%;
+                    height: 100%;
+                  }
+                }
+              }
+
+              .qs-img-city {
+                position: relative;
+                width: 100%;
+                // height: 66.8vh;
+                height: 100%;
+
+                .city-name {
+                  position: absolute;
+                  top: 43%;
+                  left: 50%;
+                  background: red;
+                  min-width: 7%;
+                  height: 3vh;
+                  line-height: 3vh;
+                  font-size: 12px;
+                  text-wrap: nowrap;
+                }
+
+
+                img {
+                  width: 100%;
+                  height: 100%;
+                  // object-fit: contain;
+                }
+              }
+            }
+
+            .answer-box {
+              display: flex;
+              height: 100%;
+
+              .answer-box-left {
+                display: flex;
+                width: 70%;
+                height: 100%;
+
+                .left-img {
+                  width: 35%;
+                  height: 100%;
+
+                  img {
+                    width: 100%;
+                    height: 100%;
+                  }
+                }
+
+                .left-answer {
+                  flex: 1;
+
+                  .question-list {
+                    box-sizing: border-box;
+                    padding-top: 0%;
+                    height: 100%;
+                    // overflow: auto;
+
+                    .list-item {
+                      width: 100%;
+                      box-sizing: border-box;
+                      padding: 2px 5px;
+                      border: 2px solid #333;
+                      border-radius: 15px;
+                      margin-bottom: 5px;
+                      height: 20%;
+                      overflow: auto;
+                    }
+                  }
+                }
+              }
+
+              .answer-box-right {
+                width: 30%;
+                height: 100%;
+                text-align: center;
+
+                img {
+                  width: 50%;
+                  height: 100%;
+                  // object-fit: contain;
+                }
+
+              }
+            }
+
+            // 运费
+            .qs-box-charge {
+              height: 100%;
+            }
+
+            // 路线
+            .qs-box-line {
+              height: 100%;
+
+              .qs-img-item {
+                .flash-img {
+                  position: absolute;
+                  top: 0;
+                  /* width: 100%; */
+                  /* height: 200px; */
+                  left: 0;
+                  z-index: 101;
+                }
+              }
+            }
+
+            .qs-box-num {
+              height: 40px;
+              text-align: center;
+
+              .total {
+                width: 100%;
+                text-align: center;
+                font-size: 16px;
+                // line-height: 40px;
+              }
+            }
+          }
+
+          .qs-sub {
+            height: 100%;
+            width: 100%;
+
+            .sub-images-list {
+              display: flex;
+              height: calc(100% - 40px);
+
+              .sub-images-item {
+                width: 25%;
+                height: 100%;
+                text-align: center;
+                box-sizing: border-box;
+                padding: 0;
+
+                img {
+                  width: 100%;
+                  // max-height: 180px;
+                  height: 100%;
+                  object-fit: contain;
+                }
+
+                .sub-item-desc {
+                  text-align: center;
+                }
+              }
+            }
+
+            .back-btn {
+              height: 40px;
+              text-align: center;
+              margin: 3px 0;
+
+              button {
+                font-size: 18px;
+                padding: 5px 20px;
+              }
+            }
+          }
+
+        }
+
+        .qs-select-wrapper-sub-exp {
+          height: calc(100% - 80px);
+        }
+
+        .qs-select-wrapper-sub-city {
+          height: 100%;
+        }
+
+        .qs-select-wrapper-line {
+          height: calc(100% - 80px);
+        }
+
+        // 问答
+        .qs-select-wrapper-sub-ans {
+          height: calc(100% - 60px);
+        }
+
+        // 城市选择
+
+        .city-select {
+          width: 20%;
+          box-sizing: border-box;
+          padding: 0 1%;
+
+          ::v-deep .el-select {
+            width: 100%;
+
+            .el-input {
+              input {
+                padding: 0 10px;
+              }
+
+              .el-input__suffix {
+                right: 0;
+              }
+            }
+          }
+        }
+
+        .qs-select {
+          // height: 122px;
+          box-sizing: border-box;
+          padding: 0 1%;
+
+          .qs-select-area {
+            width: 100%;
+            position: relative;
+            box-sizing: border-box;
+            border: 8px solid #a89171;
+            background: #50a8cc;
+            border-radius: 15px;
+            padding: 1% 5%;
+
+            .qs-select-area-item {
+              width: 100%;
+              height: 80px;
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              flex-wrap: wrap;
+              box-sizing: border-box;
+              position: relative;
+
+              .qs-select-bg {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                .select-bg-item {
+                  width: 25%;
+                  height: 100%;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  color: #f2090926;
+                  font-size: 2rem;
+                  font-weight: 700;
+
+                  &::after {
+                    display: block;
+                    content: '';
+                    width: 5px;
+                    height: 30%;
+                    background-color: #cecece;
+                    position: absolute;
+                    right: 0;
+                  }
+
+                  &:last-of-type {
+                    &::after {
+                      display: none;
+                    }
+                  }
+                }
+              }
+
+              .qs-select-other-bg {
+                justify-content: center;
+
+                .select-bg-item {
+                  width: 50%;
+                }
+
+
+              }
+            }
+
+
+            .qs-select-drag {
+              height: 10vh;
+            }
+
+            .qs-select-area-item-img {
+              img {
+                width: 25%;
+                height: 100%;
+                object-fit: contain;
+              }
+            }
+
+            .qs-select-area-item-other-img {
+              justify-content: flex-start;
+
+              img {
+                width: 50%;
+              }
+            }
+
+            .qs-select-area-item-exp {
+              img {
+                width: 50%;
+                height: 100%;
+                object-fit: contain;
+              }
+            }
+          }
+
+          .qs-select-list {
+            width: 100%;
+            padding: 0 2%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+            margin-top: 10px;
+
+            .list-item {
+              // width: 18px;
+              font-size: 14px;
+              padding: 2%;
+              text-align: center;
+              // color: #fff;
+              margin: 0 1% 1% 1%;
+              border-radius: 15%;
+              text-align: left;
+
+              ::v-deep .el-checkbox {
+
+                color: #fff;
+
+                .el-checkbox__inner {
+                  border-radius: 50%;
+                }
+
+                .el-checkbox__label {
+                  font-weight: 700;
+                }
+              }
+
+              ::v-deep .is-checked {
+
+                .el-checkbox__inner {
+                  border-color: #cf594d;
+                  background: #cf594d;
+                }
+
+                .el-checkbox__label {
+
+                  color: #cf594d;
+                }
+              }
+            }
+
+            .list-item-active {
+              background: rgb(192, 214, 255);
+            }
+          }
+
+          .list-item-btns {
+            justify-content: flex-start;
+
+            .list-item-btn {
+              margin: 1%;
+              padding: 5px 10px;
+            }
+          }
+
+          .subTotal {
+            width: 100%;
+            text-align: center;
+            margin: 2px 0;
+            line-height: 1;
+            font-size: 14px;
+          }
+
+          .qs-select-checkbox {
+            .list-item {
+              font-size: 14px;
+              text-align: center;
+              color: #fff;
+              margin: 0 1%;
+              margin-bottom: 0.5%;
+              border-radius: 15%;
+              text-align: left;
+
+              .el-checkbox {
+
+                color: #fff;
+
+                .el-checkbox__inner {
+                  border-radius: 50%;
+                }
+
+                .el-checkbox__label {
+                  font-weight: 700;
+                }
+              }
+
+              .is-checked {
+
+                .el-checkbox__inner {
+                  border-color: #cf594d;
+                  background: #cf594d;
+                }
+
+                .el-checkbox__label {
+
+                  color: #cf594d;
+                }
+              }
+            }
+          }
+
+
+        }
+
+        // 运费价格
+        .qs-select-charge {
+          .qs-select-input-box {
+            .arrow {
+              width: 100%;
+              text-align: center;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              i {
+                font-size: 40px;
+                font-weight: 700;
+                line-height: 0.5;
+              }
+            }
+
+            .qs-select-input {
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              text-wrap: nowrap;
+              font-size: 14px;
+              margin: 2px 0;
+              border: 8px solid #a89171;
+              background-color: #50a8cc;
+              border-radius: 15px;
+              padding: 1% 2%;
+
+              .qs-text {
+                text-wrap: wrap;
+                font-size: 16px;
+              }
+
+              .qs-input {
+                min-width: 10%;
+                max-width: 20%;
+                border: none;
+                border-bottom: 1px solid #000;
+                border-radius: 0;
+                box-shadow: none;
+                background-color: #50a8cc;
+                color: #000;
+
+                &:focus {
+                  border: none;
+                  border-bottom: 1px solid #000;
+                }
+
+                #text-field-container {
+                  #editing-view-port {
+                    border: none;
+                  }
+                }
+              }
+
+              /* 取消[type='number']的input的上下箭头 */
+              input::-webkit-inner-spin-button {
+                -webkit-appearance: none !important;
+              }
+
+              input::-webkit-outer-spin-button {
+                -webkit-appearance: none !important;
+              }
+
+              input[type='number'] {
+                -moz-appearance: textfield;
+              }
+            }
+          }
+
+        }
+      }
+
+      .qs-select-radio {
+        .list-item {
+          font-size: 14px;
+          text-align: center;
+          color: #fff;
+          margin: 0 1%;
+          margin-bottom: 1%;
+          border-radius: 15%;
+          text-align: left;
+
+          .el-radio {
+            .el-radio__label {
+              font-size: 16px;
+              color: #fff;
+              font-weight: 700;
+            }
+          }
+
+          .is-checked {
+            .el-radio__inner {
+              border-color: #cf594d;
+              background: #cf594d;
+            }
+
+            .el-radio__label {
+              color: #cf594d;
+            }
+          }
+        }
+      }
+
+      // 指示图
+      .gif-img {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .qs-options {
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      padding: 0 10%;
+      height: 40px;
+
+      .options-btn {
+        width: 25%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .options-list {
+        // width: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .btn-text {
+          color: #67C23A;
+        }
+
+        .btn-text-active {
+          color: #cf594d;
+        }
+      }
+    }
+  }
+
+
+  // 信息提示
+  .tips {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(44, 44, 44, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .tips-box {
+      min-width: 40%;
+      max-width: 50%;
+      background: rgb(255, 255, 255, 1);
+      border-radius: 2%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 3%;
+
+      .tips-title {
+        line-height: 20px;
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+
+    }
+  }
+
+
+  .city-name-fade {
+    animation: fade 0.8s infinite;
+  }
+
+  @keyframes fade {
+    0% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+}
