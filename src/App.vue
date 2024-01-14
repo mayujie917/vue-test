@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div id="app">
+  <div id="app" class="safe-area-content">
     <router-view />
   </div>
 </template>
@@ -26,14 +26,14 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
+  // height: 100vh;
 }
 
 #app {
-  /* height: 100vh;
-  width: 100%; */
-  height: 100vh;
-  width: 100vw;
+  // height: 100vh;
+  // width: 100vw;
+  height: 100vw;
+  // background: pink;
 
   // .content {
   //   width: 100%;
@@ -45,6 +45,20 @@ body {
   //   transition: all 0.3s ease;
   //   /* 添加平滑过渡效果 */
   // }
+}
+
+.safe-area-content {
+  // transform: rotate(90deg);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  height: calc(100% - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+}
+
+.el-select-dropdown {
+  bottom: -57% !important;
+  left: 44% !important;
+  transform: rotate(90deg);
+  top: initial !important;
 }
 </style>
 

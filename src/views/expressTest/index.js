@@ -27,7 +27,10 @@ export let data = {
       previewModal: false, // 大图预览
       previewObj: {}, // 当前预览图片
       carouselIndex: 0, //轮播图索引
-      cityValue: "", // 当前选择省份
+      cityValue: "", // 当前选择省份 id
+      cityValueName: "", // 当前选择省份名称
+      cityListShow: false,
+      showNumberShow: false, // 数字键盘
 
       showSubImage: false,
       cityData: [],
@@ -215,8 +218,12 @@ export let data = {
      * type 3 根据图片资费，输入费用
      * 比对输入输入费用value 和真实费用realValue
      */
-    changeHandle(val) {
-      console.log("111", val);
+    // changeHandle(val) {
+    //   console.log("111", val);
+    // },
+    chargeClick() {
+      console.log("circleIndex", this.circleIndex);
+      this.showNumberShow = true;
     },
     // 循环列表，下一个
     nextCircle() {
@@ -389,16 +396,24 @@ export let data = {
       }
       this.$set(this, "currentData", this.list[this.currentIndex]);
     },
+    cityInputFocus() {
+      this.cityListShow = true;
+    },
     /**
      * type 7 根据图片，选择对应的身份
      * @returns
      */
-    cityChange(val) {
+    cityChange(data) {
       let _data = this.currentData;
-      let _tag = this.cityData.filter((item) => item.cityValue == val);
-      console.log(2333, _tag);
-      _data.images[this.circleIndex].selectValue = _tag[0]["cityValue"];
-      _data.images[this.circleIndex].cityName = _tag[0]["cityName"];
+      // let _tag = this.cityData.filter(
+      //   (item) => item.cityValue == val.cityValue
+      // );
+      // console.log(2333, _tag);
+      _data.images[this.circleIndex].selectValue = data["cityValue"];
+      _data.images[this.circleIndex].cityName = data["cityName"];
+      this.cityListShow = false;
+      this.cityValueName = data.cityName;
+      this.cityValue = data.cityValue;
     },
     /**
      * type 8 从当前类别中，选出禁寄的物品
@@ -660,6 +675,7 @@ export let data = {
           item.selectValue = "";
         });
         this.cityValue = "";
+        this.cityValueName = "";
       } else if (type == 9) {
         this.currentData.images.forEach((item) => {
           item.isChecked = false;
@@ -674,8 +690,10 @@ export let data = {
     },
     checkOrientation() {
       const mediaQuery = window.matchMedia("(orientation: landscape)");
-      // debugger;
-      if (mediaQuery.matches) {
+      import("@/assets/styles/landscape.less").then(() => {
+        this.orientation = "landscape"; // 切换到横屏模式
+      });
+      /* if (mediaQuery.matches) {
         import("@/assets/styles/landscape.less").then(() => {
           this.orientation = "landscape"; // 切换到横屏模式
         });
@@ -683,7 +701,25 @@ export let data = {
         import("@/assets/styles/portrait.less").then(() => {
           this.orientation = "portrait"; // 切换到默认或其他模式
         });
-      }
+      } */
+    },
+    // 计算容器
+    numberClick(num) {
+      // this.currentData.inputText[circleIndex].value;
+      let _price = this.currentData.inputText[this.circleIndex].value || "";
+      _price += num;
+      this.currentData.inputText[this.circleIndex].value = _price;
+    },
+    // 确认
+    numberConfirm() {
+      // this.currentData.inputText[circleIndex].value;
+      this.showNumberShow = false;
+    },
+    // 取消
+    numberCancel() {
+      this.currentData.inputText[this.circleIndex].value = "";
+      this.showNumberShow = false;
+      console.log("currentData", this.currentData);
     },
   },
 };

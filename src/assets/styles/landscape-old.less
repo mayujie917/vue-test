@@ -1,10 +1,8 @@
 // 横屏
 
 .landscape {
-  // width: 100vw;
-  // height: 100vh;
-  width: 100vh;
-  height: 100vw;
+  width: 100vw;
+  height: 100vh;
   overflow: auto;
   box-sizing: border-box;
   padding: 1%;
@@ -18,7 +16,7 @@
 
     .qs-content-wrap {
       width: 100%;
-      // height: calc(100% - 45px);
+      height: calc(100% - 45px);
       box-sizing: border-box;
 
 
@@ -27,11 +25,10 @@
       .qs-desc {
         height: 45px;
         box-sizing: border-box;
-        padding: 0 5%;
 
         .desc-text {
           display: block;
-          font-size: 18px;
+          font-size: 12px;
           font-weight: 600;
           padding: 0 2%;
           // margin-bottom: 3px;
@@ -51,9 +48,7 @@
 
       // 内容
       .qs-select-wrapper {
-        // width: calc(100% - 45px);
-        // height: calc(100% - 45px);
-
+        height: calc(100% - 45px);
         width: 100%;
         box-sizing: border-box;
         overflow: scroll;
@@ -62,22 +57,19 @@
         .qs-select-wrapper-sub {
           // height: 100%;
           width: 100%;
-          // height: 450px;
-          // height: calc(100% - 110px);
+          height: calc(100% - 110px);
           box-sizing: border-box;
           display: flex;
           position: relative;
 
           .qs-content {
-            // height: 100%;
-            // height: 450px;
+            height: 100%;
             width: 100%;
             box-sizing: border-box;
-            padding: 0 0 0 5%;
+            padding: 0 3%;
 
             .qs-box {
-              // height: calc(100% - 40px);
-              height: 420px;
+              height: calc(100% - 40px);
               box-sizing: border-box;
               display: flex;
               align-items: center;
@@ -93,7 +85,7 @@
                 flex-direction: column;
 
                 span {
-                  font-size: 20px;
+                  font-size: 14px;
                 }
 
                 i {
@@ -114,7 +106,7 @@
                 img {
                   height: 100%;
                   width: 100%;
-                  object-fit: contain;
+                  object-fit: scale-down;
                 }
               }
 
@@ -130,10 +122,9 @@
 
                 .img-box {
                   width: 100%;
-                  height: 80%;
+                  height: 100%;
                   box-sizing: border-box;
                   padding: 2px 0;
-                  margin-top: 40px;
 
                   img {
                     width: 50%;
@@ -247,21 +238,20 @@
             }
 
             .qs-box-num {
-              // height: 40px;
+              height: 40px;
               text-align: center;
 
               .total {
                 width: 100%;
                 text-align: center;
-                font-size: 20px;
+                font-size: 16px;
                 // line-height: 40px;
               }
             }
           }
 
           .qs-sub {
-            // height: 100%;
-            height: 472px;
+            height: 100%;
             width: 100%;
 
             .sub-images-list {
@@ -270,8 +260,7 @@
 
               .sub-images-item {
                 width: 25%;
-                // height: 100%;
-                height: 90%;
+                height: 100%;
                 text-align: center;
                 box-sizing: border-box;
                 padding: 0;
@@ -308,31 +297,16 @@
         }
 
         .qs-select-wrapper-sub-city {
-          // height: 100%;
-          height: 630px;
-
-          .qs-content {
-            .qs-box {
-              height: 540px;
-            }
-
-            .qs-box-num {
-              .total {
-                font-size: 18px;
-              }
-            }
-          }
+          height: 100%;
         }
 
         .qs-select-wrapper-line {
-          // height: calc(100% - 80px);
-          height: 471px;
+          height: calc(100% - 80px);
         }
 
         // 问答
         .qs-select-wrapper-sub-ans {
-          // height: calc(100% - 60px);
-          height: 450px;
+          height: calc(100% - 60px);
         }
 
         // 城市选择
@@ -341,40 +315,6 @@
           width: 20%;
           box-sizing: border-box;
           padding: 0 1%;
-          position: relative;
-
-          .city-input {}
-
-          .city-list {
-            max-height: 400px;
-            width: 100px;
-            overflow-y: auto;
-            position: absolute;
-            top: 10%;
-            z-index: 100;
-            border: 1px solid #E4E7ED;
-            border-radius: 4px;
-            background-color: #fff;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
-
-            .city-list-item {
-              font-size: 14px;
-              padding: 0 20px;
-              position: relative;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              color: #606266;
-              height: 34px;
-              line-height: 34px;
-            }
-
-            .city-list-item-active {
-              color: #409eff;
-            }
-          }
-
-
 
           ::v-deep .el-select {
             width: 100%;
@@ -394,10 +334,9 @@
         .qs-select {
           // height: 122px;
           box-sizing: border-box;
-          padding: 0 5%;
+          padding: 0 1%;
 
           .qs-select-area {
-            height: 160px;
             width: 100%;
             position: relative;
             box-sizing: border-box;
@@ -408,8 +347,7 @@
 
             .qs-select-area-item {
               width: 100%;
-              // height: 80px;
-              height: 100%;
+              height: 80px;
               display: flex;
               align-items: center;
               justify-content: flex-start;
@@ -525,7 +463,6 @@
 
                 .el-checkbox__label {
                   font-weight: 700;
-                  font-size: 16px;
                 }
               }
 
@@ -562,12 +499,10 @@
             text-align: center;
             margin: 2px 0;
             line-height: 1;
-            font-size: 16px;
+            font-size: 14px;
           }
 
           .qs-select-checkbox {
-            height: 180px;
-
             .list-item {
               font-size: 14px;
               text-align: center;
@@ -587,7 +522,6 @@
 
                 .el-checkbox__label {
                   font-weight: 700;
-                  font-size: 20px;
                 }
               }
 
@@ -618,7 +552,6 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              font-size: 18px;
 
               i {
                 font-size: 40px;
@@ -628,8 +561,6 @@
             }
 
             .qs-select-input {
-              height: 107px;
-              box-sizing: border-box;
               display: flex;
               align-items: center;
               justify-content: flex-start;
@@ -688,18 +619,17 @@
 
       .qs-select-radio {
         .list-item {
-          font-size: 24px;
+          font-size: 14px;
           text-align: center;
           color: #fff;
           margin: 0 1%;
           margin-bottom: 1%;
           border-radius: 15%;
           text-align: left;
-          line-height: 1.5;
 
           .el-radio {
             .el-radio__label {
-              font-size: 24px;
+              font-size: 16px;
               color: #fff;
               font-weight: 700;
             }
@@ -740,7 +670,7 @@
       justify-content: space-between;
       box-sizing: border-box;
       padding: 0 10%;
-      height: 60px;
+      height: 40px;
 
       .options-btn {
         width: 25%;
@@ -755,16 +685,12 @@
         align-items: center;
         justify-content: space-between;
 
-
         .btn-text {
-          color: #cf594d;
-
-          font-size: 18px;
+          color: #67C23A;
         }
 
         .btn-text-active {
-          color: #67C23A;
-
+          color: #cf594d;
         }
       }
     }
@@ -822,40 +748,5 @@
       opacity: 1;
     }
   }
-
-  // 数字键盘
-  .number-box {
-    position: absolute;
-    bottom: -7px;
-    left: 70%;
-    background: #c9c9c7;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
-
-    z-index: 100;
-
-
-    .number-list {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .number-item {
-        width: 60px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 16px;
-        background: #fff;
-      }
-    }
-  }
-}
-
-.el-message {
-  z-index: 2000;
-  transform: rotate(90deg);
-  top: 50% !important;
-  right: 0 !important;
 
 }

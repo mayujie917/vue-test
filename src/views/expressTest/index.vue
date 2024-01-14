@@ -17,7 +17,7 @@
 
         <!-- 根据资费，填写费用 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 3">
-          <div class="qs-select-wrapper-sub">
+          <div class="qs-select-wrapper-sub qs-select-wrapper-sub-ans ">
             <div class="qs-content">
               <div class="qs-box qs-box-charge">
                 <div class="qs-img-item">
@@ -33,13 +33,42 @@
                 <p class="qs-text">
                   {{ currentData.inputText[circleIndex].url }}
                   <input class="qs-input" v-model="currentData.inputText[circleIndex].value" type="number"
-                    placeholder="点击输入价格" pattern="[0-9]*" :maxlength="3" @change="changeHandle" />
+                    placeholder="点击输入价格" pattern="[0-9]*" readonly :maxlength="10" @focus="chargeClick" />
                   <span>元。</span>
                 </p>
               </div>
               <p class="arrow" @click="preCircle"><span>下一题</span><i class="el-icon-arrow-down"></i></p>
             </div>
             <p class='subTotal'>{{ circleIndex + 1 }}/{{ currentData.inputText.length }}</p>
+          </div>
+
+          <!-- 数字键盘 -->
+          <div class="number-box" v-show="showNumberShow">
+            <div class="number-list">
+              <p class="number-item" @click="numberClick(1)">1</p>
+              <p class="number-item" @click="numberClick(2)">2</p>
+              <p class="number-item" @click="numberClick(3)">3</p>
+            </div>
+
+            <div class="number-list">
+              <p class="number-item" @click="numberClick(4)">4</p>
+              <p class="number-item" @click="numberClick(5)">5</p>
+              <p class="number-item" @click="numberClick(6)">6</p>
+            </div>
+
+            <div class="number-list">
+              <p class="number-item" @click="numberClick(7)">7</p>
+              <p class="number-item" @click="numberClick(8)">8</p>
+              <p class="number-item" @click="numberClick(9)">9</p>
+            </div>
+
+
+            <div class="number-list">
+              <p class="number-item" @click="numberConfirm">确定</p>
+              <p class="number-item" @click="numberClick(0)">0</p>
+              <p class="number-item" @click="numberCancel">取消</p>
+            </div>
+
           </div>
         </div>
         <!-- 图片描述类型 按照上述区域合理设计路线 -->
@@ -171,10 +200,15 @@
               </div>
             </div>
             <div class="city-select">
-              <el-select v-model="cityValue" placeholder="请选择省份" @change="cityChange">
+              <!-- <el-select v-model="cityValue" placeholder="请选择省份" @change="cityChange">
                 <el-option v-for="item in cityData" :key="item.cityValue" :label="item.cityName" :value="item.cityValue">
                 </el-option>
-              </el-select>
+              </el-select> -->
+              <el-input v-model="cityValueName" placeholder="请选择省份" readonly @focus="cityInputFocus"></el-input>
+              <div class="city-list" v-show="cityListShow">
+                <p class="city-list-item" :class="{ 'city-list-item-active': item.cityValue == cityValue }"
+                  v-for="item in  cityData " :key="item.cityValue" @click="cityChange(item)">{{ item.cityName }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -200,7 +234,7 @@
             </div>
             <div class="qs-sub qs-content " v-else>
               <div class="sub-images-list">
-                <div class="sub-images-item" v-for="subItem in subImages" @click="confirmSelect">
+                <div class="sub-images-item" v-for=" subItem  in  subImages " @click="confirmSelect">
                   <img :src="subItem.url" alt="">
                   <p class="sub-item-desc">{{ subItem.desc }}</p>
                 </div>
@@ -221,7 +255,7 @@
                     <p>禁寄物品</p>
                   </div>
                 </div>
-                <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
+                <img :src="item.url" alt="" v-for="( item, index ) in  selectedData " :key="index"
                   @click="cancelSelectedHandle(item, index)">
               </div>
             </div>
@@ -238,7 +272,7 @@
                   </div>
                   <div class="left-answer">
                     <div class="question-list">
-                      <p class="list-item" v-for="(item, index) in checkboxList">{{ item.url }}
+                      <p class="list-item" v-for="( item, index ) in  checkboxList ">{{ item.url }}
                       </p>
                     </div>
                   </div>
@@ -252,7 +286,7 @@
           <div class="qs-select">
             <div class="qs-select-area qs-select-checkbox">
               <el-checkbox-group v-model="checkboxValue" @change="selectCheckboxHandle">
-                <p class="list-item" v-for="(item, index) in currentData.images"
+                <p class="list-item" v-for="( item, index ) in  currentData.images "
                   :class="item.isChecked ? 'list-item-active' : ''" :key="index">
                   <el-checkbox :label="item.desc"> {{ index + 1 }}、{{ item.url }}</el-checkbox>
                 </p>
@@ -268,7 +302,7 @@
         </div>
         <div class="options-list">
           <el-button class="btn-text" :class="indexList.includes(index) ? 'btn-text-active' : ''" size="small" type="text"
-            v-for="(item, index) in list" :key="index" @click="nextItem(index)">
+            v-for="( item, index ) in  list " :key="index" @click="nextItem(index)">
             第{{ numberList[index] }}项</el-button>
         </div>
       </div>
