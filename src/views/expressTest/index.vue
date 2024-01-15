@@ -17,7 +17,7 @@
 
         <!-- 根据资费，填写费用 -->
         <div class="qs-select-wrapper" v-if="currentData.type == 3">
-          <div class="qs-select-wrapper-sub qs-select-wrapper-sub-ans ">
+          <div class="qs-select-wrapper-sub qs-select-wrapper-sub-charge ">
             <div class="qs-content">
               <div class="qs-box qs-box-charge">
                 <div class="qs-img-item">
@@ -78,8 +78,7 @@
               <div class="qs-box qs-box-line">
                 <div class="qs-img-item">
                   <img :src="currentData.images[0].url" />
-                  <img v-show="flashImg" class="flash-img " :class="{ 'city-name-fade': flashImg }" :src="flashImg"
-                    alt="">
+                  <img v-show="flashImg" class="flash-img " :src="flashImg" alt="">
                 </div>
               </div>
             </div>

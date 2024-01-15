@@ -25,13 +25,13 @@
 
       // 题目描述
       .qs-desc {
-        height: 45px;
+        min-height: 45px;
         box-sizing: border-box;
         padding: 0 5%;
 
         .desc-text {
           display: block;
-          font-size: 18px;
+          font-size: 22px;
           font-weight: 600;
           padding: 0 2%;
           // margin-bottom: 3px;
@@ -77,7 +77,7 @@
 
             .qs-box {
               // height: calc(100% - 40px);
-              height: 420px;
+              height: 410px;
               box-sizing: border-box;
               display: flex;
               align-items: center;
@@ -93,7 +93,7 @@
                 flex-direction: column;
 
                 span {
-                  font-size: 20px;
+                  font-size: 24px;
                 }
 
                 i {
@@ -150,7 +150,7 @@
 
                 .city-name {
                   position: absolute;
-                  top: 43%;
+                  top: 40%;
                   left: 50%;
                   background: red;
                   min-width: 7%;
@@ -198,6 +198,7 @@
                     // overflow: auto;
 
                     .list-item {
+                      font-size: 22px;
                       width: 100%;
                       box-sizing: border-box;
                       padding: 2px 5px;
@@ -253,7 +254,7 @@
               .total {
                 width: 100%;
                 text-align: center;
-                font-size: 20px;
+                font-size: 24px;
                 // line-height: 40px;
               }
             }
@@ -285,6 +286,7 @@
 
                 .sub-item-desc {
                   text-align: center;
+                  font-size: 22px;
                 }
               }
             }
@@ -295,7 +297,7 @@
               margin: 3px 0;
 
               button {
-                font-size: 18px;
+                font-size: 22px;
                 padding: 5px 20px;
               }
             }
@@ -305,6 +307,12 @@
 
         .qs-select-wrapper-sub-exp {
           height: calc(100% - 80px);
+
+          .qs-content {
+            .qs-box {
+              height: 400px;
+            }
+          }
         }
 
         .qs-select-wrapper-sub-city {
@@ -318,7 +326,7 @@
 
             .qs-box-num {
               .total {
-                font-size: 18px;
+                font-size: 24px;
               }
             }
           }
@@ -326,10 +334,16 @@
 
         .qs-select-wrapper-line {
           // height: calc(100% - 80px);
-          height: 471px;
+          height: 460px;
+        }
+
+        // 运费
+        .qs-select-wrapper-sub-charge {
+          height: 430px;
         }
 
         // 问答
+
         .qs-select-wrapper-sub-ans {
           // height: calc(100% - 60px);
           height: 450px;
@@ -562,14 +576,14 @@
             text-align: center;
             margin: 2px 0;
             line-height: 1;
-            font-size: 16px;
+            font-size: 22px;
           }
 
           .qs-select-checkbox {
             height: 180px;
 
             .list-item {
-              font-size: 14px;
+              // font-size: 14px;
               text-align: center;
               color: #fff;
               margin: 0 1%;
@@ -587,7 +601,7 @@
 
                 .el-checkbox__label {
                   font-weight: 700;
-                  font-size: 20px;
+                  font-size: 24px;
                 }
               }
 
@@ -618,7 +632,7 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              font-size: 18px;
+              font-size: 24px;
 
               i {
                 font-size: 40px;
@@ -655,6 +669,7 @@
                 box-shadow: none;
                 background-color: #50a8cc;
                 color: #000;
+                font-size: 22px;
 
                 &:focus {
                   border: none;
@@ -747,6 +762,10 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        .el-button {
+          font-size: 22px;
+        }
       }
 
       .options-list {
@@ -759,7 +778,7 @@
         .btn-text {
           color: #cf594d;
 
-          font-size: 18px;
+          font-size: 22px;
         }
 
         .btn-text-active {

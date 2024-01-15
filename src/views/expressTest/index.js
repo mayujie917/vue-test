@@ -712,7 +712,7 @@ export let data = {
     },
     // 确认
     numberConfirm() {
-      // this.currentData.inputText[circleIndex].value;
+      // this.currentData.inputText[this.circleIndex].value;
       this.showNumberShow = false;
     },
     // 取消
