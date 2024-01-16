@@ -48,7 +48,7 @@ body {
 }
 
 .safe-area-content {
-  // transform: rotate(90deg);
+  transform: rotate(90deg);
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   height: calc(100% - env(safe-area-inset-top) - env(safe-area-inset-bottom));

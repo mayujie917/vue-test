@@ -7,7 +7,7 @@
   height: 100vw;
   overflow: auto;
   box-sizing: border-box;
-  padding: 0 1%;
+  padding: 1%;
   // position: relative;
 
   .qs-wrapper {
@@ -25,8 +25,7 @@
 
       // 题目描述
       .qs-desc {
-        // min-height: 45px;
-        height: 10vw;
+        min-height: 45px;
         box-sizing: border-box;
         padding: 0 5%;
 
@@ -57,26 +56,28 @@
 
         width: 100%;
         box-sizing: border-box;
-        // overflow: scroll;
+        overflow: scroll;
 
 
         .qs-select-wrapper-sub {
           // height: 100%;
           width: 100%;
-          // height: 30vh;
+          // height: 450px;
+          // height: calc(100% - 110px);
           box-sizing: border-box;
           display: flex;
           position: relative;
 
           .qs-content {
+            // height: 100%;
+            // height: 450px;
             width: 100%;
-            height: 100%;
             box-sizing: border-box;
             padding: 0 0 0 5%;
 
             .qs-box {
-              // height: calc(100% - 80px);
-              height: 40vw;
+              // height: calc(100% - 40px);
+              height: 410px;
               box-sizing: border-box;
               display: flex;
               align-items: center;
@@ -103,7 +104,6 @@
 
               .qs-img-item {
                 width: 100%;
-                // width: 30%;
                 height: 100%;
                 text-align: center;
 
@@ -156,7 +156,7 @@
                   min-width: 7%;
                   height: 3vh;
                   line-height: 3vh;
-                  font-size: 16px;
+                  font-size: 12px;
                   text-wrap: nowrap;
                 }
 
@@ -233,7 +233,7 @@
 
             // 路线
             .qs-box-line {
-              // height: 100%;
+              height: 100%;
 
               .qs-img-item {
                 .flash-img {
@@ -249,7 +249,6 @@
 
             .qs-box-num {
               // height: 40px;
-              height: 10vw;
               text-align: center;
 
               .total {
@@ -263,13 +262,12 @@
 
           .qs-sub {
             // height: 100%;
-            // height: 472px;
+            height: 472px;
             width: 100%;
 
             .sub-images-list {
               display: flex;
-              // height: calc(100% - 40px);
-              height: 45vw;
+              height: calc(100% - 40px);
 
               .sub-images-item {
                 width: 25%;
@@ -294,8 +292,7 @@
             }
 
             .back-btn {
-              // height: 40px;
-              height: 5vw;
+              height: 40px;
               text-align: center;
               margin: 3px 0;
 
@@ -309,27 +306,22 @@
         }
 
         .qs-select-wrapper-sub-exp {
-          // height: calc(100% - 80px);
+          height: calc(100% - 80px);
 
           .qs-content {
             .qs-box {
-              // height: 400px;
+              height: 400px;
             }
           }
         }
 
         .qs-select-wrapper-sub-city {
           // height: 100%;
-          // height: 630px;
+          height: 630px;
 
           .qs-content {
             .qs-box {
-              // height: 540px;
-              height: 75vw;
-            }
-
-            .qs-box-num {
-              height: 5vw;
+              height: 540px;
             }
 
             .qs-box-num {
@@ -341,34 +333,20 @@
         }
 
         .qs-select-wrapper-line {
-
-          .qs-content {
-            .qs-box-line {
-              height: 50vw;
-            }
-          }
-
-          // height: 460px;
+          // height: calc(100% - 80px);
+          height: 460px;
         }
 
         // 运费
         .qs-select-wrapper-sub-charge {
-
-          // height: 430px;
-          .qs-content {
-            height: 50vw;
-          }
+          height: 430px;
         }
 
         // 问答
 
         .qs-select-wrapper-sub-ans {
-
           // height: calc(100% - 60px);
-          // height: 450px;
-          .qs-content {
-            height: 50vw;
-          }
+          height: 450px;
         }
 
         // 城市选择
@@ -431,11 +409,9 @@
           // height: 122px;
           box-sizing: border-box;
           padding: 0 5%;
-          height: 30vw;
 
           .qs-select-area {
-            // height: 160px;
-            height: 100%;
+            height: 160px;
             width: 100%;
             position: relative;
             box-sizing: border-box;
@@ -604,7 +580,7 @@
           }
 
           .qs-select-checkbox {
-            // height: 180px;
+            height: 180px;
 
             .list-item {
               // font-size: 14px;
@@ -614,7 +590,6 @@
               margin-bottom: 0.5%;
               border-radius: 15%;
               text-align: left;
-              font-size: 26px;
 
               .el-checkbox {
 
@@ -622,8 +597,6 @@
 
                 .el-checkbox__inner {
                   border-radius: 50%;
-                  width: 22px;
-                  height: 22px;
                 }
 
                 .el-checkbox__label {
@@ -637,13 +610,6 @@
                 .el-checkbox__inner {
                   border-color: #cf594d;
                   background: #cf594d;
-                  width: 22px;
-                  height: 22px;
-
-                  &::after {
-                    height: 12px;
-                    left: 8px;
-                  }
                 }
 
                 .el-checkbox__label {
@@ -737,7 +703,7 @@
 
       .qs-select-radio {
         .list-item {
-          font-size: 32px;
+          font-size: 24px;
           text-align: center;
           color: #fff;
           margin: 0 1%;
@@ -747,16 +713,8 @@
           line-height: 1.5;
 
           .el-radio {
-            .el-radio__input {
-              .el-radio__inner {
-
-                width: 26px;
-                height: 26px;
-              }
-            }
-
             .el-radio__label {
-              font-size: 32px;
+              font-size: 24px;
               color: #fff;
               font-weight: 700;
             }
@@ -791,15 +749,13 @@
     }
 
     .qs-options {
-      // margin-top: 5px;
+      margin-top: 5px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       box-sizing: border-box;
       padding: 0 10%;
-      padding-top: 5px;
-      // height: 60px;
-      height: 10vw;
+      height: 60px;
 
       .options-btn {
         width: 25%;
@@ -915,10 +871,10 @@
   }
 }
 
-// .el-message {
-//   z-index: 2000;
-//   transform: rotate(90deg);
-//   top: 50% !important;
-//   right: 0 !important;
+.el-message {
+  z-index: 2000;
+  transform: rotate(90deg);
+  top: 50% !important;
+  right: 0 !important;
 
-// }
+}
