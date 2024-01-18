@@ -15,7 +15,7 @@ import {
   getExamineeByUserId,
   markHandle,
 } from "./../../api/express";
-import { cityList } from '../../data/index.js';
+import { cityList } from "../../data/index.js";
 
 export let data = {
   name: "express",
@@ -77,6 +77,19 @@ export let data = {
       this.getExamineeId();
     }
   },
+  watch: {
+    list: {
+      handler(nv) {
+        this.indexList = [];
+        nv.forEach((item) => {
+          this.watchItem(item);
+        });
+        console.log("indexList", this.indexList);
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
 
   methods: {
     //获取 examineeId
@@ -137,10 +150,52 @@ export let data = {
           item.type = item.questionType;
         });
         this.currentData = this.list[this.currentIndex];
-        this.indexList = [0];
+        // this.indexList = [0];
         console.log("currentData", this.currentData);
         console.log("list", this.list);
       });
+    },
+    watchItem(item) {
+      const { type, images } = item;
+      if (type == 3) {
+        let _tempInputText = item.inputText;
+        let _temp = _tempInputText.filter((e) => e.value).length == 5;
+        if (_temp) {
+          this.indexList.push(type);
+        }
+        // return { flag: _temp, type };
+      } else if (type == 4) {
+        let _tempSelectList = item.selectList;
+        let _temp = _tempSelectList.filter((e) => e.isChecked).length;
+        if (_temp) {
+          this.indexList.push(type);
+        }
+      } else if (type == 5) {
+        let _temp = images.filter((e) => e.isChecked).length == 4; // 全部作答 flag:true
+        if (_temp) {
+          this.indexList.push(type);
+        }
+      } else if (type == 6) {
+        let _temp = images.filter((e) => e.isChecked).length == 2;
+        if (_temp) {
+          this.indexList.push(type);
+        }
+      } else if (type == 7) {
+        let _temp =
+          images.filter((e) => e.selectValue).length == cityList.length;
+        if (_temp) {
+          this.indexList.push(type);
+        }
+      } else if (type == 8) {
+        let _temp = images.filter((e) => e.isChecked).length == 2;
+        if (_temp) {
+          this.indexList.push(type);
+        }
+      } else if (type == 9) {
+        if (this.checkboxValue.length == item.selectValue.split(",").length) {
+          this.indexList.push(type);
+        }
+      }
     },
     /**
      * type 1 类别 视频选中
@@ -219,8 +274,8 @@ export let data = {
     // type 9
     selectCheckboxHandle(data) {
       console.log(2333, data);
-      // 最多选择四个
-      if (data.length > 4) {
+      // 最多选择
+      if (data.length > this.currentData.selectValue.split(",").length) {
         let _data = data.splice(0, data.length - 1);
         data = _data;
         this.checkboxValue = data;
@@ -237,7 +292,6 @@ export let data = {
           }
         });
       });
-      console.log("checkboxList", this.checkboxList);
     },
     /**
      * type 5 ,多张图片中，选出禁寄物品
@@ -396,12 +450,16 @@ export let data = {
     },
     // 点击进入第几题
     nextItem(index) {
-      if (!this.indexList.includes(index)) {
-        this.indexList.push(index);
-      }
+      // if (!this.indexList.includes(index)) {
+      //   this.indexList.push(index);
+      // }
       this.currentIndex = index;
       this.currentData = this.list[this.currentIndex];
       console.log("currentData", this.currentData);
+      // 检查当前题是否已作答
+      let { flag, type } = this.checkCurrentItem(this.currentData);
+      console.log("flag", flag);
+      console.log("type", type);
       this.circleIndex = 0;
       this.showSubImage = false;
       this.repairData();
@@ -446,7 +504,6 @@ export let data = {
         this.list.forEach((item) => {
           _score += item.score;
         });
-        console.log('lost',JSON.stringify(this.list));
         let params = {
           examineeId: this.examineeId,
           skillExamId: this.skillExamId,
@@ -470,14 +527,13 @@ export let data = {
             cancelButtonText: "否",
             type: "warning",
             center: true, //文字居中显示
-            showCancelButton: false, //不显示取消按钮
+            // showCancelButton: false, //不显示取消按钮
             showClose: false, //是否显示右上角的x
             closeOnClickModal: false, //是否可以点击空白处关闭弹窗
           }).then(() => {
             // 提交
             markHandle(params).then((res) => {
-              console.log(2333, res);
-              if (res.code == 20) {
+              if (res.code == 200) {
                 this.$message.success("提交成功！");
                 this.isFinished = true;
               }
@@ -558,7 +614,7 @@ export let data = {
         }
       }
     },
-    // 检查当前题是否已作答
+    // 检查所有题否已作答
     checkItem() {
       // 根据不同题type判断
       let flag = false;
@@ -566,173 +622,206 @@ export let data = {
         const { type, images } = item;
         if (type == 3) {
           let _tempInputText = item.inputText;
-          let _temp = _tempInputText.some((e) => !e.value);
-          if (_temp) {
-            return { flag: !_temp, type };
+          let _temp =
+            _tempInputText.filter((e) => e.value).length ==
+            _tempInputText.length;
+          if (!_temp) {
+            return { flag: _temp, type };
           }
         } else if (type == 4) {
           let _tempSelectList = item.selectList;
-          let _temp = _tempSelectList.every((e) => !e.isChecked); //没有选择任何选项
+          let _temp = _tempSelectList.every((e) => !e.isChecked);
           if (_temp) {
             return { flag: !_temp, type };
           }
         } else if (type == 5) {
-          let _temp = images.some((e) => e.isChecked);
+          let _temp = images.filter((e) => e.isChecked).length == 4;
           if (!_temp) {
             return { flag: _temp, type };
           }
         } else if (type == 6) {
-          let _temp = images.filter((e) => e.isChecked);
-          _temp.length ? (flag = true) : (flag = false);
-          if (_temp.length == 0) {
-            return { flag, type };
+          let _temp = images.filter((e) => e.isChecked).length == 2;
+          if (!_temp) {
+            return { flag: _temp, type };
           }
         } else if (type == 7) {
-          let _temp = images.some((e) => !e.selectValue);
-          if (_temp) {
-            return { flag: !_temp, type };
+          let _temp =
+            images.filter((e) => e.selectValue).length == cityList.length;
+          if (!_temp) {
+            return { flag: _temp, type };
           }
         } else if (type == 8) {
-          let _temp = images.some((e) => e.isChecked);
+          let _temp = images.filter((e) => e.isChecked).length == 2;
           if (!_temp) {
             return { flag: _temp, type };
           }
         } else if (type == 9) {
-          let _temp = images.every((e) => !e.isChecked);
-          if (_temp) {
-            return { flag: !_temp, type };
+          if (this.checkboxValue.length != item.selectValue.split(",").length) {
+            return {
+              flag: false,
+              type,
+            };
           }
         }
       }
       return { flag: true, type: -1 };
     },
+    // 当前项是否已作答
+    checkCurrentItem(item) {
+      let flag = false;
+      debugger;
+      const { type, images } = item;
+      if (type == 3) {
+        let _tempInputText = item.inputText;
+        let _temp = _tempInputText.filter((e) => e.value).length == 5;
+        return { flag: _temp, type };
+      } else if (type == 4) {
+        let _tempSelectList = item.selectList;
+        let _temp = _tempSelectList.filter((e) => e.isChecked).length == 1;
+        return { flag: _temp, type };
+      } else if (type == 5) {
+        let _temp = images.filter((e) => e.isChecked).length == 4; // 全部作答 flag:true
+        return { flag: _temp, type };
+      } else if (type == 6) {
+        let _temp = images.filter((e) => e.isChecked).length == 2;
+        return { flag, type };
+      } else if (type == 7) {
+        let _temp =
+          images.filter((e) => e.selectValue).length == cityList.length;
+        return { flag: _temp, type };
+      } else if (type == 8) {
+        let _temp = images.filter((e) => e.isChecked).length == 2;
+        return { flag: _temp, type };
+      } else if (type == 9) {
+        return { flag: this.checkboxValue.length == 4, type };
+      }
+    },
     // 获取每个题的文本内容
-    getContextStr(){
-      let str='';
-      this.list.forEach(item=>{
+    getContextStr() {
+      let str = "";
+      this.list.forEach((item) => {
         str += `<p>${item.question}</p><br>`;
         let _items = []; //所有的物品
-        let _choseItems = [];// 选择的物品
+        let _choseItems = []; // 选择的物品
         let _rightItems = []; // 正确物品
-        if(item.type ==8){
-          item.images.forEach(tag=>{
+        if (item.type == 8) {
+          item.images.forEach((tag) => {
             _items.push(tag.desc);
-            tag.subImages.forEach(el=>{
+            tag.subImages.forEach((el) => {
               _items.push(el.desc);
-            })
-            if(tag.type ==1){
+            });
+            if (tag.type == 1) {
               _rightItems.push(tag);
             }
-            if(tag.isChecked){
-              _choseItems.push(tag);
-            }
-          })
-          str += `<p>${_items.join('、')}</p><br>
-          <p>正确答案：</p><br>
-          <p>${_rightItems.join('、')}</p><br>
-          <p>考生答案：</p><br>
-          <p>${_choseItems.join('、')}</p><br>`;
-        }else if(item.type ==5){
-          item.images.forEach(tag=>{
-            _items.push(tag.desc);
-            if (tag.type ==1) {
-              _rightItems.push(tag);
-            }
-            if(tag.isChecked){
+            if (tag.isChecked) {
               _choseItems.push(tag);
             }
           });
-          str +=`<p>${_items.join('、')}</p><br>
+          str += `<p>${_items.join("、")}</p><br>
           <p>正确答案：</p><br>
-          <p>${_rightItems.join('、')}</p><br>
+          <p>${_rightItems.join("、")}</p><br>
           <p>考生答案：</p><br>
-          <p>${_choseItems.join('、')}</p><br>`;
-        }else if(item.type ==3){
-          item.inputText.forEach(tag=>{
+          <p>${_choseItems.join("、")}</p><br>`;
+        } else if (item.type == 5) {
+          item.images.forEach((tag) => {
+            _items.push(tag.desc);
+            if (tag.type == 1) {
+              _rightItems.push(tag);
+            }
+            if (tag.isChecked) {
+              _choseItems.push(tag);
+            }
+          });
+          str += `<p>${_items.join("、")}</p><br>
+          <p>正确答案：</p><br>
+          <p>${_rightItems.join("、")}</p><br>
+          <p>考生答案：</p><br>
+          <p>${_choseItems.join("、")}</p><br>`;
+        } else if (item.type == 3) {
+          item.inputText.forEach((tag) => {
             _items.push(tag.url);
             _rightItems.push(tag.realValue);
             _choseItems.push(tag.value);
-          })
-          str += `<p>${_items.join('、')}</p><br>
+          });
+          str += `<p>${_items.join("、")}</p><br>
           <p>正确答案：</p><br>
-          <p>${_rightItems.join('、')}</p><br>
+          <p>${_rightItems.join("、")}</p><br>
           <p>考生答案：</p><br>
-          <p>${_choseItems.join('、')}</p><br>`;
-        }else if(item.type == 7){
-          item.images.forEach(tag=>{
-            cityList.forEach(el=>{
-              if(el.cityValue == tag.cityValue){
+          <p>${_choseItems.join("、")}</p><br>`;
+        } else if (item.type == 7) {
+          item.images.forEach((tag) => {
+            cityList.forEach((el) => {
+              if (el.cityValue == tag.cityValue) {
                 _rightItems.push(el.cityName);
               }
-              if (el.cityValue == tag.selectValue){
+              if (el.cityValue == tag.selectValue) {
                 _choseItems.push(el.cityName);
               }
-            })
+            });
             _choseItems.push(tag.cityName);
-            str += `<p>__${_items.join('、')}</p><br>
+            str += `<p>__${_items.join("、")}</p><br>
             <p>正确答案：</p><br>
-            <p>${_rightItems.join('、')}</p><br>
+            <p>${_rightItems.join("、")}</p><br>
             <p>考生答案：</p><br>
-            <p>${_choseItems.join('、')}</p><br>`;
-          })
-        }else if(item.type == 4){
-          item.selectList.forEach(item=>{
-            if(item.isChecked){
-              _choseItems = item.value.split('-');
+            <p>${_choseItems.join("、")}</p><br>`;
+          });
+        } else if (item.type == 4) {
+          item.selectList.forEach((item) => {
+            if (item.isChecked) {
+              _choseItems = item.value.split("-");
             }
-            if(item.isRealValue){
-              _rightItems = item.value.split('-');
+            if (item.isRealValue) {
+              _rightItems = item.value.split("-");
             }
-          })
+          });
           str += `<p>正确答案：</p><br>
-            <p>${_rightItems.join('、')}</p><br>
+            <p>${_rightItems.join("、")}</p><br>
             <p>考生答案：</p><br>
-            <p>${_choseItems.join('、')}</p><br>`;
-        }else if(item.type == 6){
-          item.images.forEach(tag=>{
+            <p>${_choseItems.join("、")}</p><br>`;
+        } else if (item.type == 6) {
+          item.images.forEach((tag) => {
             _items.push(tag.desc);
-            if(tag.type ==1){
+            if (tag.type == 1) {
               _rightItems.push(tag);
             }
-            if(tag.isChecked){
+            if (tag.isChecked) {
               _rightItems.push(tag);
             }
-          })
-          str += `<p>__${_items.join('、')}</p><br>
+          });
+          str += `<p>__${_items.join("、")}</p><br>
             <p>正确答案：</p><br>
-            <p>${_rightItems.join('、')}</p><br>
+            <p>${_rightItems.join("、")}</p><br>
             <p>考生答案：</p><br>
-            <p>${_choseItems.join('、')}</p><br>`;
-        }else if(item.type ==9){
+            <p>${_choseItems.join("、")}</p><br>`;
+        } else if (item.type == 9) {
           // 已选择内容
           let _temp = this.checkboxList.map((item) => item.desc);
-          item.images.forEach(tag=>{
+          item.images.forEach((tag) => {
             _items.push(tag.url);
-          })
-          _temp.forEach(el=>{
-            item.images.forEach(k=>{
-              if(el == k.desc){
-                _choseItems.push(k.url)
-              }
-            })
           });
-          let _rightTemp = item.selectValue.split(',');
-          _rightTemp.forEach(m=>{
-            item.images.forEach(el=>{
-              if(m == el.desc){
+          _temp.forEach((el) => {
+            item.images.forEach((k) => {
+              if (el == k.desc) {
+                _choseItems.push(k.url);
+              }
+            });
+          });
+          let _rightTemp = item.selectValue.split(",");
+          _rightTemp.forEach((m) => {
+            item.images.forEach((el) => {
+              if (m == el.desc) {
                 _rightItems.push(el.desc);
               }
-            })
-          })
-          str += `<p>__${_items.join('、')}</p><br>
+            });
+          });
+          str += `<p>__${_items.join("、")}</p><br>
             <p>正确答案：</p><br>
-            <p>${_rightItems.join('、')}</p><br>
+            <p>${_rightItems.join("、")}</p><br>
             <p>考生答案：</p><br>
-            <p>${_choseItems.join('、')}</p><br>`;
+            <p>${_choseItems.join("、")}</p><br>`;
         }
-      })
+      });
       return str;
-
     },
     // 重置
     resetHandle() {

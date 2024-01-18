@@ -301,8 +301,8 @@
           <el-button size="small" type="primary" @click="resetHandle">重置</el-button>
         </div>
         <div class="options-list">
-          <el-button class="btn-text" :class="indexList.includes(index) ? 'btn-text-active' : ''" size="small" type="text"
-            v-for="( item, index ) in  list " :key="index" @click="nextItem(index)">
+          <el-button class="btn-text" :class="indexList.includes(item.type) ? 'btn-text-active' : ''" size="small"
+            type="text" v-for="( item, index ) in  list " :key="index" @click="nextItem(index)">
             第{{ numberList[index] }}项</el-button>
         </div>
       </div>

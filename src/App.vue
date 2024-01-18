@@ -60,11 +60,13 @@ body {
   transform: rotate(90deg);
   top: initial !important;
 }
-.el-message-box__wrapper{
+
+.el-message-box__wrapper {
   transform: rotate(90deg);
 }
-.el-message{
-  font-size: 40px;
+
+.el-message {
+  font-size: 60px;
 }
 </style>
 
