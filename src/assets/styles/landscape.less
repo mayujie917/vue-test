@@ -29,11 +29,12 @@
         height: 10vw;
         box-sizing: border-box;
         padding: 0 5%;
+        z-index: 10;
 
         .desc-text {
           display: block;
-          font-size: 22px;
-          font-weight: 600;
+          font-size: 30px;
+          font-weight: 500;
           padding: 0 2%;
           // margin-bottom: 3px;
 
@@ -92,7 +93,7 @@
                 flex-direction: column;
 
                 span {
-                  font-size: 24px;
+                  font-size: 30px;
                 }
 
                 i {
@@ -156,7 +157,7 @@
                   min-width: 7%;
                   height: 3vh;
                   line-height: 3vh;
-                  font-size: 16px;
+                  font-size: 20px;
                   text-wrap: nowrap;
                 }
 
@@ -249,13 +250,13 @@
 
             .qs-box-num {
               // height: 40px;
-              height: 10vw;
+              // height: 10vw;
               text-align: center;
 
               .total {
                 width: 100%;
                 text-align: center;
-                font-size: 24px;
+                font-size: 30px;
                 // line-height: 40px;
               }
             }
@@ -288,7 +289,7 @@
 
                 .sub-item-desc {
                   text-align: center;
-                  font-size: 22px;
+                  font-size: 30px;
                 }
               }
             }
@@ -334,7 +335,7 @@
 
             .qs-box-num {
               .total {
-                font-size: 24px;
+                font-size: 30px;
               }
             }
           }
@@ -378,12 +379,17 @@
           box-sizing: border-box;
           padding: 0 1%;
           position: relative;
+          .el-input{
+            .el-input__inner{
+              font-size: 24px;
+            }
+          }
 
           .city-input {}
 
           .city-list {
             max-height: 400px;
-            width: 100px;
+            width: 142px;
             overflow-y: auto;
             position: absolute;
             top: 10%;
@@ -394,7 +400,7 @@
             box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
 
             .city-list-item {
-              font-size: 14px;
+              font-size: 22px;
               padding: 0 20px;
               position: relative;
               white-space: nowrap;
@@ -471,7 +477,7 @@
                   align-items: center;
                   justify-content: center;
                   color: #f2090926;
-                  font-size: 2rem;
+                  font-size: 40px;
                   font-weight: 700;
 
                   &::after {
@@ -600,7 +606,7 @@
             text-align: center;
             margin: 2px 0;
             line-height: 1;
-            font-size: 22px;
+            font-size: 30px;
           }
 
           .qs-select-checkbox {
@@ -666,7 +672,7 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              font-size: 24px;
+              font-size: 30px;
 
               i {
                 font-size: 40px;
@@ -691,7 +697,7 @@
 
               .qs-text {
                 text-wrap: wrap;
-                font-size: 16px;
+                font-size: 30px;
               }
 
               .qs-input {
@@ -703,7 +709,7 @@
                 box-shadow: none;
                 background-color: #50a8cc;
                 color: #000;
-                font-size: 22px;
+                font-size: 30px;
 
                 &:focus {
                   border: none;
@@ -808,7 +814,7 @@
         justify-content: space-between;
 
         .el-button {
-          font-size: 22px;
+          font-size: 30px;
         }
       }
 
@@ -822,7 +828,7 @@
         .btn-text {
           color: #cf594d;
 
-          font-size: 22px;
+          font-size: 30px;
         }
 
         .btn-text-active {

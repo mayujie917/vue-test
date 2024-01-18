@@ -63,5 +63,8 @@ body {
 .el-message-box__wrapper{
   transform: rotate(90deg);
 }
+.el-message{
+  font-size: 40px;
+}
 </style>
 
