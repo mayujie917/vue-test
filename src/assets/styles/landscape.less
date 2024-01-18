@@ -26,16 +26,17 @@
       // 题目描述
       .qs-desc {
         // min-height: 45px;
-        height: 10vw;
+        height: 15vw;
         box-sizing: border-box;
         padding: 0 5%;
         z-index: 10;
 
         .desc-text {
           display: block;
-          font-size: 30px;
+          font-size: 40px;
           font-weight: 500;
           padding: 0 2%;
+          font-weight: 700;
           // margin-bottom: 3px;
 
           .title-mark {
@@ -51,7 +52,12 @@
 
       }
 
+      .qs-desc-type-4 {
+        height: 20vw;
+      }
+
       // 内容
+
       .qs-select-wrapper {
         // width: calc(100% - 45px);
         // height: calc(100% - 45px);
@@ -77,7 +83,7 @@
 
             .qs-box {
               // height: calc(100% - 80px);
-              height: 40vw;
+              height: 26vw;
               box-sizing: border-box;
               display: flex;
               align-items: center;
@@ -85,7 +91,7 @@
               // flex-wrap: wrap;
 
               .arrow {
-                width: 12%;
+                width: 16%;
                 height: 100%;
                 display: flex;
                 align-items: center;
@@ -93,7 +99,8 @@
                 flex-direction: column;
 
                 span {
-                  font-size: 30px;
+                  font-size: 40px;
+                  font-weight: 700;
                 }
 
                 i {
@@ -256,7 +263,8 @@
               .total {
                 width: 100%;
                 text-align: center;
-                font-size: 30px;
+                font-size: 40px;
+                font-weight: 700;
                 // line-height: 40px;
               }
             }
@@ -270,7 +278,7 @@
             .sub-images-list {
               display: flex;
               // height: calc(100% - 40px);
-              height: 45vw;
+              height: 32vw;
 
               .sub-images-item {
                 width: 25%;
@@ -296,12 +304,14 @@
 
             .back-btn {
               // height: 40px;
-              height: 5vw;
+              // height: 5vw;
               text-align: center;
               margin: 3px 0;
 
               button {
-                font-size: 22px;
+
+                font-size: 40px;
+                font-weight: 700;
                 padding: 5px 20px;
               }
             }
@@ -314,6 +324,7 @@
 
           .qs-content {
             .qs-box {
+              height: 26vw;
               // height: 400px;
             }
           }
@@ -326,16 +337,17 @@
           .qs-content {
             .qs-box {
               // height: 540px;
-              height: 75vw;
+              height: 65vw;
             }
 
             .qs-box-num {
-              height: 5vw;
+              // height: 5vw;
             }
 
             .qs-box-num {
               .total {
-                font-size: 30px;
+                font-size: 40px;
+                font-weight: 700;
               }
             }
           }
@@ -345,7 +357,7 @@
 
           .qs-content {
             .qs-box-line {
-              height: 50vw;
+              height: 40vw;
             }
           }
 
@@ -357,7 +369,7 @@
 
           // height: 430px;
           .qs-content {
-            height: 50vw;
+            height: 40vw;
           }
         }
 
@@ -368,7 +380,7 @@
           // height: calc(100% - 60px);
           // height: 450px;
           .qs-content {
-            height: 50vw;
+            height: 40vw;
           }
         }
 
@@ -379,9 +391,12 @@
           box-sizing: border-box;
           padding: 0 1%;
           position: relative;
-          .el-input{
-            .el-input__inner{
-              font-size: 24px;
+
+          .el-input {
+            .el-input__inner {
+              font-size: 35px;
+              font-weight: 700;
+              height: 60px;
             }
           }
 
@@ -389,10 +404,10 @@
 
           .city-list {
             max-height: 400px;
-            width: 142px;
+            width: 180px;
             overflow-y: auto;
             position: absolute;
-            top: 10%;
+            top: 12%;
             z-index: 100;
             border: 1px solid #E4E7ED;
             border-radius: 4px;
@@ -400,14 +415,15 @@
             box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
 
             .city-list-item {
-              font-size: 22px;
-              padding: 0 20px;
+              font-size: 30px;
+              font-weight: 700;
+              padding: 5px 20px;
               position: relative;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
               color: #606266;
-              height: 34px;
+              // height: 34px;
               line-height: 34px;
             }
 
@@ -437,7 +453,7 @@
           // height: 122px;
           box-sizing: border-box;
           padding: 0 5%;
-          height: 30vw;
+          height: 34vw;
 
           .qs-select-area {
             // height: 160px;
@@ -476,8 +492,8 @@
                   flex-direction: column;
                   align-items: center;
                   justify-content: center;
-                  color: #f2090926;
-                  font-size: 40px;
+                  color: #ad0606a8;
+                  font-size: 60px;
                   font-weight: 700;
 
                   &::after {
@@ -606,7 +622,8 @@
             text-align: center;
             margin: 2px 0;
             line-height: 1;
-            font-size: 30px;
+            font-size: 40px;
+            font-weight: 700;
           }
 
           .qs-select-checkbox {
@@ -625,6 +642,9 @@
               .el-checkbox {
 
                 color: #fff;
+
+                font-weight: 700;
+                font-size: 32px;
 
                 .el-checkbox__inner {
                   border-radius: 50%;
@@ -663,6 +683,10 @@
 
         }
 
+        .qs-select-type-4 {
+          height: 30vw;
+        }
+
         // 运费价格
         .qs-select-charge {
           .qs-select-input-box {
@@ -672,12 +696,12 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              font-size: 30px;
+              font-size: 40px;
+              font-weight: 700;
 
               i {
-                font-size: 40px;
+                font-size: 50px;
                 font-weight: 700;
-                line-height: 0.5;
               }
             }
 
@@ -762,7 +786,7 @@
             }
 
             .el-radio__label {
-              font-size: 32px;
+              font-size: 40px;
               color: #fff;
               font-weight: 700;
             }
@@ -814,7 +838,8 @@
         justify-content: space-between;
 
         .el-button {
-          font-size: 30px;
+          font-size: 40px;
+          font-weight: 700;
         }
       }
 
@@ -827,8 +852,8 @@
 
         .btn-text {
           color: #cf594d;
-
-          font-size: 30px;
+          font-size: 40px;
+          font-weight: 700;
         }
 
         .btn-text-active {
@@ -896,7 +921,7 @@
   .number-box {
     position: absolute;
     bottom: -7px;
-    left: 70%;
+    left: 80%;
     background: #c9c9c7;
     box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
 

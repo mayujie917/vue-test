@@ -2,7 +2,7 @@
   <div :class="orientation" class="content" ref="scaledContent">
     <div class="qs-wrapper" v-if="!isFinished">
       <div class="qs-content-wrap">
-        <div class="qs-desc">
+        <div class="qs-desc" :class="currentData.type == 4 ? 'qs-desc-type-4' : ''">
           <p class="desc-text" v-html="currentData.question"></p>
         </div>
         <!-- 视频 ，四个视频，选择正确的 -->
@@ -83,7 +83,7 @@
               </div>
             </div>
           </div>
-          <div class="qs-select">
+          <div class="qs-select qs-select-type-4">
             <div class="qs-select-area qs-select-radio">
               <el-radio-group v-model="currentData.selectValue" @change="selectItemHandle">
                 <p class="list-item" v-for="(item, index) in currentData.selectList"
@@ -203,7 +203,8 @@
                 <el-option v-for="item in cityData" :key="item.cityValue" :label="item.cityName" :value="item.cityValue">
                 </el-option>
               </el-select> -->
-              <el-input v-model="cityValueName" placeholder="请选择省份" readonly @focus="cityInputFocus"></el-input>
+              <el-input v-model="cityValueName" placeholder="请选择省份" size="medium" readonly
+                @focus="cityInputFocus"></el-input>
               <div class="city-list" v-show="cityListShow">
                 <p class="city-list-item" :class="{ 'city-list-item-active': item.cityValue == cityValue }"
                   v-for="item in  cityData " :key="item.cityValue" @click="cityChange(item)">{{ item.cityName }}</p>
