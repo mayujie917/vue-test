@@ -95,6 +95,7 @@ export let data = {
     //获取 examineeId
     getExamineeId() {
       getExamineeByUserId().then((res) => {
+        console.log("res", res);
         if (res.code == 200) {
           this.examineeId = res.data.examineeId;
         } else {
@@ -456,10 +457,6 @@ export let data = {
       this.currentIndex = index;
       this.currentData = this.list[this.currentIndex];
       console.log("currentData", this.currentData);
-      // 检查当前题是否已作答
-      let { flag, type } = this.checkCurrentItem(this.currentData);
-      console.log("flag", flag);
-      console.log("type", type);
       this.circleIndex = 0;
       this.showSubImage = false;
       this.repairData();
@@ -665,36 +662,6 @@ export let data = {
         }
       }
       return { flag: true, type: -1 };
-    },
-    // 当前项是否已作答
-    checkCurrentItem(item) {
-      let flag = false;
-      debugger;
-      const { type, images } = item;
-      if (type == 3) {
-        let _tempInputText = item.inputText;
-        let _temp = _tempInputText.filter((e) => e.value).length == 5;
-        return { flag: _temp, type };
-      } else if (type == 4) {
-        let _tempSelectList = item.selectList;
-        let _temp = _tempSelectList.filter((e) => e.isChecked).length == 1;
-        return { flag: _temp, type };
-      } else if (type == 5) {
-        let _temp = images.filter((e) => e.isChecked).length == 4; // 全部作答 flag:true
-        return { flag: _temp, type };
-      } else if (type == 6) {
-        let _temp = images.filter((e) => e.isChecked).length == 2;
-        return { flag, type };
-      } else if (type == 7) {
-        let _temp =
-          images.filter((e) => e.selectValue).length == cityList.length;
-        return { flag: _temp, type };
-      } else if (type == 8) {
-        let _temp = images.filter((e) => e.isChecked).length == 2;
-        return { flag: _temp, type };
-      } else if (type == 9) {
-        return { flag: this.checkboxValue.length == 4, type };
-      }
     },
     // 获取每个题的文本内容
     getContextStr() {
