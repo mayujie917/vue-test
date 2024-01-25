@@ -4,6 +4,7 @@ import axios from "axios";
 let service = axios.create({
   // 测试: http://123.57.230.57:6012
   baseURL: "http://122.97.130.155:19001/prod-api/",
+  // baseURL: "http://123.57.230.57:6012",
   timeout: 10000,
   // headers: { "Content-Type": "application/json;charset=utf-8" },
 });

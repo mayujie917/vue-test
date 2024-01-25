@@ -84,7 +84,6 @@ export let data = {
         nv.forEach((item) => {
           this.watchItem(item);
         });
-        console.log("indexList", this.indexList);
       },
       deep: true,
       immediate: true,
@@ -95,7 +94,6 @@ export let data = {
     //获取 examineeId
     getExamineeId() {
       getExamineeByUserId().then((res) => {
-        console.log("res", res);
         if (res.code == 200) {
           this.examineeId = res.data.examineeId;
         } else {
@@ -144,16 +142,12 @@ export let data = {
             }
             _data.question = `${index + 1}、${_data.question}`;
             this.list.push(_data);
-            console.log("list", this.list);
           }
         });
         this.list.forEach((item) => {
           item.type = item.questionType;
         });
         this.currentData = this.list[this.currentIndex];
-        // this.indexList = [0];
-        console.log("currentData", this.currentData);
-        console.log("list", this.list);
       });
     },
     watchItem(item) {
@@ -241,7 +235,6 @@ export let data = {
     //   console.log("111", val);
     // },
     chargeClick() {
-      console.log("circleIndex", this.circleIndex);
       this.showNumberShow = true;
     },
     // 循环列表，下一个
@@ -261,7 +254,6 @@ export let data = {
      * type 4 根据图片，选择配送路线
      */
     selectItemHandle(item) {
-      console.log(233, item);
       this.currentData.selectValue = item;
       this.currentData.selectList.forEach((e) => {
         if (item != e.value) {
@@ -274,7 +266,6 @@ export let data = {
     },
     // type 9
     selectCheckboxHandle(data) {
-      console.log(2333, data);
       // 最多选择
       if (data.length > this.currentData.selectValue.split(",").length) {
         let _data = data.splice(0, data.length - 1);
@@ -589,7 +580,7 @@ export let data = {
             _count += 1;
           }
         });
-        return _count * 20;
+        return _count;
       } else if (item.type == 8) {
         // 1.选中的物品
         let _selectItem = item.images.filter((item) => item.isChecked);
@@ -671,17 +662,18 @@ export let data = {
         let _items = []; //所有的物品
         let _choseItems = []; // 选择的物品
         let _rightItems = []; // 正确物品
+        // type 1 正常物品 type 2 禁寄物品
         if (item.type == 8) {
           item.images.forEach((tag) => {
             _items.push(tag.desc);
             tag.subImages.forEach((el) => {
               _items.push(el.desc);
             });
-            if (tag.type == 1) {
-              _rightItems.push(tag);
+            if (tag.type == 2) {
+              _rightItems.push(tag.desc);
             }
             if (tag.isChecked) {
-              _choseItems.push(tag);
+              _choseItems.push(tag.desc);
             }
           });
           str += `<p>${_items.join("、")}</p><br>
@@ -692,11 +684,11 @@ export let data = {
         } else if (item.type == 5) {
           item.images.forEach((tag) => {
             _items.push(tag.desc);
-            if (tag.type == 1) {
-              _rightItems.push(tag);
+            if (tag.type == 2) {
+              _rightItems.push(tag.desc);
             }
             if (tag.isChecked) {
-              _choseItems.push(tag);
+              _choseItems.push(tag.desc);
             }
           });
           str += `<p>${_items.join("、")}</p><br>
@@ -710,6 +702,7 @@ export let data = {
             _rightItems.push(tag.realValue);
             _choseItems.push(tag.value);
           });
+
           str += `<p>${_items.join("、")}</p><br>
           <p>正确答案：</p><br>
           <p>${_rightItems.join("、")}</p><br>
@@ -720,18 +713,23 @@ export let data = {
             cityList.forEach((el) => {
               if (el.cityValue == tag.cityValue) {
                 _rightItems.push(el.cityName);
+                _items.push(el.province);
               }
               if (el.cityValue == tag.selectValue) {
                 _choseItems.push(el.cityName);
               }
             });
-            _choseItems.push(tag.cityName);
-            str += `<p>__${_items.join("、")}</p><br>
+          });
+          let _cityName = "";
+          _items.forEach((el) => {
+            _cityName += `__${el}`;
+          });
+
+          str += `<p>${_cityName}</p><br>
             <p>正确答案：</p><br>
             <p>${_rightItems.join("、")}</p><br>
             <p>考生答案：</p><br>
             <p>${_choseItems.join("、")}</p><br>`;
-          });
         } else if (item.type == 4) {
           item.selectList.forEach((item) => {
             if (item.isChecked) {
@@ -741,25 +739,26 @@ export let data = {
               _rightItems = item.value.split("-");
             }
           });
+
           str += `<p>正确答案：</p><br>
-            <p>${_rightItems.join("、")}</p><br>
-            <p>考生答案：</p><br>
-            <p>${_choseItems.join("、")}</p><br>`;
+          <p>${_rightItems.join("、")}</p><br>
+          <p>考生答案：</p><br>
+          <p>${_choseItems.join("、")}</p><br>`;
         } else if (item.type == 6) {
           item.images.forEach((tag) => {
             _items.push(tag.desc);
-            if (tag.type == 1) {
-              _rightItems.push(tag);
+            if (tag.type == 2) {
+              _rightItems.push(tag.desc);
             }
             if (tag.isChecked) {
-              _rightItems.push(tag);
+              _choseItems.push(tag.desc);
             }
           });
-          str += `<p>__${_items.join("、")}</p><br>
-            <p>正确答案：</p><br>
-            <p>${_rightItems.join("、")}</p><br>
-            <p>考生答案：</p><br>
-            <p>${_choseItems.join("、")}</p><br>`;
+          str += `<p>${_items.join("、")}</p><br>
+          <p>正确答案：</p><br>
+          <p>${_rightItems.join("、")}</p><br>
+          <p>考生答案：</p><br>
+          <p>${_choseItems.join("、")}</p><br>`;
         } else if (item.type == 9) {
           // 已选择内容
           let _temp = this.checkboxList.map((item) => item.desc);
@@ -777,15 +776,28 @@ export let data = {
           _rightTemp.forEach((m) => {
             item.images.forEach((el) => {
               if (m == el.desc) {
-                _rightItems.push(el.desc);
+                _rightItems.push(el.url);
               }
             });
           });
-          str += `<p>__${_items.join("、")}</p><br>
+          let _tempItems = "";
+          let _tempRight = "";
+          let _tempChose = "";
+          _items.forEach((el, index) => {
+            _tempItems += `${index + 1}、${el};  <br>`;
+          });
+          _rightItems.forEach((el, index) => {
+            _tempRight += `${index + 1}、${el};  <br>`;
+          });
+          _choseItems.forEach((el, index) => {
+            _tempChose += `${index + 1}、${el};  <br>`;
+          });
+
+          str += `<p>${_tempItems}</p><br>
             <p>正确答案：</p><br>
-            <p>${_rightItems.join("、")}</p><br>
+            <p>${_tempRight}</p><br>
             <p>考生答案：</p><br>
-            <p>${_choseItems.join("、")}</p><br>`;
+            <p>${_tempChose}</p><br>`;
         }
       });
       return str;

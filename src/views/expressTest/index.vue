@@ -166,11 +166,11 @@
                 <div class="qs-select-bg  qs-select-other-bg">
                   <div class="select-bg-item">
                     <p>1</p>
-                    <p>禁寄物品</p>
+                    <p>禁投物品</p>
                   </div>
                   <div class="select-bg-item">
                     <p>2</p>
-                    <p>禁寄物品</p>
+                    <p>禁投物品</p>
                   </div>
                 </div>
                 <img :src="item.url" alt="" v-for="(item, index) in selectedData" :key="index"
